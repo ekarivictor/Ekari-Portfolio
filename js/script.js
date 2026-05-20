@@ -128,6 +128,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- SERVICE.EXE TABS LOGIC ---
+    const serviceBtns = document.querySelectorAll('#service-filters .sort-btn');
+    const servicePanels = document.querySelectorAll('.service-panel');
+
+    if (serviceBtns.length > 0 && servicePanels.length > 0) {
+        serviceBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons and panels
+                serviceBtns.forEach(b => b.classList.remove('active'));
+                servicePanels.forEach(p => p.classList.remove('active'));
+
+                // Add active class to clicked button
+                btn.classList.add('active');
+
+                // Get target panel id
+                const targetId = 'service-' + btn.getAttribute('data-service-tab');
+                const targetPanel = document.getElementById(targetId);
+                
+                if (targetPanel) {
+                    targetPanel.classList.add('active');
+                }
+            });
+        });
+    }
+
     // --- ACCORDION LOGIC ---
 
     // --- Rate Card Logic ---

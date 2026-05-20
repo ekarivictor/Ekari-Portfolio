@@ -92,36 +92,239 @@
             <section class="store-kit-section">
                 <h2 class="handwritten-title" style="color: #FFF;">Service.exe</h2>
                 <div class="sorts-container">
-                    <div class="sort-buttons">
-                        <button class="sort-btn active">Motion</button>
-                        <button class="sort-btn">Branding</button>
-                        <button class="sort-btn">Website</button>
-                        <button class="sort-btn">Development</button>
+                    <div class="sort-buttons" id="service-filters">
+                        <button class="sort-btn active" data-service-tab="motion">Motion</button>
+                        <button class="sort-btn" data-service-tab="branding">Branding</button>
+                        <button class="sort-btn" data-service-tab="website">Website</button>
+                        <button class="sort-btn" data-service-tab="development">Development</button>
                     </div>
                 </div>
-                <div class="store-grid">
-                    <div class="store-card">
-                        <div class="store-image placeholder"></div>
-                        <div class="store-details">
-                            <h3>Logo Mock - Only</h3>
-                            <p class="price">$120 <span class="old-price">For Early Birds</span></p>
-                            <button class="store-btn">Starter</button>
+                
+                <div class="service-panels">
+                    <!-- MOTION TAB -->
+                    <div class="service-panel active" id="service-motion">
+                        <div class="service-card">
+                            <div class="service-card-image"></div>
+                            <div class="service-card-gradient"></div>
+                            <div class="service-card-content">
+                                <h3>Reel Ready</h3>
+                                <p class="desc">Short-form motion content for social — fast, punchy, and on-brand.</p>
+                                <div class="starting-from">Starting From</div>
+                                <div class="service-card-price-row">
+                                    <div class="price">$150</div>
+                                    <button class="tier-btn">Starter</button>
+                                </div>
+                                <div class="per-deliverable">Per video</div>
+                            </div>
+                            <ul class="service-features">
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Up to 30s motion reel</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> 1 format (9:16 or 16:9)</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Text animations + transitions</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> SFX / music bed</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> 1 revision round</li>
+                                <li class="off"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Logo animation</li>
+                                <li class="off"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Multi-format export</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-card-image"></div>
+                            <div class="service-card-gradient"></div>
+                            <div class="service-card-content">
+                                <h3>Motion Pack</h3>
+                                <p class="desc">Motion design package for brands that want consistent, high-quality moving visuals.</p>
+                                <div class="starting-from">Starting From</div>
+                                <div class="service-card-price-row">
+                                    <div class="price">$400</div>
+                                    <button class="tier-btn">Growth</button>
+                                </div>
+                                <div class="per-deliverable">Per project</div>
+                            </div>
+                            <ul class="service-features">
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Animated logo (MP4 + Lottie)</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> 3× social reels (up to 60s each)</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Multi-format export (9:16, 1:1, 16:9)</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Custom motion transitions</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> SFX + music</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> 2 revision rounds</li>
+                                <li class="off"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Long-form promo video</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-card-image"></div>
+                            <div class="service-card-gradient"></div>
+                            <div class="service-card-content">
+                                <h3>Director Cut</h3>
+                                <p class="desc">Full motion production — script to final delivery. Made for brand launches.</p>
+                                <div class="starting-from">Starting From</div>
+                                <div class="service-card-price-row">
+                                    <div class="price">$900</div>
+                                    <button class="tier-btn">Premium</button>
+                                </div>
+                                <div class="per-deliverable">Per project</div>
+                            </div>
+                            <ul class="service-features">
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Everything in Motion Pack</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Script + storyboard</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Long-form promo (60–120s)</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Explainer or brand film</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> CapCut / Premiere template</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> 3 revision rounds</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Source project files</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="store-card focus">
-                        <div class="store-image placeholder"></div>
-                        <div class="store-details">
-                            <h3>Logo Mock - Only</h3>
-                            <p class="price">$120 <span class="old-price">For Early Birds</span></p>
-                            <button class="store-btn focus-btn">Focus</button>
+                    
+                    <!-- BRANDING TAB -->
+                    <div class="service-panel" id="service-branding">
+                        <div class="service-card">
+                            <div class="service-card-image"></div>
+                            <div class="service-card-gradient"></div>
+                            <div class="service-card-content">
+                                <h3>Brand Seed</h3>
+                                <p class="desc">For solo founders & early-stage startups who need a clean visual identity to start showing up.</p>
+                                <div class="starting-from">Starting From</div>
+                                <div class="service-card-price-row">
+                                    <div class="price">$250</div>
+                                    <button class="tier-btn">Starter</button>
+                                </div>
+                                <div class="per-deliverable">Per project</div>
+                            </div>
+                            <ul class="service-features">
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Logo design (2 concepts)</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Color palette</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> 2 font pairings</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Business card design</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Brand guidelines (1-pager)</li>
+                                <li class="off"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Social media kit</li>
+                                <li class="off"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Brand deck</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-card-image"></div>
+                            <div class="service-card-gradient"></div>
+                            <div class="service-card-content">
+                                <h3>Brand System</h3>
+                                <p class="desc">A full identity system built to scale across digital and print — cohesive, strategic, memorable.</p>
+                                <div class="starting-from">Starting From</div>
+                                <div class="service-card-price-row">
+                                    <div class="price">$550</div>
+                                    <button class="tier-btn">Growth</button>
+                                </div>
+                                <div class="per-deliverable">Per project</div>
+                            </div>
+                            <ul class="service-features">
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Logo suite</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Full brand color system</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Typography system</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Social media kit (8 templates)</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Brand deck (10 slides)</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Brand guidelines</li>
+                                <li class="off"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Motion / animated logo</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-card-image"></div>
+                            <div class="service-card-gradient"></div>
+                            <div class="service-card-content">
+                                <h3>Brand Studio</h3>
+                                <p class="desc">Full creative direction — identity, motion, and launch assets. For brands that stand out.</p>
+                                <div class="starting-from">Starting From</div>
+                                <div class="service-card-price-row">
+                                    <div class="price">$1,200</div>
+                                    <button class="tier-btn">Premium</button>
+                                </div>
+                                <div class="per-deliverable">Per project</div>
+                            </div>
+                            <ul class="service-features">
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Everything in Brand System</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Animated logo (MP4 + Lottie)</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Brand video / intro</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Pitch deck (15 slides)</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Mockup pack (10 scenes)</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> 2 rounds of revision</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Source files handoff</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="store-card">
-                        <div class="store-image placeholder"></div>
-                        <div class="store-details">
-                            <h3>Logo Mock - Only</h3>
-                            <p class="price">$120 <span class="old-price">For Early Birds</span></p>
-                            <button class="store-btn">Custom</button>
+
+                    <!-- WEBSITE TAB -->
+                    <div class="service-panel" id="service-website">
+                        <div class="service-card">
+                            <div class="service-card-image"></div>
+                            <div class="service-card-gradient"></div>
+                            <div class="service-card-content">
+                                <h3>Launch Page</h3>
+                                <p class="desc">A clean, fast landing page to get you online — built in Framer or Webflow, mobile-first.</p>
+                                <div class="starting-from">Starting From</div>
+                                <div class="service-card-price-row">
+                                    <div class="price">$300</div>
+                                    <button class="tier-btn">Starter</button>
+                                </div>
+                                <div class="per-deliverable">Per project</div>
+                            </div>
+                            <ul class="service-features">
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> 1-page site (up to 5 sections)</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Mobile responsive</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> CMS setup (optional)</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Domain + hosting guidance</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Basic SEO setup</li>
+                                <li class="off"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Custom animations</li>
+                                <li class="off"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Multi-page site</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-card-image"></div>
+                            <div class="service-card-gradient"></div>
+                            <div class="service-card-content">
+                                <h3>Brand Site</h3>
+                                <p class="desc">A full multi-page site built to convert — branded, animated, optimized for performance.</p>
+                                <div class="starting-from">Starting From</div>
+                                <div class="service-card-price-row">
+                                    <div class="price">$750</div>
+                                    <button class="tier-btn">Growth</button>
+                                </div>
+                                <div class="per-deliverable">Per project</div>
+                            </div>
+                            <ul class="service-features">
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Up to 5 pages</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Custom interactions + animations</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> CMS / blog setup</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Contact form integration</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> SEO optimization</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> 2 revision rounds</li>
+                                <li class="off"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> E-commerce / checkout</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-card-image"></div>
+                            <div class="service-card-gradient"></div>
+                            <div class="service-card-content">
+                                <h3>Web Studio</h3>
+                                <p class="desc">A complete web presence — strategy, design, build, and launch. For brands serious about online.</p>
+                                <div class="starting-from">Starting From</div>
+                                <div class="service-card-price-row">
+                                    <div class="price">$1,500</div>
+                                    <button class="tier-btn">Premium</button>
+                                </div>
+                                <div class="per-deliverable">Per project</div>
+                            </div>
+                            <ul class="service-features">
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Everything in Brand Site</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> E-commerce / product pages</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Custom code components</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Performance audit</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> Analytics setup</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> 3 revision rounds</li>
+                                <li><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7.4-6.3-4.8-6.3 4.8 2.3-7.4-6-4.6h7.6z"/></svg> 30-day post-launch support</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <!-- DEVELOPMENT TAB -->
+                    <div class="service-panel" id="service-development">
+                        <div style="padding: 60px; grid-column: span 3; text-align: center;">
+                            <h3 style="font-size: 24px; color: var(--accent-color); margin-bottom: 12px;">Coming Soon</h3>
+                            <p style="color: #A0A0A0;">Development pricing packages are currently being updated.</p>
                         </div>
                     </div>
                 </div>
