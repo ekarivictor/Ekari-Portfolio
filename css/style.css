@@ -469,8 +469,7 @@ body {
 .service-panel {
     display: none;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0;
-    border: 1px solid var(--border-color);
+    gap: 32px;
 }
 
 .service-panel.active {
@@ -485,7 +484,6 @@ body {
 
 .service-card {
     border: 1px solid var(--border-color);
-    margin: -1px 0 0 -1px;
     background-color: #000;
     display: flex;
     flex-direction: column;
@@ -606,7 +604,7 @@ body {
 .service-card-footer {
     display: flex;
     justify-content: center;
-    padding: 20px 24px;
+    padding: 20px 32px;
     margin-top: auto;
 }
 
@@ -619,12 +617,12 @@ body {
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: transform 0.3s ease;
+    width: 100%;
 }
 
 .book-plan-btn:hover {
-    background-color: var(--accent-color);
-    color: #000;
+    transform: scale(1.02);
 }
 
 .extra-addons {
