@@ -232,15 +232,16 @@ body {
 .sort-btn {
     background: transparent;
     border: none;
+    font-family: var(--font-handwritten);
     color: var(--text-secondary);
-    font-size: 14px;
+    font-size: 28px;
     cursor: pointer;
     position: relative;
     padding-bottom: 4px;
 }
 
 .sort-btn sup {
-    font-size: 12px;
+    font-size: 18px;
 }
 
 .sort-btn.active {
