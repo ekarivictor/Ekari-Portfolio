@@ -26,6 +26,110 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- DYNAMIC PROJECTS GRID LOGIC ---
+    const projectsGrid = document.getElementById('projects-grid');
+    const filterButtons = document.querySelectorAll('#project-filters .sort-btn');
+    
+    if (projectsGrid) {
+        let allProjects = [];
+
+        // Determine icon based on category
+        const getCategoryIcon = (category) => {
+            switch(category) {
+                case 'Motion': return '<svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M10 8l6 4-6 4V8z"></path></svg>';
+                case 'Branding': return '<svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>';
+                case 'Website': return '<svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>';
+                default: return '<svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
+            }
+        };
+
+        const renderProjects = (category = 'All') => {
+            let filtered = category === 'All' ? allProjects : allProjects.filter(p => p.category === category);
+            
+            // Limit to 9 items
+            filtered = filtered.slice(0, 9);
+            
+            projectsGrid.innerHTML = '';
+            
+            if (filtered.length === 0) {
+                projectsGrid.innerHTML = '<p style="padding: 20px;">No projects found for this category.</p>';
+                return;
+            }
+
+            filtered.forEach(project => {
+                const card = document.createElement('a');
+                card.href = project.link || '#';
+                card.className = 'project-card';
+                card.target = project.link && project.link !== '#' ? '_blank' : '_self';
+
+                let hoverMediaHTML = '';
+                if (project.hoverMedia) {
+                    if (project.hoverMedia.endsWith('.mp4') || project.hoverMedia.endsWith('.webm')) {
+                        hoverMediaHTML = `<video class="project-hover-media" src="${project.hoverMedia}" autoplay loop muted playsinline></video>`;
+                    } else {
+                        hoverMediaHTML = `<img class="project-hover-media" src="${project.hoverMedia}" alt="${project.title} hover" />`;
+                    }
+                }
+
+                card.innerHTML = `
+                    <img class="project-bg-media" src="${project.image || 'images/paper-bg.png'}" alt="${project.title}" />
+                    ${hoverMediaHTML}
+                    <div class="project-overlay"></div>
+                    <div class="project-number handwritten-title">${project.order || ''}</div>
+                    <div class="project-info">
+                        <div class="project-info-header">
+                            ${getCategoryIcon(project.category)}
+                            <h3 class="handwritten-title">${project.title}</h3>
+                        </div>
+                        <p>${project.description || ''}</p>
+                        <div class="project-footer">
+                            <span class="project-link">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                                View Live
+                            </span>
+                            <span class="project-year">${project.year || ''}</span>
+                        </div>
+                    </div>
+                `;
+                projectsGrid.appendChild(card);
+            });
+        };
+
+        const updateCounts = () => {
+            document.getElementById('count-All').innerText = allProjects.length;
+            document.getElementById('count-Motion').innerText = allProjects.filter(p => p.category === 'Motion').length;
+            document.getElementById('count-Branding').innerText = allProjects.filter(p => p.category === 'Branding').length;
+            document.getElementById('count-Website').innerText = allProjects.filter(p => p.category === 'Website').length;
+        };
+
+        // Fetch Data
+        fetch('data/projects.json')
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.items) {
+                    allProjects = data.items;
+                    updateCounts();
+                    renderProjects('All');
+                }
+            })
+            .catch(err => {
+                console.error("Error loading projects.json:", err);
+                projectsGrid.innerHTML = '<p style="padding: 20px; color: red;">Failed to load projects.</p>';
+            });
+
+        // Setup filter buttons
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const cat = btn.getAttribute('data-category');
+                renderProjects(cat);
+            });
+        });
+    }
+
+    // --- ACCORDION LOGIC ---
+
     // --- Rate Card Logic ---
     const qtyBtns = document.querySelectorAll('.qty-btn');
     qtyBtns.forEach(btn => {

@@ -1,0 +1,44 @@
+{
+  "items": [
+    {
+      "order": "#1",
+      "title": "Candoxa Explainer",
+      "description": "just design - he animates brands to life, engineers digital products, and builds experiences you didn't know you needed until you couldn't stop scrolling.",
+      "category": "Motion",
+      "year": "2001",
+      "link": "https://example.com",
+      "image": "/images/placeholder.png",
+      "hoverMedia": ""
+    },
+    {
+      "order": "#2",
+      "title": "Sandbox Explainer",
+      "description": "an design the sandbox scene to the engineers liquid network...",
+      "category": "Motion",
+      "year": "2023",
+      "link": "https://example.com",
+      "image": "/images/placeholder.png",
+      "hoverMedia": ""
+    },
+    {
+      "order": "#3",
+      "title": "Brand Redesign",
+      "description": "A complete overhaul of the visual identity for a local coffee shop.",
+      "category": "Branding",
+      "year": "2024",
+      "link": "#",
+      "image": "/images/placeholder.png",
+      "hoverMedia": ""
+    },
+    {
+      "order": "#4",
+      "title": "E-Commerce Site",
+      "description": "A fully custom Shopify theme for a boutique clothing brand.",
+      "category": "Website",
+      "year": "2024",
+      "link": "#",
+      "image": "/images/placeholder.png",
+      "hoverMedia": ""
+    }
+  ]
+}

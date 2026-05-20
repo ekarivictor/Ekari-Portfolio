@@ -53,72 +53,16 @@
             <section class="projects-section">
                 <div class="sorts-container">
                     <span class="sort-label">Sorts</span>
-                    <div class="sort-buttons">
-                        <button class="sort-btn active">All <sup class="handwritten-accent">24</sup></button>
-                        <button class="sort-btn">Motion <sup class="handwritten-accent">10</sup></button>
-                        <button class="sort-btn">Branding <sup class="handwritten-accent">10</sup></button>
-                        <button class="sort-btn">Website <sup class="handwritten-accent">10</sup></button>
+                    <div class="sort-buttons" id="project-filters">
+                        <button class="sort-btn active" data-category="All">All <sup class="handwritten-accent" id="count-All">0</sup></button>
+                        <button class="sort-btn" data-category="Motion">Motion <sup class="handwritten-accent" id="count-Motion">0</sup></button>
+                        <button class="sort-btn" data-category="Branding">Branding <sup class="handwritten-accent" id="count-Branding">0</sup></button>
+                        <button class="sort-btn" data-category="Website">Website <sup class="handwritten-accent" id="count-Website">0</sup></button>
                     </div>
                 </div>
 
-                <div class="projects-grid">
-                    <!-- Project Cards 1 to 8 -->
-                    <div class="project-card">
-                        <div class="project-number handwritten-title">#1</div>
-                        <div class="project-info">
-                            <h3 class="handwritten-title small">Sandbox Explainer</h3>
-                            <p>an design the sandbox scene to the engineers liquid network...</p>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-number handwritten-title">#2</div>
-                        <div class="project-info">
-                            <h3 class="handwritten-title small">Sandbox Explainer</h3>
-                            <p>an design the sandbox scene to the engineers liquid network...</p>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-number handwritten-title">#3</div>
-                        <div class="project-info">
-                            <h3 class="handwritten-title small">Sandbox Explainer</h3>
-                            <p>an design the sandbox scene to the engineers liquid network...</p>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-number handwritten-title">#4</div>
-                        <div class="project-info">
-                            <h3 class="handwritten-title small">Sandbox Explainer</h3>
-                            <p>an design the sandbox scene to the engineers liquid network...</p>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-number handwritten-title">#5</div>
-                        <div class="project-info">
-                            <h3 class="handwritten-title small">Sandbox Explainer</h3>
-                            <p>an design the sandbox scene to the engineers liquid network...</p>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-number handwritten-title">#6</div>
-                        <div class="project-info">
-                            <h3 class="handwritten-title small">Sandbox Explainer</h3>
-                            <p>an design the sandbox scene to the engineers liquid network...</p>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-number handwritten-title">#7</div>
-                        <div class="project-info">
-                            <h3 class="handwritten-title small">Sandbox Explainer</h3>
-                            <p>an design the sandbox scene to the engineers liquid network...</p>
-                        </div>
-                    </div>
-                    <div class="project-card">
-                        <div class="project-number handwritten-title">#8</div>
-                        <div class="project-info">
-                            <h3 class="handwritten-title small">Sandbox Explainer</h3>
-                            <p>an design the sandbox scene to the engineers liquid network...</p>
-                        </div>
-                    </div>
+                <div class="projects-grid dynamic-grid" id="projects-grid">
+                    <!-- Project Cards will be populated dynamically by script.js -->
                 </div>
                 <div class="see-more">
                     <a href="#" class="handwritten-accent">See more...</a>

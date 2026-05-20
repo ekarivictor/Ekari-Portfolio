@@ -10,14 +10,23 @@ public_folder: "/images/uploads"
 collections:
   - name: "projects"
     label: "Projects"
-    folder: "content/projects"
-    create: true
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
-    fields:
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Description", name: "description", widget: "text"}
-      - {label: "Thumbnail", name: "thumbnail", widget: "image", required: false}
-      - {label: "Category", name: "category", widget: "select", options: ["Motion", "Branding", "Website"]}
+    files:
+      - file: "data/projects.json"
+        label: "Projects List"
+        name: "projects_list"
+        fields:
+          - name: "items"
+            label: "Projects"
+            widget: "list"
+            fields:
+              - {label: "Order Number", name: "order", widget: "string"}
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Description", name: "description", widget: "text"}
+              - {label: "Category", name: "category", widget: "select", options: ["All", "Motion", "Branding", "Website"]}
+              - {label: "Image Placeholder", name: "image", widget: "image"}
+              - {label: "Hover Media (Video/Gif)", name: "hoverMedia", widget: "file", required: false}
+              - {label: "Year", name: "year", widget: "string"}
+              - {label: "Live Link", name: "link", widget: "string", required: false}
 
   - name: "testimonials"
     label: "Testimonials"
