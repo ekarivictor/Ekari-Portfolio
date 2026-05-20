@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rate Card - Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Reenie+Beanie&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/rate-card.css">
+</head>
+<body>
+    <div class="site-wrapper rate-card-wrapper">
+        <header class="main-header">
+            <nav class="nav-links">
+                <a href="index.html">/Home</a>
+                <a href="about.html">/About me</a>
+                <a href="#">/Portfolio</a>
+                <a href="#">/Great Wall</a>
+                <a href="rate-card.html" class="active">/Price List</a>
+                <a href="#">/Contact me</a>
+            </nav>
+            <div class="social-links">
+                <!-- SVG Icons -->
+                <a href="#" class="social-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25H21.552L14.325 10.51L22.827 21.75H16.17L10.956 14.933L4.99 21.75H1.68L9.41 12.915L1.254 2.25H8.08L12.793 8.481L18.244 2.25ZM17.082 19.77H18.916L7.084 4.126H5.117L17.082 19.77Z"/></svg></a>
+                <a href="#" class="social-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/></svg></a>
+                <a href="#" class="social-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.01 15.38C18.78 15.38 17.59 15.18 16.48 14.82C16.13 14.7 15.74 14.79 15.47 15.06L13.9 17.03C11.07 15.68 8.42 13.13 7.01 10.2L8.96 8.54C9.23 8.26 9.31 7.87 9.2 7.52C8.83 6.41 8.64 5.22 8.64 3.99C8.64 3.45 8.19 3 7.65 3H4.19C3.65 3 3 3.24 3 3.99C3 13.28 10.73 21 20.01 21C20.72 21 21 20.37 21 19.82V16.37C21 15.83 20.55 15.38 20.01 15.38Z"/></svg></a>
+                <a href="#" class="social-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22 7H17V5H22V7ZM10.58 6H4V12H10.58C12.24 12 13.58 10.66 13.58 9C13.58 7.34 12.24 6 10.58 6ZM10.5 10H6.5V8H10.5C11.05 8 11.5 8.45 11.5 9C11.5 9.55 11.05 10 10.5 10ZM11.16 13H4V19H11.16C12.82 19 14.16 17.66 14.16 16C14.16 14.34 12.82 13 11.16 13ZM11.08 17H6.5V15H11.08C11.63 15 12.08 15.45 12.08 16C12.08 16.55 11.63 17 11.08 17ZM22 17H17V19H22V17ZM22 12H17V14H22V12Z"/></svg></a>
+            </div>
+        </header>
+
+        <main class="rate-card-main">
+            <div class="rate-card-content">
+                <div class="rate-header">
+                    <h1 class="handwritten-title">Ekari Rate Card <span class="year-badge">.2026</span></h1>
+                    <div class="currency-toggle">
+                        <button class="active">₦ NGN</button>
+                        <button class="green-toggle">$ USD</button>
+                    </div>
+                </div>
+                <div class="rate-sub">
+                    <p class="large-sub">Pick what you need.<br>Get an instant estimate.</p>
+                    <p class="small-sub">1. Select services  2. Estimate builds  3. Send your brief directly.</p>
+                </div>
+                <div class="search-bar">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" placeholder="Search Services, Logo, motion, landing page">
+                </div>
+
+                <div class="rate-sorts">
+                    <button class="sort-btn active">All <sup class="handwritten-accent">24</sup></button>
+                    <button class="sort-btn handwritten-accent">Motion <sup>8</sup></button>
+                    <button class="sort-btn handwritten-accent">Branding <sup>10</sup></button>
+                    <button class="sort-btn handwritten-accent">Website <sup>0</sup></button>
+                    <button class="sort-btn handwritten-accent">Add ons <sup>0</sup></button>
+                </div>
+
+                <section class="rate-category">
+                    <h2 class="handwritten-title">Branding</h2>
+                    <h3 class="category-sub">Logo Design</h3>
+                    <div class="pricing-grid">
+                        <!-- Pricing cards -->
+                        <div class="pricing-card">
+                            <div class="pc-left">
+                                <h4>Standard Logo</h4>
+                                <p>2 concepts, 3 revisions, all formats</p>
+                                <span class="price-range">₦80,000-₦100,000</span>
+                            </div>
+                            <div class="pc-right">
+                                <div class="pc-total">10 Logos = <strong>₦800,000</strong></div>
+                                <div class="quantity-control">
+                                    <button class="qty-btn">-</button>
+                                    <span class="qty-val">10</span>
+                                    <button class="qty-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pricing-card">
+                            <div class="pc-left">
+                                <h4>Standard Logo</h4>
+                                <p>2 concepts, 3 revisions, all formats</p>
+                                <span class="price-range">₦80,000-₦100,000</span>
+                            </div>
+                            <div class="pc-right">
+                                <div class="pc-total">10 Logos = <strong>₦800,000</strong></div>
+                                <div class="quantity-control">
+                                    <button class="qty-btn">-</button>
+                                    <span class="qty-val">10</span>
+                                    <button class="qty-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pricing-card">
+                            <div class="pc-left">
+                                <h4>Standard Logo</h4>
+                                <p>2 concepts, 3 revisions, all formats</p>
+                                <span class="price-range">₦80,000-₦100,000</span>
+                            </div>
+                            <div class="pc-right">
+                                <div class="pc-total">10 Logos = <strong>₦800,000</strong></div>
+                                <div class="quantity-control">
+                                    <button class="qty-btn">-</button>
+                                    <span class="qty-val">10</span>
+                                    <button class="qty-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="rate-category">
+                    <h2 class="handwritten-title">Motion Design</h2>
+                    <h3 class="category-sub">Video Intros & Openers</h3>
+                    <div class="pricing-grid">
+                        <div class="pricing-card">
+                            <div class="pc-left">
+                                <h4>Standard Logo</h4>
+                                <p>2 concepts, 3 revisions, all formats</p>
+                                <span class="price-range">₦80,000-₦100,000</span>
+                            </div>
+                            <div class="pc-right">
+                                <div class="pc-total">10 Logos = <strong>₦800,000</strong></div>
+                                <div class="quantity-control">
+                                    <button class="qty-btn">-</button>
+                                    <span class="qty-val">10</span>
+                                    <button class="qty-btn">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Floating Sidebar -->
+            <aside class="estimate-sidebar">
+                <div class="sidebar-header">
+                    <h3 class="handwritten-title">Your Estimate</h3>
+                    <span class="estimate-count">5</span>
+                </div>
+                <div class="sidebar-items">
+                    <div class="sidebar-item">
+                        <div class="s-left">
+                            <h4>Standard Logo</h4>
+                            <p>2 concepts, 3 revisions, all formats</p>
+                            <span class="s-range">₦80,000-₦100,000</span>
+                        </div>
+                        <div class="s-right">
+                            <div class="s-total">10 Logos = <strong>₦800,000</strong> <button class="remove-btn">×</button></div>
+                            <div class="quantity-control small">
+                                <button class="qty-btn">-</button>
+                                <span class="qty-val">10</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sidebar-item">
+                        <div class="s-left">
+                            <h4>Standard Logo</h4>
+                            <p>2 concepts, 3 revisions, all formats</p>
+                            <span class="s-range">₦80,000-₦100,000</span>
+                        </div>
+                        <div class="s-right">
+                            <div class="s-total">10 Logos = <strong>₦800,000</strong> <button class="remove-btn">×</button></div>
+                            <div class="quantity-control small">
+                                <button class="qty-btn">-</button>
+                                <span class="qty-val">10</span>
+                                <button class="qty-btn">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sidebar-total">
+                    <div class="total-label handwritten-title">Estimate</div>
+                    <div class="total-values">
+                        <div class="total-ngn">₦800,000</div>
+                        <div class="total-usd">$498</div>
+                    </div>
+                </div>
+                <div class="sidebar-actions">
+                    <button class="full-width-btn req-btn" onclick="openEstimateModal()">Request Estimate</button>
+                    <button class="clear-btn">Clear All</button>
+                </div>
+            </aside>
+        </main>
+        
+        <footer class="main-footer">
+            <div class="footer-logo">
+                <svg width="40" height="40" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 80L50 20L80 80" stroke="var(--accent-color)" stroke-width="2"/>
+                    <path d="M35 50H65" stroke="var(--accent-color)" stroke-width="2"/>
+                </svg>
+                <span class="copyright">© ekarivictor + PixelEngr</span>
+            </div>
+            <button class="back-to-top">
+                <span class="handwritten-accent">Back to top</span>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            </button>
+            <div class="footer-social">
+                <div class="social-icons-wrapper">
+                    <a href="#" class="social-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25H21.552L14.325 10.51L22.827 21.75H16.17L10.956 14.933L4.99 21.75H1.68L9.41 12.915L1.254 2.25H8.08L12.793 8.481L18.244 2.25ZM17.082 19.77H18.916L7.084 4.126H5.117L17.082 19.77Z"/></svg></a>
+                    <a href="#" class="social-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V6C22 4.9 21.1 4 20 4ZM20 8L12 13L4 8V6L12 11L20 6V8Z"/></svg></a>
+                    <a href="#" class="social-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.01 15.38C18.78 15.38 17.59 15.18 16.48 14.82C16.13 14.7 15.74 14.79 15.47 15.06L13.9 17.03C11.07 15.68 8.42 13.13 7.01 10.2L8.96 8.54C9.23 8.26 9.31 7.87 9.2 7.52C8.83 6.41 8.64 5.22 8.64 3.99C8.64 3.45 8.19 3 7.65 3H4.19C3.65 3 3 3.24 3 3.99C3 13.28 10.73 21 20.01 21C20.72 21 21 20.37 21 19.82V16.37C21 15.83 20.55 15.38 20.01 15.38Z"/></svg></a>
+                    <a href="#" class="social-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22 7H17V5H22V7ZM10.58 6H4V12H10.58C12.24 12 13.58 10.66 13.58 9C13.58 7.34 12.24 6 10.58 6ZM10.5 10H6.5V8H10.5C11.05 8 11.5 8.45 11.5 9C11.5 9.55 11.05 10 10.5 10ZM11.16 13H4V19H11.16C12.82 19 14.16 17.66 14.16 16C14.16 14.34 12.82 13 11.16 13ZM11.08 17H6.5V15H11.08C11.63 15 12.08 15.45 12.08 16C12.08 16.55 11.63 17 11.08 17ZM22 17H17V19H22V17ZM22 12H17V14H22V12Z"/></svg></a>
+                </div>
+                <div class="footer-meta">All rights locked in. All wrongs left on read</div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="estimate-modal" class="modal-overlay">
+        <div class="modal-content estimate-modal-content">
+            <button class="close-modal-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+            </button>
+            <h2 class="handwritten-title">Request Estimate</h2>
+            <p class="modal-subtitle">We'll respond within 24 hours with a tailored estimate.</p>
+            
+            <div class="estimate-items-list">
+                <div class="estimate-item">
+                    <div class="item-desc">
+                        <h4>Standard Logo</h4>
+                        <p>2 concepts, 3 revisions, all formats</p>
+                    </div>
+                    <div class="item-price">₦100,000</div>
+                </div>
+                <div class="estimate-item">
+                    <div class="item-desc">
+                        <h4>Standard Logo</h4>
+                        <p>2 concepts, 3 revisions, all formats</p>
+                    </div>
+                    <div class="item-price">₦100,000</div>
+                </div>
+                <div class="estimate-item">
+                    <div class="item-desc">
+                        <h4>Standard Logo</h4>
+                        <p>2 concepts, 3 revisions, all formats</p>
+                    </div>
+                    <div class="item-price">₦100,000</div>
+                </div>
+                <div class="estimate-item">
+                    <div class="item-desc">
+                        <h4>Standard Logo</h4>
+                        <p>2 concepts, 3 revisions, all formats</p>
+                    </div>
+                    <div class="item-price">₦100,000</div>
+                </div>
+                <div class="estimate-item">
+                    <div class="item-desc">
+                        <h4>Standard Logo</h4>
+                        <p>2 concepts, 3 revisions, all formats</p>
+                    </div>
+                    <div class="item-price">₦100,000</div>
+                </div>
+            </div>
+
+            <form class="modal-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Name <span class="required">*</span></label>
+                        <input type="text" placeholder="Placeholder text...">
+                    </div>
+                    <div class="form-group">
+                        <label>Email <span class="required">*</span></label>
+                        <input type="email" placeholder="Placeholder text...">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Phone Number <span class="required">*</span></label>
+                        <div class="phone-input">
+                            <span class="flag">🇺🇸 +1 ▾</span>
+                            <input type="text" placeholder="(444) 1234-5678">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Timeline <span class="required">*</span></label>
+                        <input type="text" placeholder="Placeholder text...">
+                    </div>
+                </div>
+                <div class="form-group full-width">
+                    <label>Additional Notes <span class="required">*</span></label>
+                    <textarea placeholder="Placeholder text..."></textarea>
+                </div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="cancel-btn">Cancel</button>
+                    <button type="submit" class="request-estimate-btn">Request Estimate</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
