@@ -261,28 +261,28 @@ body {
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 0;
+    gap: 24px;
     margin-bottom: 20px;
-    border: 1px solid var(--border-color);
 }
 
 .project-card {
     border: 1px solid var(--border-color);
-    margin: -1px 0 0 -1px; /* collapse borders */
     aspect-ratio: 1 / 1;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     position: relative;
     overflow: hidden;
-    background-color: #000;
-    transition: border-radius 0.3s ease;
+    background-color: transparent;
+    transition: border-radius 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
     text-decoration: none;
     color: inherit;
 }
 
 .project-card:hover {
     border-radius: 8px;
+    border-color: var(--accent-color);
+    transform: scale(1.02);
     z-index: 10;
 }
 
@@ -322,8 +322,8 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 60%;
-    background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
     z-index: 3;
     pointer-events: none;
 }
