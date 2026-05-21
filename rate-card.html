@@ -534,17 +534,17 @@ function openRequestModal(){
   const items = Object.values(cart);
   const container = document.getElementById('modal-estimate-items');
   if(!items.length) {
-    container.innerHTML = '<div style=\"color:#a0a0a0;padding:20px;text-align:center;\">No services selected.</div>';
+    container.innerHTML = '<div style="color:#a0a0a0;padding:20px;text-align:center;">No services selected.</div>';
   } else {
     let html = '';
     items.forEach(({s,qty}) => {
-      html += <div class=\"est-item\">
-        <div class=\"est-info\">
-          <h4> + s.name + </h4>
-          <p> + s.desc + </p>
+      html += `<div class="est-item">
+        <div class="est-info">
+          <h4>${s.name}</h4>
+          <p>${s.desc}</p>
         </div>
-        <div class=\"est-price\"> + pFmt(s,qty) + </div>
-      </div>;
+        <div class="est-price">${pFmt(s,qty)}</div>
+      </div>`;
     });
     container.innerHTML = html;
   }
