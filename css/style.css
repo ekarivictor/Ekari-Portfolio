@@ -605,6 +605,13 @@ body {
     width: 16px;
     height: 16px;
     margin-top: 2px;
+    animation: spin-star 4s linear infinite;
+    transform-origin: center;
+}
+
+@keyframes spin-star {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 .service-features li.off svg {
