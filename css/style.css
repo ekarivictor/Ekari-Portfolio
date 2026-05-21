@@ -700,7 +700,11 @@ body {
 
 .addons-grid {
     display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     gap: 40px;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .addon-item {
@@ -1660,6 +1664,4 @@ body {
     z-index: 10;
 }
 
-.addons-grid {
-    flex-wrap: wrap;
-}
+/* End */
