@@ -156,39 +156,146 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- ACCORDION LOGIC ---
 
     // --- Rate Card Logic ---
-    const qtyBtns = document.querySelectorAll('.qty-btn');
-    qtyBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const span = e.target.parentElement.querySelector('.qty-val');
-            if (span) {
-                let val = parseInt(span.textContent) || 0;
-                if (e.target.textContent === '+') {
-                    val++;
-                } else if (e.target.textContent === '-' && val > 0) {
-                    val--;
+    const rateCardState = new Map();
+    let isUsdActive = false;
+
+    function parsePrices(text) {
+        const ngnMatch = text.match(/₦([\d,]+)/);
+        const usdMatch = text.match(/\$([\d,]+)/);
+        return {
+            ngn: ngnMatch ? parseInt(ngnMatch[1].replace(/,/g, '')) : 0,
+            usd: usdMatch ? parseInt(usdMatch[1].replace(/,/g, '')) : 0
+        };
+    }
+
+    function formatCurrency(amount, currency) {
+        return currency === 'NGN' ? `₦${amount.toLocaleString()}` : `$${amount.toLocaleString()}`;
+    }
+
+    function updateSidebar() {
+        const sidebarItems = document.querySelector('.sidebar-items');
+        const estimateCount = document.querySelector('.estimate-count');
+        const totalNgnEl = document.querySelector('.total-ngn');
+        const totalUsdEl = document.querySelector('.total-usd');
+        
+        if (!sidebarItems) return;
+        
+        sidebarItems.innerHTML = '';
+        let totalNgn = 0;
+        let totalUsd = 0;
+        let count = 0;
+
+        rateCardState.forEach((item, id) => {
+            if (item.qty <= 0) return;
+            count += item.qty;
+            const itemTotalNgn = item.priceNgn * item.qty;
+            const itemTotalUsd = item.priceUsd * item.qty;
+            totalNgn += itemTotalNgn;
+            totalUsd += itemTotalUsd;
+
+            const div = document.createElement('div');
+            div.className = 'sidebar-item';
+            div.innerHTML = `
+                <div class="s-left">
+                    <h4>${item.name}</h4>
+                    ${item.desc ? `<p>${item.desc}</p>` : ''}
+                    <span class="s-range">${item.originalPriceText}</span>
+                </div>
+                <div class="s-right">
+                    <div class="s-total">${item.qty}x = <strong>${formatCurrency(isUsdActive ? itemTotalUsd : itemTotalNgn, isUsdActive ? 'USD' : 'NGN')}</strong> <button class="remove-btn" data-id="${id}">×</button></div>
+                    <div class="quantity-control small">
+                        <button class="qty-btn minus" data-id="${id}">-</button>
+                        <span class="qty-val">${item.qty}</span>
+                        <button class="qty-btn plus" data-id="${id}">+</button>
+                    </div>
+                </div>
+            `;
+            sidebarItems.appendChild(div);
+        });
+
+        if (estimateCount) estimateCount.textContent = count;
+        if (totalNgnEl) totalNgnEl.textContent = formatCurrency(totalNgn, 'NGN');
+        if (totalUsdEl) totalUsdEl.textContent = formatCurrency(totalUsd, 'USD');
+    }
+
+    function updateCardUI(card, qty, prices) {
+        const qtySpan = card.querySelector('.qty-val');
+        if (qtySpan) qtySpan.textContent = qty;
+        
+        const totalEl = card.querySelector('.pc-total');
+        if (totalEl) {
+            const itemTotal = isUsdActive ? (prices.usd * qty) : (prices.ngn * qty);
+            totalEl.innerHTML = `${qty}x = <strong>${formatCurrency(itemTotal, isUsdActive ? 'USD' : 'NGN')}</strong>`;
+        }
+    }
+
+    const pricingCards = document.querySelectorAll('.pricing-card');
+    pricingCards.forEach((card, index) => {
+        const id = 'item-' + index;
+        card.setAttribute('data-id', id);
+        
+        const name = card.querySelector('.pc-left h4')?.textContent || '';
+        const desc = card.querySelector('.pc-left p')?.textContent || '';
+        const priceText = card.querySelector('.price-range')?.textContent || '';
+        const prices = parsePrices(priceText);
+        
+        const qtyBtns = card.querySelectorAll('.qty-btn');
+        qtyBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                let currentItem = rateCardState.get(id) || { id, name, desc, originalPriceText: priceText, priceNgn: prices.ngn, priceUsd: prices.usd, qty: 0 };
+                
+                if (btn.textContent === '+') {
+                    currentItem.qty++;
+                } else if (btn.textContent === '-' && currentItem.qty > 0) {
+                    currentItem.qty--;
                 }
-                span.textContent = val;
-            }
+                
+                rateCardState.set(id, currentItem);
+                updateCardUI(card, currentItem.qty, prices);
+                updateSidebar();
+            });
         });
     });
 
-    // Dummy remove button functionality for the sidebar
-    const removeBtns = document.querySelectorAll('.remove-btn');
-    removeBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const item = e.target.closest('.sidebar-item');
-            if (item) {
-                item.remove();
-                // update counts etc here if this were fully dynamic
+    // Sidebar event delegation for dynamic +/- and remove buttons
+    const sidebarContainer = document.querySelector('.sidebar-items');
+    if (sidebarContainer) {
+        sidebarContainer.addEventListener('click', (e) => {
+            const btn = e.target;
+            if (!btn.classList.contains('qty-btn') && !btn.classList.contains('remove-btn')) return;
+            
+            const id = btn.getAttribute('data-id');
+            const item = rateCardState.get(id);
+            if (!item) return;
+
+            if (btn.classList.contains('plus')) {
+                item.qty++;
+            } else if (btn.classList.contains('minus') && item.qty > 0) {
+                item.qty--;
+            } else if (btn.classList.contains('remove-btn')) {
+                item.qty = 0;
             }
+
+            rateCardState.set(id, item);
+            
+            // Sync back to main card UI
+            const mainCard = document.querySelector(`.pricing-card[data-id="${id}"]`);
+            if (mainCard) {
+                updateCardUI(mainCard, item.qty, {ngn: item.priceNgn, usd: item.priceUsd});
+            }
+            
+            updateSidebar();
         });
-    });
+    }
 
     const clearBtn = document.querySelector('.clear-btn');
     if (clearBtn) {
         clearBtn.addEventListener('click', () => {
-            const itemsContainer = document.querySelector('.sidebar-items');
-            if (itemsContainer) itemsContainer.innerHTML = '';
+            rateCardState.clear();
+            document.querySelectorAll('.pricing-card').forEach(card => {
+                updateCardUI(card, 0, parsePrices(card.querySelector('.price-range')?.textContent || ''));
+            });
+            updateSidebar();
         });
     }
 
@@ -198,9 +305,19 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', (e) => {
             currencyBtns.forEach(b => b.classList.remove('active', 'green-toggle'));
             e.target.classList.add('active');
-            if (e.target.textContent.includes('USD')) {
+            isUsdActive = e.target.textContent.includes('USD');
+            if (isUsdActive) {
                 e.target.classList.add('green-toggle');
             }
+            
+            // Re-render everything with new currency format
+            document.querySelectorAll('.pricing-card').forEach(card => {
+                const id = card.getAttribute('data-id');
+                const item = rateCardState.get(id);
+                const qty = item ? item.qty : 0;
+                updateCardUI(card, qty, parsePrices(card.querySelector('.price-range')?.textContent || ''));
+            });
+            updateSidebar();
         });
     });
 
