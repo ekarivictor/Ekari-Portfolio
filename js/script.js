@@ -338,20 +338,61 @@ document.addEventListener('DOMContentLoaded', () => {
         function renderEmojiPicker() {
             emojiPickerContainer.innerHTML = '';
             emojiOptions.forEach((emojiUrl, index) => {
+                const codeMatch = emojiUrl.match(/\/latest\/(.+)\/512\.webp/);
+                const code = codeMatch ? codeMatch[1] : null;
                 const option = document.createElement('div');
                 option.className = 'emoji-option';
-                option.innerHTML = `<img src="${emojiUrl}" alt="Emoji Option" />`;
                 
-                if (index === 0) {
+                let nativeEmoji = '😀';
+                if (code) {
+                    try {
+                        const codePoints = code.split('_').map(c => parseInt(c, 16));
+                        nativeEmoji = String.fromCodePoint(...codePoints);
+                    } catch(e) {}
+                }
+                
+                option.innerHTML = `
+                    <span class="static-emoji" style="font-size: 28px; line-height: 1;">${nativeEmoji}</span>
+                    <img class="animated-emoji" data-src="${emojiUrl}" alt="Emoji Option" style="display:none;" />
+                `;
+                
+                function selectOption() {
+                    document.querySelectorAll('.emoji-option').forEach(el => {
+                        el.classList.remove('selected');
+                        const img = el.querySelector('.animated-emoji');
+                        const stat = el.querySelector('.static-emoji');
+                        if(img) img.style.display = 'none';
+                        if(stat) stat.style.display = 'block';
+                    });
                     option.classList.add('selected');
+                    const img = option.querySelector('.animated-emoji');
+                    if (!img.src || img.src === '') img.src = emojiUrl;
+                    img.style.display = 'block';
+                    option.querySelector('.static-emoji').style.display = 'none';
                     selectedEmojiInput.value = emojiUrl;
                 }
 
-                option.addEventListener('click', () => {
-                    document.querySelectorAll('.emoji-option').forEach(el => el.classList.remove('selected'));
-                    option.classList.add('selected');
-                    selectedEmojiInput.value = emojiUrl;
+                if (index === 0) {
+                    selectOption();
+                }
+
+                option.addEventListener('mouseenter', () => {
+                    if (!option.classList.contains('selected')) {
+                        const img = option.querySelector('.animated-emoji');
+                        if (!img.src || img.src === '') img.src = img.getAttribute('data-src');
+                        img.style.display = 'block';
+                        option.querySelector('.static-emoji').style.display = 'none';
+                    }
                 });
+
+                option.addEventListener('mouseleave', () => {
+                    if (!option.classList.contains('selected')) {
+                        option.querySelector('.animated-emoji').style.display = 'none';
+                        option.querySelector('.static-emoji').style.display = 'block';
+                    }
+                });
+
+                option.addEventListener('click', selectOption);
 
                 emojiPickerContainer.appendChild(option);
             });
@@ -372,11 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (openModalBtn) {
             openModalBtn.addEventListener('click', () => {
                 modalOverlay.classList.add('active');
-                document.querySelectorAll('.emoji-option').forEach(el => el.classList.remove('selected'));
-                if (emojiPickerContainer.firstChild) {
-                    emojiPickerContainer.firstChild.classList.add('selected');
-                    selectedEmojiInput.value = emojiOptions[0];
-                }
+                // The first emoji is already selected by default, no need to reset unless we want to
             });
         }
 
