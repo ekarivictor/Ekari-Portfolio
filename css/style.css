@@ -809,7 +809,8 @@ body {
 .checkbox-container {
     display: flex;
     align-items: center;
-    font-size: 14px;
+    font-size: 24px;
+    font-family: var(--font-handwritten);
     color: var(--text-secondary);
     cursor: pointer;
     white-space: nowrap;
@@ -817,7 +818,7 @@ body {
 
 .checkbox-container input {
     margin: 0;
-    margin-right: 1px;
+    margin-right: 24px;
 }
 
 .send-btn {
