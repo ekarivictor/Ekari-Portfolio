@@ -1665,3 +1665,7 @@ body {
 }
 
 /* End */
+
+.service-panel .extra-addons {
+    grid-column: 1 / -1;
+}
