@@ -795,7 +795,10 @@ body {
     display: flex;
     justify-content: space-between;
     gap: 40px;
+    margin: 0 auto;
     margin-bottom: 36px;
+    max-width: 1400px;
+    padding: 0 40px;
 }
 
 .contact-area {
