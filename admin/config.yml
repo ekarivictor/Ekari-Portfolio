@@ -38,3 +38,18 @@ collections:
       - {label: "Author Role/Company", name: "role", widget: "string"}
       - {label: "Quote", name: "quote", widget: "text"}
       - {label: "Logo", name: "logo", widget: "image", required: false}
+
+  - name: "gallery"
+    label: "Photo Gallery"
+    files:
+      - file: "data/gallery.json"
+        label: "Gallery Items"
+        name: "gallery_list"
+        fields:
+          - name: "items"
+            label: "Photos"
+            widget: "list"
+            fields:
+              - {label: "Image", name: "image", widget: "image", required: false}
+              - {label: "Title", name: "title", widget: "string"}
+              - {label: "Description", name: "description", widget: "text"}

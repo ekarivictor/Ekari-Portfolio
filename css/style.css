@@ -155,10 +155,34 @@ body {
     margin-bottom: 36px;
 }
 
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+.gallery-container {
+    display: flex;
+    overflow-x: hidden;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding: 20px 0;
+}
+
+.gallery-track {
+    display: flex;
+    gap: 40px;
+    padding-right: 40px;
+    animation: scroll-gallery 40s linear infinite;
+    min-width: max-content;
+    align-items: center;
+}
+
+.gallery-container:hover .gallery-track {
+    animation-play-state: paused;
+}
+
+@keyframes scroll-gallery {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 .polaroid-card {
@@ -169,12 +193,16 @@ body {
     transition: transform 0.3s ease;
 }
 
-.polaroid-card:nth-child(2) {
-    transform: rotate(1deg);
+.polaroid-card:nth-child(even) {
+    transform: rotate(2deg);
 }
 
-.polaroid-card:nth-child(3) {
+.polaroid-card:nth-child(3n) {
     transform: rotate(-1deg);
+}
+
+.polaroid-card:nth-child(4n) {
+    transform: rotate(3deg);
 }
 
 .polaroid-card:hover {

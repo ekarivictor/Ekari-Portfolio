@@ -204,6 +204,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- GALLERY LOGIC ---
+    const galleryTrack = document.getElementById('gallery-track');
+    if (galleryTrack) {
+        fetch('data/gallery.json')
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.items) {
+                    const itemsHTML = data.items.map(item => `
+                        <div class="polaroid-card">
+                            <div class="polaroid-image ${item.image ? '' : 'placeholder'}">
+                                ${item.image ? `<img src="${item.image}" alt="${item.title}" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;" />` : ''}
+                            </div>
+                            <div class="polaroid-caption">
+                                <h3 class="handwritten-title small">${item.title}</h3>
+                                <p>${item.description}</p>
+                            </div>
+                        </div>
+                    `).join('');
+                    
+                    // Duplicate for seamless infinite scrolling
+                    galleryTrack.innerHTML = itemsHTML + itemsHTML;
+                }
+            })
+            .catch(err => console.error("Error loading gallery:", err));
+    }
+
     // --- ANIMATED VIBE WALL LOGIC ---
     const vibeContainer = document.getElementById('vibe-container');
     if (vibeContainer) {
