@@ -177,7 +177,7 @@
         <div class="pt-sub" id="pt-sub"></div>
       </div>
       <div class="pbtns">
-        <button class="pbtn pbtn-pri" onclick="copyEstimate()"><i class="ti ti-copy" style="font-size:13px;vertical-align:-2px;margin-right:6px" aria-hidden="true"></i>Copy Estimate</button>
+        <button class="pbtn pbtn-pri" onclick="openRequestModal()">Request Estimate</button>
         <button class="pbtn pbtn-sec" onclick="clearAll()">Clear all</button>
       </div>
     </div>
@@ -236,6 +236,63 @@
         </footer>
 </div>
 
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal request-modal">
+    <div class="modal-header">
+      <div class="header-text">
+        <h2 class="handwritten-title">Request Estimate</h2>
+        <p class="modal-subtitle">We'll respond within 24 hours with a tailored estimate.</p>
+      </div>
+      <button class="close-btn" onclick="closeRequestModal()">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M15 9l-6 6M9 9l6 6"></path></svg>
+      </button>
+    </div>
+    
+    <div class="estimate-items-list" id="modal-estimate-items">
+        <!-- Rendered by JS -->
+    </div>
+    
+    <form id="request-form" class="request-form" onsubmit="event.preventDefault(); alert('Request sent!'); closeRequestModal();">
+      <div class="form-group row-group">
+        <div class="half-width">
+          <label>Name <span class="required">*</span> <span class="info-icon">i</span></label>
+          <input type="text" placeholder="Placeholder text..." required>
+        </div>
+        <div class="half-width">
+          <label>Email <span class="required">*</span> <span class="info-icon">i</span></label>
+          <input type="email" placeholder="Placeholder text..." required>
+        </div>
+      </div>
+      
+      <div class="form-group row-group">
+        <div class="half-width">
+          <label>Phone Number <span class="required">*</span> <span class="info-icon">i</span></label>
+          <div class="phone-input-wrapper">
+             <div class="country-code">
+               <span>???? +1</span>
+               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+             </div>
+             <input type="tel" placeholder="(444) 1234-5678" required>
+          </div>
+        </div>
+        <div class="half-width">
+          <label>Timeline <span class="required">*</span> <span class="info-icon">i</span></label>
+          <input type="text" placeholder="Placeholder text..." required>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label>Additional Notes <span class="required">*</span> <span class="info-icon">i</span></label>
+        <textarea rows="4" placeholder="Placeholder text..." required></textarea>
+      </div>
+      
+      <div class="form-actions">
+        <button type="button" class="btn-outline" onclick="closeRequestModal()">Cancel</button>
+        <button type="submit" class="full-pill-btn request-btn">Request Estimate</button>
+      </div>
+    </form>
+  </div>
+</div>
 <script>
 const RATE=1430;
 const SVC=[
@@ -473,11 +530,37 @@ function setF(f,btn){
 }
 
 render();
+function openRequestModal(){
+  const items = Object.values(cart);
+  const container = document.getElementById('modal-estimate-items');
+  if(!items.length) {
+    container.innerHTML = '<div style=\"color:#a0a0a0;padding:20px;text-align:center;\">No services selected.</div>';
+  } else {
+    let html = '';
+    items.forEach(({s,qty}) => {
+      html += <div class=\"est-item\">
+        <div class=\"est-info\">
+          <h4> + s.name + </h4>
+          <p> + s.desc + </p>
+        </div>
+        <div class=\"est-price\"> + pFmt(s,qty) + </div>
+      </div>;
+    });
+    container.innerHTML = html;
+  }
+  document.getElementById('modal-overlay').classList.add('active');
+}
+
+function closeRequestModal(){
+  document.getElementById('modal-overlay').classList.remove('active');
+}
 </script>
 
 
 </body>
 </html>
+
+
 
 
 

@@ -1572,6 +1572,7 @@ body {
 
 #modal-overlay .form-group input[type="text"],
 #modal-overlay .form-group input[type="number"],
+#modal-overlay .form-group input[type="email"],
 #modal-overlay .form-group input[type="file"],
 #modal-overlay .form-group textarea {
   background: #FFF; /* White backgrounds */
@@ -1672,3 +1673,134 @@ body {
 .service-panel .extra-addons {
     grid-column: 1 / -1;
 }
+
+/* Request Estimate Modal */
+#modal-overlay .request-modal {
+  background-color: #000000;
+  border: 1px solid #1a1a1a;
+  border-radius: 16px;
+  padding: 40px;
+  width: 95vw;
+  max-width: 650px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+#modal-overlay .request-modal::-webkit-scrollbar {
+  display: none;
+}
+
+#modal-overlay.active .request-modal {
+  transform: translateY(0);
+}
+
+.estimate-items-list {
+  background: #141414;
+  border-radius: 8px;
+  padding: 10px 20px;
+  margin-bottom: 25px;
+}
+
+.est-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.est-item:last-child {
+  border-bottom: none;
+}
+
+.est-item h4 {
+  color: #FFF;
+  font-family: var(--font-primary);
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+.est-item p {
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin: 0;
+}
+
+.est-item .est-price {
+  color: #FFF;
+  font-family: var(--font-primary);
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.phone-input-wrapper {
+  display: flex;
+  background: #FFF;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.phone-input-wrapper .country-code {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 16px;
+  background: #f0f0f0;
+  color: #000;
+  font-size: 13px;
+  font-weight: 500;
+  border-right: 1px solid #ddd;
+}
+
+.phone-input-wrapper input {
+  flex: 1;
+  border-radius: 0 !important;
+}
+
+#modal-overlay .form-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+#modal-overlay .btn-outline {
+  flex: 1;
+  background: transparent;
+  color: #FFF;
+  border: 1px solid #333;
+  padding: 16px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-primary);
+  transition: all 0.2s ease;
+}
+
+#modal-overlay .btn-outline:hover {
+  border-color: #888;
+}
+
+#modal-overlay .request-btn {
+  flex: 1;
+  margin-top: 0;
+}
+
+/* Ensure form group input selectors also match request modal */
+#modal-overlay .form-group input[type="tel"] {
+  background: #FFF;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: #000;
+  font-family: var(--font-primary);
+  font-size: 13px;
+  width: 100%;
+}
+
+
