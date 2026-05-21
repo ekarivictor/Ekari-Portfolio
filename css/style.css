@@ -606,10 +606,12 @@ body {
     justify-content: center;
     padding: 20px 32px;
     margin-top: auto;
+    position: relative;
+    z-index: 10;
 }
 
 .book-plan-btn {
-    background-color: #FFF;
+    background-color: var(--accent-color);
     color: #000;
     border: none;
     padding: 12px 24px;
@@ -617,11 +619,12 @@ body {
     font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    transition: transform 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.3s ease;
     width: 100%;
 }
 
 .book-plan-btn:hover {
+    background-color: #FFF;
     transform: scale(1.02);
 }
 
