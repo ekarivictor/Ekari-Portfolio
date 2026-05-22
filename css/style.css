@@ -1965,48 +1965,41 @@ body {
 
 .fragments-canvas {
     position: absolute;
-    top: -50vh; /* Start offset to allow panning in all directions */
+    top: -50vh;
     left: -50vw;
-    width: 300vw; /* Massive canvas */
+    width: 300vw;
     height: 300vh;
-    background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-    background-size: 50px 50px; /* Subtle grid for sense of space */
+    background-color: #000; /* Pure black, no grid */
     will-change: transform;
-    /* initial transform set by JS */
 }
 
 .fragment-item {
     position: absolute;
-    width: 250px; /* Default placeholder width */
-    height: 300px;
-    background-color: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 4px;
+    width: 270px; /* Reference uses 27rem x 27rem squares for the placeholders */
+    height: 270px;
+    background-color: #111; /* subtle dark grey placeholder */
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #555;
+    color: #444;
     font-family: var(--font-primary);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
 }
 
 .fragment-item:hover {
-    transform: scale(1.05);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    border-color: #555;
+    transform: scale(1.05); /* Slight scale on hover, like reference */
     z-index: 10;
 }
 
-/* Image inside fragment once added */
 .fragment-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    pointer-events: none; /* Let drag events pass through */
-    border-radius: 3px;
+    pointer-events: none;
 }
 
 .frag-placeholder {
     pointer-events: none;
 }
+
