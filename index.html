@@ -632,26 +632,11 @@
         });
       }
     </script>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const typingIndicator = document.getElementById('typing-indicator');
-    const contactFormInputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
-    
-    if (typingIndicator && contactFormInputs.length > 0) {
-        contactFormInputs.forEach(input => {
-            input.addEventListener('focus', () => {
-                typingIndicator.classList.add('active');
-            });
-            input.addEventListener('blur', () => {
-                typingIndicator.classList.remove('active');
-            });
-        });
-    }
-});
-</script>
+
 <script type="module" src="js/firebase-init.js"></script>
 </body>
 </html>
+
 
 
 

@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     // --- Modals ---
     const estimateModal = document.getElementById('estimate-modal');
     const closeBtns = document.querySelectorAll('.close-modal-btn');
@@ -594,5 +594,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
         renderVibes();
         renderEmojiPicker();
+    }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const typingIndicators = document.querySelectorAll('.typing-indicator');
+    const contactFormInputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
+    
+    if (typingIndicators.length > 0 && contactFormInputs.length > 0) {
+        contactFormInputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                typingIndicators.forEach(indicator => indicator.classList.add('active'));
+            });
+            input.addEventListener('blur', () => {
+                typingIndicators.forEach(indicator => indicator.classList.remove('active'));
+            });
+        });
     }
 });
