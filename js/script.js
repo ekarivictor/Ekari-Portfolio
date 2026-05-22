@@ -670,6 +670,23 @@ document.addEventListener('DOMContentLoaded', () => {
             targetY = newY;
         });
 
+                // Custom Cursor Logic
+        const customCursor = document.getElementById('custom-drag-cursor');
+        if (customCursor) {
+            window.addEventListener('mousemove', (e) => {
+                customCursor.style.left = e.clientX + 'px';
+                customCursor.style.top = e.clientY + 'px';
+            });
+            
+            viewport.addEventListener('mousedown', () => {
+                customCursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+            });
+            
+            window.addEventListener('mouseup', () => {
+                customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
+        }
+
         // Touch Events
         viewport.addEventListener('touchstart', (e) => {
             isDragging = true;
@@ -696,3 +713,4 @@ document.addEventListener('DOMContentLoaded', () => {
         }, { passive: false });
     }
 });
+
