@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ekari Admin | Portfolio Settings</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body { background-color: #050505; color: #FFF; font-family: var(--font-primary); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .admin-card { background: #141414; border: 1px solid #2a2a2a; border-radius: 12px; padding: 40px; width: 100%; max-width: 500px; }
+        .admin-title { font-family: var(--font-handwritten); color: var(--accent-color); font-size: 32px; margin-bottom: 24px; text-align: center; }
+        .control-group { margin-bottom: 24px; padding-bottom: 24px; border-bottom: 1px solid #2a2a2a; }
+        .control-group:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .control-label { font-size: 14px; color: var(--text-secondary); margin-bottom: 12px; display: block; }
+        
+        .btn { padding: 12px 24px; border-radius: 8px; font-family: var(--font-primary); font-size: 14px; font-weight: 600; cursor: pointer; border: none; transition: all 0.2s; width: 100%; margin-bottom: 10px; }
+        .btn-avail { background-color: rgba(212, 255, 63, 0.15); color: var(--accent-color); border: 1px solid rgba(212, 255, 63, 0.3); }
+        .btn-avail:hover { background-color: rgba(212, 255, 63, 0.25); }
+        .btn-busy { background-color: rgba(255, 63, 63, 0.15); color: #ff3f3f; border: 1px solid rgba(255, 63, 63, 0.3); }
+        .btn-busy:hover { background-color: rgba(255, 63, 63, 0.25); }
+        .btn-reset { background-color: #2a2a2a; color: #FFF; border: 1px solid #444; }
+        .btn-reset:hover { background-color: #333; }
+        
+        .status-box { text-align: center; padding: 16px; background: #000; border-radius: 8px; margin-bottom: 24px; font-size: 18px; }
+        #live-msg-count { color: var(--accent-color); font-family: var(--font-handwritten); font-size: 28px; display: block; margin-top: 8px; }
+    </style>
+</head>
+<body>
+
+<div class="admin-card">
+    <h1 class="admin-title">Secret Admin Panel</h1>
+    
+    <div class="status-box">
+        Current Messages Sent:
+        <span id="live-msg-count">...</span>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">Update Availability Status</label>
+        <button class="btn btn-avail" onclick="setAvailability(true)">Set as AVAILABLE</button>
+        <button class="btn btn-busy" onclick="setAvailability(false)">Set as BUSY</button>
+    </div>
+
+    <div class="control-group">
+        <label class="control-label">Database Controls</label>
+        <button class="btn btn-reset" onclick="resetMessages()">Reset Messages to 0</button>
+        <button class="btn btn-reset" onclick="initializeDatabase()" style="margin-top: 10px; border-color: var(--accent-color); color: var(--accent-color); background: transparent;">Initialize Database (Run Once)</button>
+    </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, doc, onSnapshot, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDF9kLE9BxBagQvMB11jXSitYhwS0siw84",
+    authDomain: "ekari-portfolio.firebaseapp.com",
+    projectId: "ekari-portfolio",
+    storageBucket: "ekari-portfolio.firebasestorage.app",
+    messagingSenderId: "357234658242",
+    appId: "1:357234658242:web:d3a2c2e85f8690a716e45b",
+    measurementId: "G-HH925SDYL6"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const statsDocRef = doc(db, "portfolio", "stats");
+
+  // Listen for live updates
+  onSnapshot(statsDocRef, (docSnap) => {
+      if (docSnap.exists()) {
+          document.getElementById('live-msg-count').textContent = docSnap.data().messages_sent || 0;
+      } else {
+          document.getElementById('live-msg-count').textContent = "Not Initialized";
+      }
+  });
+
+  // Attach functions to window
+  window.setAvailability = async (isAvailable) => {
+      try {
+          await updateDoc(statsDocRef, { is_available: isAvailable });
+          alert("Status updated to " + (isAvailable ? "Available" : "Busy"));
+      } catch (e) { alert("Error: " + e.message); }
+  };
+
+  window.resetMessages = async () => {
+      if(confirm("Are you sure you want to reset messages to 0?")) {
+          try {
+              await updateDoc(statsDocRef, { messages_sent: 0 });
+              alert("Messages reset to 0.");
+          } catch (e) { alert("Error: " + e.message); }
+      }
+  };
+
+  window.initializeDatabase = async () => {
+      try {
+          await setDoc(statsDocRef, {
+              messages_sent: 0,
+              is_available: true
+          });
+          alert("Database initialized successfully!");
+      } catch (e) { alert("Error: " + e.message); }
+  };
+</script>
+
+</body>
+</html>

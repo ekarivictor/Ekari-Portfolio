@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -435,7 +435,7 @@
             <div class="contact-area">
                 <h2 class="handwritten-title small">On the hunt for problems?</h2>
                 <p class="contact-sub">Solutions are always available. Do it or leave it you're right either ways</p>
-                <form class="contact-form">
+                <form class="contact-form" onsubmit="event.preventDefault(); window.incrementMessages && window.incrementMessages(); alert('Message sent! Syncing with Firebase...'); this.reset();">
                     <div class="input-group">
                         <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                         <input type="text" placeholder="Name">
@@ -649,8 +649,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 </script>
+<script type="module" src="js/firebase-init.js"></script>
 </body>
 </html>
+
 
 
 
