@@ -2003,3 +2003,32 @@ body {
     pointer-events: none;
 }
 
+
+
+.fragments-ref-footer {
+    background: linear-gradient(180deg, transparent 0, rgba(0,0,0,.01) 8.1%, rgba(0,0,0,.038) 15.5%, rgba(0,0,0,.082) 22.5%, rgba(0,0,0,.139) 29%, rgba(0,0,0,.205) 35.3%, rgba(0,0,0,.278) 41.2%, rgba(0,0,0,.356) 47.1%, rgba(0,0,0,.434) 52.9%, rgba(0,0,0,.512) 58.8%, rgba(0,0,0,.585) 64.7%, rgba(0,0,0,.651) 71%, rgba(0,0,0,.708) 77.5%, rgba(0,0,0,.752) 84.5%, rgba(0,0,0,.78) 91.9%, rgba(0,0,0,.79));
+    bottom: 0;
+    display: grid;
+    height: 24rem;
+    left: 0;
+    padding-top: 10rem;
+    place-content: center;
+    position: fixed;
+    right: 0;
+    z-index: 1000;
+    pointer-events: none; /* So dragging still works underneath it */
+}
+
+.fragments-ref-footer p {
+    color: #fff;
+    font-family: Inter, sans-serif;
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    letter-spacing: -.014rem;
+    line-height: 120%;
+    margin: 0 auto;
+    text-align: center;
+    width: 44.3rem;
+    max-width: 80%;
+}
