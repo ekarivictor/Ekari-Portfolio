@@ -1287,11 +1287,7 @@ body {
 /* --- NEW ANIMATED VIBE WALL CSS --- */
 
 .vibe-wall-widget {
-  background-image: url('../images/paper-bg.png');
-  background-repeat: repeat;
-  background-size: auto;
-  background-attachment: fixed;
-  background-position: center top;
+  background-color: #050505;
   min-height: 600px;
   display: flex;
   flex-direction: column;
@@ -1299,18 +1295,38 @@ body {
   justify-content: center;
   overflow-x: hidden;
   
-  /* Break out of container for full bleed */
   width: 100vw;
   position: relative;
   left: 50%;
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  
-  border: none;
-  border-top-left-radius: 32px;
-  border-top-right-radius: 32px;
-  margin-bottom: 36px;
+  padding-bottom: 20px;
+}
+
+.vibe-wall-widget::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='128' height='128'><rect x='0' y='0' width='8' height='8' fill='%232E2C2C' opacity='0.04'/><rect x='16' y='0' width='8' height='8' fill='%232E2C2C' opacity='0.47'/><rect x='32' y='0' width='8' height='8' fill='%232E2C2C' opacity='0.86'/><rect x='48' y='0' width='8' height='8' fill='%232E2C2C' opacity='0.72'/><rect x='64' y='0' width='8' height='8' fill='%232E2C2C' opacity='0.22'/><rect x='80' y='0' width='8' height='8' fill='%232E2C2C' opacity='0.53'/><rect x='96' y='0' width='8' height='8' fill='%232E2C2C' opacity='0.95'/><rect x='112' y='0' width='8' height='8' fill='%232E2C2C' opacity='0.61'/><rect x='0' y='16' width='8' height='8' fill='%232E2C2C' opacity='0.32'/><rect x='16' y='16' width='8' height='8' fill='%232E2C2C' opacity='0.73'/><rect x='32' y='16' width='8' height='8' fill='%232E2C2C' opacity='0.99'/><rect x='48' y='16' width='8' height='8' fill='%232E2C2C' opacity='0.94'/><rect x='64' y='16' width='8' height='8' fill='%232E2C2C' opacity='0.4'/><rect x='80' y='16' width='8' height='8' fill='%232E2C2C' opacity='0.86'/><rect x='96' y='16' width='8' height='8' fill='%232E2C2C' opacity='0.08'/><rect x='112' y='16' width='8' height='8' fill='%232E2C2C' opacity='0.27'/><rect x='0' y='32' width='8' height='8' fill='%232E2C2C' opacity='0.49'/><rect x='16' y='32' width='8' height='8' fill='%232E2C2C' opacity='0.75'/><rect x='32' y='32' width='8' height='8' fill='%232E2C2C' opacity='0.23'/><rect x='48' y='32' width='8' height='8' fill='%232E2C2C' opacity='0.38'/><rect x='64' y='32' width='8' height='8' fill='%232E2C2C' opacity='0.82'/><rect x='80' y='32' width='8' height='8' fill='%232E2C2C' opacity='0.6'/><rect x='96' y='32' width='8' height='8' fill='%232E2C2C' opacity='0.86'/><rect x='112' y='32' width='8' height='8' fill='%232E2C2C' opacity='0.88'/><rect x='0' y='48' width='8' height='8' fill='%232E2C2C' opacity='0.5'/><rect x='16' y='48' width='8' height='8' fill='%232E2C2C' opacity='0.49'/><rect x='32' y='48' width='8' height='8' fill='%232E2C2C' opacity='0.32'/><rect x='48' y='48' width='8' height='8' fill='%232E2C2C' opacity='0.59'/><rect x='64' y='48' width='8' height='8' fill='%232E2C2C' opacity='0.35'/><rect x='80' y='48' width='8' height='8' fill='%232E2C2C' opacity='0.98'/><rect x='96' y='48' width='8' height='8' fill='%232E2C2C' opacity='0.98'/><rect x='112' y='48' width='8' height='8' fill='%232E2C2C' opacity='0.77'/><rect x='0' y='64' width='8' height='8' fill='%232E2C2C' opacity='0.84'/><rect x='16' y='64' width='8' height='8' fill='%232E2C2C' opacity='0.77'/><rect x='32' y='64' width='8' height='8' fill='%232E2C2C' opacity='0.72'/><rect x='48' y='64' width='8' height='8' fill='%232E2C2C' opacity='0.93'/><rect x='64' y='64' width='8' height='8' fill='%232E2C2C' opacity='0.15'/><rect x='80' y='64' width='8' height='8' fill='%232E2C2C' opacity='0.51'/><rect x='96' y='64' width='8' height='8' fill='%232E2C2C' opacity='0.5'/><rect x='112' y='64' width='8' height='8' fill='%232E2C2C' opacity='0.97'/><rect x='0' y='80' width='8' height='8' fill='%232E2C2C' opacity='0.07'/><rect x='16' y='80' width='8' height='8' fill='%232E2C2C' opacity='0.92'/><rect x='32' y='80' width='8' height='8' fill='%232E2C2C' opacity='0.9'/><rect x='48' y='80' width='8' height='8' fill='%232E2C2C' opacity='0.3'/><rect x='64' y='80' width='8' height='8' fill='%232E2C2C' opacity='0.87'/><rect x='80' y='80' width='8' height='8' fill='%232E2C2C' opacity='0.86'/><rect x='96' y='80' width='8' height='8' fill='%232E2C2C' opacity='0.37'/><rect x='112' y='80' width='8' height='8' fill='%232E2C2C' opacity='0.2'/><rect x='0' y='96' width='8' height='8' fill='%232E2C2C' opacity='0.89'/><rect x='16' y='96' width='8' height='8' fill='%232E2C2C' opacity='0.33'/><rect x='32' y='96' width='8' height='8' fill='%232E2C2C' opacity='0.2'/><rect x='48' y='96' width='8' height='8' fill='%232E2C2C' opacity='0.31'/><rect x='64' y='96' width='8' height='8' fill='%232E2C2C' opacity='0.97'/><rect x='80' y='96' width='8' height='8' fill='%232E2C2C' opacity='0.59'/><rect x='96' y='96' width='8' height='8' fill='%232E2C2C' opacity='0.77'/><rect x='112' y='96' width='8' height='8' fill='%232E2C2C' opacity='0.43'/><rect x='0' y='112' width='8' height='8' fill='%232E2C2C' opacity='0.61'/><rect x='16' y='112' width='8' height='8' fill='%232E2C2C' opacity='0.98'/><rect x='32' y='112' width='8' height='8' fill='%232E2C2C' opacity='0.22'/><rect x='48' y='112' width='8' height='8' fill='%232E2C2C' opacity='0.73'/><rect x='64' y='112' width='8' height='8' fill='%232E2C2C' opacity='0.21'/><rect x='80' y='112' width='8' height='8' fill='%232E2C2C' opacity='0.36'/><rect x='96' y='112' width='8' height='8' fill='%232E2C2C' opacity='0.26'/><rect x='112' y='112' width='8' height='8' fill='%232E2C2C' opacity='0.34'/></svg>");
+    background-repeat: repeat;
+    animation: block-flicker 0.4s steps(1) infinite;
+    pointer-events: none;
+    z-index: 0;
+}
+
+@keyframes block-flicker {
+    0% { background-position: 0px 0px; }
+    10% { background-position: -32px -16px; }
+    20% { background-position: -64px 48px; }
+    30% { background-position: 16px -80px; }
+    40% { background-position: -48px 32px; }
+    50% { background-position: -16px 64px; }
+    60% { background-position: 48px 16px; }
+    70% { background-position: 0px 80px; }
+    80% { background-position: -80px 0px; }
+    90% { background-position: 32px 32px; }
+    100% { background-position: 16px 0px; }
 }
 
 .vibe-wall-widget .container {
@@ -1320,6 +1336,8 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
 .vibe-wall-widget header {
@@ -1845,6 +1863,7 @@ body {
   font-size: 13px;
   width: 100%;
 }
+
 
 
 
