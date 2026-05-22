@@ -612,3 +612,87 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+// =========================================
+// Great Wall (Fragments) Panning Logic
+// =========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const viewport = document.getElementById('fragments-viewport');
+    const canvas = document.getElementById('fragments-canvas');
+    
+    if (viewport && canvas) {
+        let isDragging = false;
+        let startX, startY;
+        let currentX = 0, currentY = 0; // Current translation
+        let targetX = 0, targetY = 0;   // Target translation for smooth lerp
+        
+        // Boundaries (roughly limits how far you can pan so you don't lose the canvas)
+        const maxX = window.innerWidth * 1.5;
+        const maxY = window.innerHeight * 1.5;
+        const minX = -window.innerWidth * 1.5;
+        const minY = -window.innerHeight * 1.5;
+
+        // Smooth animation loop
+        function animate() {
+            // Lerp (Linear Interpolation) for smooth inertia
+            currentX += (targetX - currentX) * 0.1;
+            currentY += (targetY - currentY) * 0.1;
+            
+            canvas.style.transform = 	ranslate3d( + currentX + px,  + currentY + px, 0);
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Mouse Events
+        viewport.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX - targetX;
+            startY = e.clientY - targetY;
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            
+            let newX = e.clientX - startX;
+            let newY = e.clientY - startY;
+            
+            // Constrain
+            newX = Math.max(minX, Math.min(newX, maxX));
+            newY = Math.max(minY, Math.min(newY, maxY));
+            
+            targetX = newX;
+            targetY = newY;
+        });
+
+        // Touch Events
+        viewport.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].clientX - targetX;
+            startY = e.touches[0].clientY - targetY;
+        }, { passive: false });
+
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            
+            let newX = e.touches[0].clientX - startX;
+            let newY = e.touches[0].clientY - startY;
+            
+            newX = Math.max(minX, Math.min(newX, maxX));
+            newY = Math.max(minY, Math.min(newY, maxY));
+            
+            targetX = newX;
+            targetY = newY;
+        }, { passive: false });
+    }
+});
