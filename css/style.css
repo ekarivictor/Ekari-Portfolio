@@ -2034,9 +2034,12 @@ body.great-wall-body {
 
 .fragments-wrapper .main-header {
     position: fixed;
+    padding: 40px 40px;
+    box-sizing: border-box;
     top: 0;
     left: 0;
     width: 100%;
     z-index: 1000;
     background: transparent;
 }
+

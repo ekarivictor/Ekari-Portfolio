@@ -43,8 +43,18 @@
         return img;
     });
 
-    // --- INFINITE DRAG PHYSICS ---
+    // --- PHYSICS STATE ---
     let camera = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    
+    // Drag base
+    let baseTargetX = 0;
+    let baseTargetY = 0;
+    
+    // Parallax overlay
+    let parallaxX = 0;
+    let parallaxY = 0;
+    const parallaxStrength = Math.min(width, height) * 0.15; // responsive parallax
+
     let isDragging = false;
     let startMouseX = 0, startMouseY = 0;
     
@@ -53,12 +63,10 @@
     let mouseY = height / 2;
 
     // Grid Metrics
-    const baseSize = 100; // Decreased size
-    const spacing = 64;   // Spacing requested
-    const cellSize = baseSize + spacing; // 164px total cell footprint
+    const baseSize = 100; 
+    const spacing = 64;   
+    const cellSize = baseSize + spacing; 
     
-    // State map to remember hover scaling for specific grid cells
-    // Keys will be 'col,row', values will be { scale, rotation, targetScale, targetRotation }
     const cellStates = new Map();
     function getCellState(col, row) {
         const key = col + ',' + row;
@@ -73,8 +81,11 @@
         isDragging = true;
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
         const clientY = e.touches ? e.touches[0].clientY : e.clientY;
-        startMouseX = clientX - camera.targetX;
-        startMouseY = clientY - camera.targetY;
+        
+        // Start from current base target to prevent jumping
+        startMouseX = clientX - baseTargetX;
+        startMouseY = clientY - baseTargetY;
+        
         if (customCursor) customCursor.style.transform = 'translate(-50%, -50%) scale(0.6)';
     }
 
@@ -95,13 +106,22 @@
             customCursor.style.top = clientY + 'px';
             customCursor.style.opacity = '1';
         }
+        
+        // Always calculate parallax (the removed interaction)
+        const mouseNormX = (clientX / width) - 0.5;
+        const mouseNormY = (clientY / height) - 0.5;
+        parallaxX = -mouseNormX * parallaxStrength * 2;
+        parallaxY = -mouseNormY * parallaxStrength * 2;
 
-        if (!isDragging) return;
-        if (e.cancelable) e.preventDefault();
+        if (isDragging) {
+            if (e.cancelable) e.preventDefault();
+            baseTargetX = clientX - startMouseX;
+            baseTargetY = clientY - startMouseY;
+        }
 
-        // Update target camera based on drag
-        camera.targetX = clientX - startMouseX;
-        camera.targetY = clientY - startMouseY;
+        // Combine drag target and parallax offset
+        camera.targetX = baseTargetX + parallaxX;
+        camera.targetY = baseTargetY + parallaxY;
     }
 
     canvas.addEventListener('mousedown', onPointerDown);
@@ -111,14 +131,25 @@
     window.addEventListener('touchend', onPointerUp);
     window.addEventListener('touchmove', onPointerMove, { passive: false });
 
+    // Handle mouse leaving window so parallax doesn't get stuck
+    window.addEventListener('mouseleave', () => {
+        isDragging = false;
+        parallaxX = 0;
+        parallaxY = 0;
+        camera.targetX = baseTargetX;
+        camera.targetY = baseTargetY;
+        if (customCursor) {
+            customCursor.style.opacity = '0';
+            customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        }
+    });
 
     // Render Loop
     function render() {
-        // Clear background
         ctx.fillStyle = '#000000';
         ctx.fillRect(0, 0, width, height);
 
-        // Lerp camera for smooth inertia drag
+        // Lerp camera for smooth inertia drag and parallax
         camera.x += (camera.targetX - camera.x) * 0.08;
         camera.y += (camera.targetY - camera.y) * 0.08;
 
@@ -126,39 +157,28 @@
         ctx.translate(camera.x, camera.y);
 
         // --- INFINITE MATH GRID ---
-        // Determine which cells are visible on screen based on the camera position
-        // We divide the inverse of camera by cellSize to find the starting column/row.
-        // We add extra padding to ensure images don't pop in at the edges.
         const startCol = Math.floor(-camera.x / cellSize) - 2;
         const endCol = startCol + Math.ceil(width / cellSize) + 4;
-        
         const startRow = Math.floor(-camera.y / cellSize) - 2;
         const endRow = startRow + Math.ceil(height / cellSize) + 4;
 
-        // World coordinates of mouse
         const worldMouseX = mouseX - camera.x;
         const worldMouseY = mouseY - camera.y;
         
-        // We will collect items to render so we can sort them (hovered items on top)
         const renderList = [];
 
         for (let row = startRow; row <= endRow; row++) {
             for (let col = startCol; col <= endCol; col++) {
                 
-                // Which image should go here? Create a deterministic index based on col and row
-                // This ensures the pattern repeats infinitely but remains consistent when dragging back and forth.
                 let pseudoRandomIndex = (col * 13 + row * 27);
-                // Handle negative modulo correctly
                 let imgIndex = ((pseudoRandomIndex % loadedImages.length) + loadedImages.length) % loadedImages.length;
                 
                 const img = loadedImages[imgIndex];
                 if (!img.complete || img.naturalWidth === 0) continue;
 
-                // Base coordinates for this cell
                 const x = col * cellSize + spacing/2;
                 const y = row * cellSize + spacing/2;
 
-                // Raycasting / Hover check for this cell
                 const left = x;
                 const right = x + baseSize;
                 const top = y;
@@ -176,7 +196,6 @@
                     state.targetRotation = 0;
                 }
 
-                // Lerp state
                 state.scale += (state.targetScale - state.scale) * 0.15;
                 state.rotation += (state.targetRotation - state.rotation) * 0.15;
                 
@@ -189,12 +208,10 @@
             }
         }
         
-        // Sort: hovered items render last (on top)
         renderList.sort((a, b) => {
             return (a.state.isHovered === b.state.isHovered) ? 0 : a.state.isHovered ? 1 : -1;
         });
         
-        // Draw
         renderList.forEach(item => {
             ctx.save();
             
@@ -206,7 +223,6 @@
             ctx.scale(item.state.scale, item.state.scale);
             ctx.translate(-centerX, -centerY);
 
-            // Aspect ratio calculation (object-fit: contain)
             const imgAspect = item.img.naturalWidth / item.img.naturalHeight;
             let drawW = baseSize;
             let drawH = baseSize;
