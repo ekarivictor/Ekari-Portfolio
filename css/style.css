@@ -1948,16 +1948,12 @@ body {
     background-color: #000;
 }
 
-.fragments-viewport {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    cursor: none; /* Custom cursor */
-    user-select: none;
+#webgl-canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
     touch-action: none;
+    cursor: none;
 }
 
 /* Custom Drag Cursor */
@@ -1990,38 +1986,6 @@ body {
     opacity: 1;
 }
 
-.fragments-canvas {
-    position: absolute;
-    top: -50vh;
-    left: -50vw;
-    width: 300vw;
-    height: 300vh;
-    background-color: #000;
-    will-change: transform;
-}
-
-.fragment-item {
-    position: absolute;
-    background-color: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
-    cursor: none;
-}
-
-.fragment-item:hover {
-    transform: scale(1.08) rotate(2deg);
-    z-index: 10;
-}
-
-.fragment-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain; /* ensure image is fully visible */
-    pointer-events: none;
-}
-
 .fragments-ref-footer {
     background: linear-gradient(180deg, transparent 0, rgba(0,0,0,.01) 8.1%, rgba(0,0,0,.038) 15.5%, rgba(0,0,0,.082) 22.5%, rgba(0,0,0,.139) 29%, rgba(0,0,0,.205) 35.3%, rgba(0,0,0,.278) 41.2%, rgba(0,0,0,.356) 47.1%, rgba(0,0,0,.434) 52.9%, rgba(0,0,0,.512) 58.8%, rgba(0,0,0,.585) 64.7%, rgba(0,0,0,.651) 71%, rgba(0,0,0,.708) 77.5%, rgba(0,0,0,.752) 84.5%, rgba(0,0,0,.78) 91.9%, rgba(0,0,0,.79));
     bottom: 0;
@@ -2048,4 +2012,17 @@ body {
     text-align: center;
     width: 44.3rem;
     max-width: 80%;
+}
+
+
+
+#webgl-canvas {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    touch-action: none;
+    cursor: none;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
