@@ -4,8 +4,6 @@
     const ctx = canvas.getContext('2d', { alpha: false });
 
     const customCursor = document.getElementById('custom-drag-cursor');
-    // For this parallax version, the custom cursor might just follow the mouse,
-    // or we might hide it if it's purely parallax. We will keep the dot.
 
     let width = window.innerWidth;
     let height = window.innerHeight;
@@ -25,7 +23,8 @@
     let camera = { x: 0, y: 0, targetX: 0, targetY: 0 };
     
     // How far the parallax moves in pixels based on mouse position
-    const parallaxStrength = 150; 
+    const parallaxStrengthX = width * 0.15; // Move up to 15% of screen width
+    const parallaxStrengthY = height * 0.15; // Move up to 15% of screen height
 
     let mouseX = width / 2;
     let mouseY = height / 2;
@@ -48,62 +47,68 @@
         'web carousel/win 1.png'
     ];
 
+    // Pre-load images
+    const loadedImages = rawImages.map(src => {
+        const img = new Image();
+        img.src = src;
+        return img;
+    });
+
     let fragments = [];
 
-    // Initialize layout (evenly spaced grid)
+    // Initialize layout (infinitely dense grid)
     function initLayout() {
         fragments = [];
         
-        // Let's create a 5 columns x 3 rows grid
-        const cols = 5;
-        const rows = 3;
+        // Create a massive grid that extends well beyond the viewport edges
+        // so you never see the edge when parallaxing.
+        const cols = 8;
+        const rows = 6;
         
-        // Small, uniform size as requested
-        const size = 200; 
+        const size = 200; // Base cell size
         
-        // Calculate spacing so they fill the screen plus a little extra for parallax bleed
-        const totalWidth = width + parallaxStrength * 2;
-        const totalHeight = height + parallaxStrength * 2;
+        // Calculate spacing so they spread far across the extended canvas
+        const totalWidth = width * 1.5; 
+        const totalHeight = height * 1.5;
         
         const spacingX = totalWidth / cols;
         const spacingY = totalHeight / rows;
         
-        // Offset to start drawing
-        const startX = -parallaxStrength + (spacingX - size) / 2;
-        const startY = -parallaxStrength + (spacingY - size) / 2;
+        // Offset to start drawing way off-screen
+        const startX = -(totalWidth - width) / 2 - parallaxStrengthX;
+        const startY = -(totalHeight - height) / 2 - parallaxStrengthY;
 
-        rawImages.forEach((src, index) => {
-            const col = index % cols;
-            const row = Math.floor(index / cols);
-            
-            // Add a little organic offset so it's not totally rigid
-            const offsetX = (Math.random() - 0.5) * 40;
-            const offsetY = (Math.random() - 0.5) * 40;
+        let imgIndex = 0;
 
-            const x = startX + (col * spacingX) + offsetX;
-            const y = startY + (row * spacingY) + offsetY;
+        for (let row = 0; row < rows; row++) {
+            for (let col = 0; col < cols; col++) {
+                // Add a little organic offset so it's not totally rigid
+                const offsetX = (Math.random() - 0.5) * 60;
+                const offsetY = (Math.random() - 0.5) * 60;
 
-            const img = new Image();
-            img.src = src;
-            
-            fragments.push({
-                img: img,
-                x: x,
-                y: y,
-                baseW: size,
-                baseH: size,
-                scale: 1,
-                targetScale: 1,
-                rotation: 0,
-                targetRotation: 0,
-                isHovered: false
-            });
-        });
+                const x = startX + (col * spacingX) + offsetX;
+                const y = startY + (row * spacingY) + offsetY;
+
+                fragments.push({
+                    img: loadedImages[imgIndex % loadedImages.length],
+                    x: x,
+                    y: y,
+                    baseW: size,
+                    baseH: size,
+                    scale: 1,
+                    targetScale: 1,
+                    rotation: 0,
+                    targetRotation: 0,
+                    isHovered: false
+                });
+
+                imgIndex++;
+            }
+        }
     }
 
-    resize(); // This calls initLayout
+    resize();
 
-    // Mouse tracking for parallax and custom cursor
     function onPointerMove(e) {
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
         const clientY = e.touches ? e.touches[0].clientY : e.clientY;
@@ -118,13 +123,11 @@
         }
 
         // Calculate parallax target
-        // Mouse at left edge (0) -> camera target is +parallaxStrength
-        // Mouse at right edge (width) -> camera target is -parallaxStrength
         const mouseNormX = (clientX / width) - 0.5; // -0.5 to 0.5
         const mouseNormY = (clientY / height) - 0.5;
 
-        camera.targetX = -mouseNormX * parallaxStrength * 2;
-        camera.targetY = -mouseNormY * parallaxStrength * 2;
+        camera.targetX = -mouseNormX * parallaxStrengthX * 2;
+        camera.targetY = -mouseNormY * parallaxStrengthY * 2;
     }
 
     window.addEventListener('mousemove', onPointerMove);
@@ -144,8 +147,8 @@
         ctx.fillRect(0, 0, width, height);
 
         // Smooth parallax lerp
-        camera.x += (camera.targetX - camera.x) * 0.05;
-        camera.y += (camera.targetY - camera.y) * 0.05;
+        camera.x += (camera.targetX - camera.x) * 0.04;
+        camera.y += (camera.targetY - camera.y) * 0.04;
 
         ctx.save();
         ctx.translate(camera.x, camera.y);
@@ -168,8 +171,8 @@
             // Hover check
             if (worldMouseX >= left && worldMouseX <= right && worldMouseY >= top && worldMouseY <= bottom) {
                 frag.isHovered = true;
-                frag.targetScale = 1.15; // More pronounced pop
-                frag.targetRotation = 0.05; // Slight twist
+                frag.targetScale = 1.15; 
+                frag.targetRotation = 0.05;
             } else {
                 frag.isHovered = false;
                 frag.targetScale = 1;
@@ -190,7 +193,22 @@
                 ctx.scale(frag.scale, frag.scale);
                 ctx.translate(-centerX, -centerY);
 
-                ctx.drawImage(frag.img, frag.x, frag.y, frag.baseW, frag.baseH);
+                // Aspect ratio calculation to FIT the image exactly as it is (like object-fit: contain)
+                const imgAspect = frag.img.naturalWidth / frag.img.naturalHeight;
+                let drawW = frag.baseW;
+                let drawH = frag.baseH;
+                
+                if (imgAspect > 1) { // Landscape
+                    drawH = frag.baseW / imgAspect;
+                } else { // Portrait
+                    drawW = frag.baseH * imgAspect;
+                }
+                
+                // Center the fitted image inside the 200x200 square
+                const drawX = frag.x + (frag.baseW - drawW) / 2;
+                const drawY = frag.y + (frag.baseH - drawH) / 2;
+
+                ctx.drawImage(frag.img, drawX, drawY, drawW, drawH);
                 
                 if (frag.scale > 1.01) {
                     ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
