@@ -615,3 +615,102 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+
+// =========================================
+// Great Wall (Fragments) Panning Logic
+// =========================================
+document.addEventListener('DOMContentLoaded', () => {
+    const viewport = document.getElementById('fragments-viewport');
+    const canvas = document.getElementById('fragments-canvas');
+    const customCursor = document.getElementById('custom-drag-cursor');
+    
+    if (viewport && canvas) {
+        let isDragging = false;
+        let startX, startY;
+        let currentX = 0, currentY = 0; // Current translation
+        let targetX = 0, targetY = 0;   // Target translation for smooth lerp
+        
+        // Boundaries (roughly limits how far you can pan so you don't lose the canvas)
+        const maxX = window.innerWidth * 1.5;
+        const maxY = window.innerHeight * 1.5;
+        const minX = -window.innerWidth * 1.5;
+        const minY = -window.innerHeight * 1.5;
+
+        // Smooth animation loop
+        function animate() {
+            // Lerp (Linear Interpolation) for smooth inertia
+            currentX += (targetX - currentX) * 0.08;
+            currentY += (targetY - currentY) * 0.08;
+            
+            canvas.style.transform = 	ranslate3d( + currentX + px,  + currentY + px, 0);
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Mouse Events
+        viewport.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.clientX - targetX;
+            startY = e.clientY - targetY;
+            if (customCursor) customCursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            if (customCursor) customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+        
+        window.addEventListener('mouseleave', () => {
+            isDragging = false;
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            // Update custom cursor position
+            if (customCursor) {
+                customCursor.style.left = e.clientX + 'px';
+                customCursor.style.top = e.clientY + 'px';
+            }
+            
+            if (!isDragging) return;
+            e.preventDefault();
+            
+            let newX = e.clientX - startX;
+            let newY = e.clientY - startY;
+            
+            // Constrain
+            newX = Math.max(minX, Math.min(newX, maxX));
+            newY = Math.max(minY, Math.min(newY, maxY));
+            
+            targetX = newX;
+            targetY = newY;
+        });
+
+        // Touch Events
+        viewport.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            startX = e.touches[0].clientX - targetX;
+            startY = e.touches[0].clientY - targetY;
+            if (customCursor) customCursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+        }, { passive: false });
+
+        window.addEventListener('touchend', () => {
+            isDragging = false;
+            if (customCursor) customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            
+            let newX = e.touches[0].clientX - startX;
+            let newY = e.touches[0].clientY - startY;
+            
+            newX = Math.max(minX, Math.min(newX, maxX));
+            newY = Math.max(minY, Math.min(newY, maxY));
+            
+            targetX = newX;
+            targetY = newY;
+        }, { passive: false });
+    }
+});
