@@ -7,27 +7,17 @@
 
     let width = window.innerWidth;
     let height = window.innerHeight;
-
     const dpr = window.devicePixelRatio || 1;
+    
     function resize() {
         width = window.innerWidth;
         height = window.innerHeight;
         canvas.width = width * dpr;
         canvas.height = height * dpr;
         ctx.scale(dpr, dpr);
-        initLayout(); // Re-layout on resize
     }
     window.addEventListener('resize', resize);
-
-    // Parallax Camera (moves based on mouse, no dragging)
-    let camera = { x: 0, y: 0, targetX: 0, targetY: 0 };
-    
-    // How far the parallax moves in pixels based on mouse position
-    const parallaxStrengthX = width * 0.15; // Move up to 15% of screen width
-    const parallaxStrengthY = height * 0.15; // Move up to 15% of screen height
-
-    let mouseX = width / 2;
-    let mouseY = height / 2;
+    resize();
 
     const rawImages = [
         'web carousel/10k back.jpg',
@@ -47,67 +37,51 @@
         'web carousel/win 1.png'
     ];
 
-    // Pre-load images
     const loadedImages = rawImages.map(src => {
         const img = new Image();
         img.src = src;
         return img;
     });
 
-    let fragments = [];
+    // --- INFINITE DRAG PHYSICS ---
+    let camera = { x: 0, y: 0, targetX: 0, targetY: 0 };
+    let isDragging = false;
+    let startMouseX = 0, startMouseY = 0;
+    
+    // For raycasting / hover
+    let mouseX = width / 2;
+    let mouseY = height / 2;
 
-    // Initialize layout (infinitely dense grid)
-    function initLayout() {
-        fragments = [];
-        
-        // Create a massive grid that extends well beyond the viewport edges
-        // so you never see the edge when parallaxing.
-        const cols = 8;
-        const rows = 6;
-        
-        const size = 200; // Base cell size
-        
-        // Calculate spacing so they spread far across the extended canvas
-        const totalWidth = width * 1.5; 
-        const totalHeight = height * 1.5;
-        
-        const spacingX = totalWidth / cols;
-        const spacingY = totalHeight / rows;
-        
-        // Offset to start drawing way off-screen
-        const startX = -(totalWidth - width) / 2 - parallaxStrengthX;
-        const startY = -(totalHeight - height) / 2 - parallaxStrengthY;
-
-        let imgIndex = 0;
-
-        for (let row = 0; row < rows; row++) {
-            for (let col = 0; col < cols; col++) {
-                // Add a little organic offset so it's not totally rigid
-                const offsetX = (Math.random() - 0.5) * 60;
-                const offsetY = (Math.random() - 0.5) * 60;
-
-                const x = startX + (col * spacingX) + offsetX;
-                const y = startY + (row * spacingY) + offsetY;
-
-                fragments.push({
-                    img: loadedImages[imgIndex % loadedImages.length],
-                    x: x,
-                    y: y,
-                    baseW: size,
-                    baseH: size,
-                    scale: 1,
-                    targetScale: 1,
-                    rotation: 0,
-                    targetRotation: 0,
-                    isHovered: false
-                });
-
-                imgIndex++;
-            }
+    // Grid Metrics
+    const baseSize = 100; // Decreased size
+    const spacing = 64;   // Spacing requested
+    const cellSize = baseSize + spacing; // 164px total cell footprint
+    
+    // State map to remember hover scaling for specific grid cells
+    // Keys will be 'col,row', values will be { scale, rotation, targetScale, targetRotation }
+    const cellStates = new Map();
+    function getCellState(col, row) {
+        const key = col + ',' + row;
+        if (!cellStates.has(key)) {
+            cellStates.set(key, { scale: 1, rotation: 0, targetScale: 1, targetRotation: 0, isHovered: false });
         }
+        return cellStates.get(key);
     }
 
-    resize();
+    // Input Handling
+    function onPointerDown(e) {
+        isDragging = true;
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        startMouseX = clientX - camera.targetX;
+        startMouseY = clientY - camera.targetY;
+        if (customCursor) customCursor.style.transform = 'translate(-50%, -50%) scale(0.6)';
+    }
+
+    function onPointerUp() {
+        isDragging = false;
+        if (customCursor) customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
+    }
 
     function onPointerMove(e) {
         const clientX = e.touches ? e.touches[0].clientX : e.clientX;
@@ -122,101 +96,138 @@
             customCursor.style.opacity = '1';
         }
 
-        // Calculate parallax target
-        const mouseNormX = (clientX / width) - 0.5; // -0.5 to 0.5
-        const mouseNormY = (clientY / height) - 0.5;
+        if (!isDragging) return;
+        if (e.cancelable) e.preventDefault();
 
-        camera.targetX = -mouseNormX * parallaxStrengthX * 2;
-        camera.targetY = -mouseNormY * parallaxStrengthY * 2;
+        // Update target camera based on drag
+        camera.targetX = clientX - startMouseX;
+        camera.targetY = clientY - startMouseY;
     }
 
+    canvas.addEventListener('mousedown', onPointerDown);
+    window.addEventListener('mouseup', onPointerUp);
     window.addEventListener('mousemove', onPointerMove);
+    canvas.addEventListener('touchstart', onPointerDown, { passive: false });
+    window.addEventListener('touchend', onPointerUp);
     window.addEventListener('touchmove', onPointerMove, { passive: false });
 
-    // Click effect for cursor
-    window.addEventListener('mousedown', () => {
-        if (customCursor) customCursor.style.transform = 'translate(-50%, -50%) scale(0.6)';
-    });
-    window.addEventListener('mouseup', () => {
-        if (customCursor) customCursor.style.transform = 'translate(-50%, -50%) scale(1)';
-    });
 
     // Render Loop
     function render() {
+        // Clear background
         ctx.fillStyle = '#000000';
         ctx.fillRect(0, 0, width, height);
 
-        // Smooth parallax lerp
-        camera.x += (camera.targetX - camera.x) * 0.04;
-        camera.y += (camera.targetY - camera.y) * 0.04;
+        // Lerp camera for smooth inertia drag
+        camera.x += (camera.targetX - camera.x) * 0.08;
+        camera.y += (camera.targetY - camera.y) * 0.08;
 
         ctx.save();
         ctx.translate(camera.x, camera.y);
 
-        // Sort fragments so hovered renders on top
-        const sortedFragments = [...fragments].sort((a, b) => {
-            return (a.isHovered === b.isHovered) ? 0 : a.isHovered ? 1 : -1;
-        });
+        // --- INFINITE MATH GRID ---
+        // Determine which cells are visible on screen based on the camera position
+        // We divide the inverse of camera by cellSize to find the starting column/row.
+        // We add extra padding to ensure images don't pop in at the edges.
+        const startCol = Math.floor(-camera.x / cellSize) - 2;
+        const endCol = startCol + Math.ceil(width / cellSize) + 4;
+        
+        const startRow = Math.floor(-camera.y / cellSize) - 2;
+        const endRow = startRow + Math.ceil(height / cellSize) + 4;
 
-        // World coordinates of mouse (for hover detection)
+        // World coordinates of mouse
         const worldMouseX = mouseX - camera.x;
         const worldMouseY = mouseY - camera.y;
+        
+        // We will collect items to render so we can sort them (hovered items on top)
+        const renderList = [];
 
-        sortedFragments.forEach(frag => {
-            const left = frag.x;
-            const right = frag.x + frag.baseW;
-            const top = frag.y;
-            const bottom = frag.y + frag.baseH;
-
-            // Hover check
-            if (worldMouseX >= left && worldMouseX <= right && worldMouseY >= top && worldMouseY <= bottom) {
-                frag.isHovered = true;
-                frag.targetScale = 1.15; 
-                frag.targetRotation = 0.05;
-            } else {
-                frag.isHovered = false;
-                frag.targetScale = 1;
-                frag.targetRotation = 0;
-            }
-
-            frag.scale += (frag.targetScale - frag.scale) * 0.15;
-            frag.rotation += (frag.targetRotation - frag.rotation) * 0.15;
-
-            if (frag.img.complete && frag.img.naturalWidth !== 0) {
-                ctx.save();
+        for (let row = startRow; row <= endRow; row++) {
+            for (let col = startCol; col <= endCol; col++) {
                 
-                const centerX = frag.x + frag.baseW / 2;
-                const centerY = frag.y + frag.baseH / 2;
+                // Which image should go here? Create a deterministic index based on col and row
+                // This ensures the pattern repeats infinitely but remains consistent when dragging back and forth.
+                let pseudoRandomIndex = (col * 13 + row * 27);
+                // Handle negative modulo correctly
+                let imgIndex = ((pseudoRandomIndex % loadedImages.length) + loadedImages.length) % loadedImages.length;
                 
-                ctx.translate(centerX, centerY);
-                ctx.rotate(frag.rotation);
-                ctx.scale(frag.scale, frag.scale);
-                ctx.translate(-centerX, -centerY);
+                const img = loadedImages[imgIndex];
+                if (!img.complete || img.naturalWidth === 0) continue;
 
-                // Aspect ratio calculation to FIT the image exactly as it is (like object-fit: contain)
-                const imgAspect = frag.img.naturalWidth / frag.img.naturalHeight;
-                let drawW = frag.baseW;
-                let drawH = frag.baseH;
-                
-                if (imgAspect > 1) { // Landscape
-                    drawH = frag.baseW / imgAspect;
-                } else { // Portrait
-                    drawW = frag.baseH * imgAspect;
-                }
-                
-                // Center the fitted image inside the 200x200 square
-                const drawX = frag.x + (frag.baseW - drawW) / 2;
-                const drawY = frag.y + (frag.baseH - drawH) / 2;
+                // Base coordinates for this cell
+                const x = col * cellSize + spacing/2;
+                const y = row * cellSize + spacing/2;
 
-                ctx.drawImage(frag.img, drawX, drawY, drawW, drawH);
+                // Raycasting / Hover check for this cell
+                const left = x;
+                const right = x + baseSize;
+                const top = y;
+                const bottom = y + baseSize;
                 
-                if (frag.scale > 1.01) {
-                    ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
-                    ctx.fillRect(frag.x, frag.y, frag.baseW, frag.baseH);
+                const state = getCellState(col, row);
+
+                if (!isDragging && worldMouseX >= left && worldMouseX <= right && worldMouseY >= top && worldMouseY <= bottom) {
+                    state.isHovered = true;
+                    state.targetScale = 1.25; 
+                    state.targetRotation = 0.08;
+                } else {
+                    state.isHovered = false;
+                    state.targetScale = 1;
+                    state.targetRotation = 0;
                 }
 
-                ctx.restore();
+                // Lerp state
+                state.scale += (state.targetScale - state.scale) * 0.15;
+                state.rotation += (state.targetRotation - state.rotation) * 0.15;
+                
+                renderList.push({
+                    img: img,
+                    x: x,
+                    y: y,
+                    state: state
+                });
             }
+        }
+        
+        // Sort: hovered items render last (on top)
+        renderList.sort((a, b) => {
+            return (a.state.isHovered === b.state.isHovered) ? 0 : a.state.isHovered ? 1 : -1;
+        });
+        
+        // Draw
+        renderList.forEach(item => {
+            ctx.save();
+            
+            const centerX = item.x + baseSize / 2;
+            const centerY = item.y + baseSize / 2;
+            
+            ctx.translate(centerX, centerY);
+            ctx.rotate(item.state.rotation);
+            ctx.scale(item.state.scale, item.state.scale);
+            ctx.translate(-centerX, -centerY);
+
+            // Aspect ratio calculation (object-fit: contain)
+            const imgAspect = item.img.naturalWidth / item.img.naturalHeight;
+            let drawW = baseSize;
+            let drawH = baseSize;
+            
+            if (imgAspect > 1) { 
+                drawH = baseSize / imgAspect;
+            } else { 
+                drawW = baseSize * imgAspect;
+            }
+            
+            const drawX = item.x + (baseSize - drawW) / 2;
+            const drawY = item.y + (baseSize - drawH) / 2;
+
+            ctx.drawImage(item.img, drawX, drawY, drawW, drawH);
+            
+            if (item.state.scale > 1.01) {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+                ctx.fillRect(item.x, item.y, baseSize, baseSize);
+            }
+
+            ctx.restore();
         });
 
         ctx.restore();
