@@ -745,15 +745,14 @@ body {
 
 .client-logos {
     display: flex;
-    gap: 24px;
+    gap: 8px;
     align-items: center;
 }
 
-.client-logo-placeholder {
-    width: 24px;
-    height: 24px;
-    background-color: #333;
-    border-radius: 4px;
+.client-img {
+    height: 16px;
+    width: auto;
+    object-fit: contain;
 }
 
 .addons-grid {
@@ -2128,3 +2127,4 @@ body.great-wall-body {
     font-size: 32px !important;
     margin-bottom: 8px !important;
 }
+
