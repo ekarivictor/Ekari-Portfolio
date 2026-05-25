@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -86,6 +86,18 @@
 
 
 
+
+.rc {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.body {
+    flex: 1;
+}
+.rc .main-footer {
+    margin-top: auto;
+}
 </style>
 
 <h2 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Ekari Rate Card 2026 — Interactive Estimate Builder</h2>
@@ -187,62 +199,7 @@
   </div>
 </div>
 
-<section class="bottom-section">
-            <div class="contact-area">
-                <h2 class="handwritten-title small">On the hunt for problems?</h2>
-                <p class="contact-sub">Solutions are always available. Do it or leave it you're right either ways</p>
-                <form class="contact-form" onsubmit="event.preventDefault(); window.incrementMessages && window.incrementMessages(); alert('Message sent! Syncing with Firebase...'); this.reset();">
-                    <div class="input-group">
-                        <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                        <input type="text" placeholder="Name">
-                    </div>
-                    <div class="input-group">
-                        <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-                        <input type="email" placeholder="eMail">
-                    </div>
-                    <div class="input-group">
-                        <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-                        <input type="text" placeholder="Message">
-                    </div>
-                    
-                    <div class="form-footer">
-                        <label class="checkbox-container">
-                            <input type="checkbox">
-                            <span class="checkmark"></span>
-                            Want to get progress updates?
-                        </label>
-                        <button type="submit" class="send-btn">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
-                            Send
-                        </button>
-                    </div>
-                </form>
-            </div>
 
-            <div class="stats-card">
-                <div class="stats-top">
-                    <div class="stat-main">
-                        <span class="stat-number" id="msg-count">0</span><span class="stat-label">Messages<br>Sent So far</span>
-                    </div>
-                    <div class="status-badge" id="availability-badge">Available</div>
-                </div>
-                <div class="stats-middle">
-                    <div class="typing-indicator" id="typing-indicator"><span>Someone is typing</span><div class="typing-dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div></div>
-                </div>
-                <div class="stats-bottom">
-                    <div class="stat-item">
-                        <svg class="stat-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                        <span class="stat-big">100%</span>
-                        <span class="stat-small">Messages replied</span>
-                    </div>
-                    <div class="stat-item">
-                        <svg class="stat-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                        <span class="stat-big">10 secs</span>
-                        <span class="stat-small">Avg. Response Time</span>
-                    </div>
-                </div>
-            </div>
-        </section>
 
 
 <footer class="main-footer">
@@ -621,6 +578,8 @@ function closeRequestModal(){
 <script type="module" src="js/firebase-init.js"></script>
 <script src="js/script.js"></script>`n</body>
 </html>
+
+
 
 
 
