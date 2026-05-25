@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --bg-color: #111111;
     --text-primary: #FFFFFF;
     --text-secondary: #8A8A8E;
@@ -92,10 +92,69 @@ body {
 }
 
 .number-accent {
-    color: var(--text-primary); /* The '5' seems white but handwritten */
+    color: transparent !important;
     font-size: 100px;
-    line-height: 0.8;
+    line-height: 0;
     vertical-align: middle;
+    display: inline-block;
+    position: relative;
+    width: 60px;
+    margin: 0 10px;
+}
+
+.number-accent::after {
+    content: '3';
+    color: var(--text-primary);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: warpInfinity 8s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+@keyframes warpInfinity {
+    0%, 35% {
+        content: '3';
+        color: var(--text-primary);
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    40% {
+        content: '3';
+        color: var(--text-primary);
+        transform: translate(-50%, -50%) scale(0) rotate(180deg);
+        opacity: 0;
+    }
+    45% {
+        content: '∞';
+        color: var(--accent-color);
+        transform: translate(-50%, -50%) scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+    50%, 85% {
+        content: '∞';
+        color: var(--accent-color);
+        transform: translate(-50%, -50%) scale(1.2) rotate(0deg);
+        opacity: 1;
+    }
+    90% {
+        content: '∞';
+        color: var(--accent-color);
+        transform: translate(-50%, -50%) scale(0) rotate(180deg);
+        opacity: 0;
+    }
+    95% {
+        content: '3';
+        color: var(--text-primary);
+        transform: translate(-50%, -50%) scale(0) rotate(-180deg);
+        opacity: 0;
+    }
+    100% {
+        content: '3';
+        color: var(--text-primary);
+        transform: translate(-50%, -50%) scale(1) rotate(0deg);
+        opacity: 1;
+    }
 }
 
 .hero-description {
@@ -2057,4 +2116,5 @@ body.great-wall-body {
     max-width: 100% !important;
     padding: 0 !important;
 }
+
 
