@@ -118,16 +118,15 @@ body {
 .handwritten-title {
     font-family: var(--font-handwritten);
     color: var(--accent-color);
-    font-size: 48px;
+    font-size: 28px;
     font-weight: 400;
-    margin-top: 52px;
-    margin-bottom: 24px;
+    margin-top: 48px;
+    margin-bottom: 20px;
 }
 
 .handwritten-title.small {
-    font-size: 32px;
+    font-size: 24px;
     color: var(--text-primary);
-    margin-bottom: 8px;
 }
 
 /* Tags Sections */
