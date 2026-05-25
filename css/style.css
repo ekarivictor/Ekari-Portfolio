@@ -2118,3 +2118,13 @@ body.great-wall-body {
 }
 
 
+
+.rc .handwritten-title {
+    font-size: 48px !important;
+    margin-top: 52px !important;
+    margin-bottom: 24px !important;
+}
+.rc .handwritten-title.small {
+    font-size: 32px !important;
+    margin-bottom: 8px !important;
+}
