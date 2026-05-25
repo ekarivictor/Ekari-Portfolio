@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details — Ekari Victor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Reenie+Beanie&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/project-detail.css">
+</head>
+<body class="app">
+    <main class="page">
+        <section class="design">
+            <a href="index.html" class="design-back">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19L5 12L12 5" stroke="currentColor" stroke-width="2"/></svg>
+                BACK
+            </a>
+            
+            <header class="design-head">
+                <img id="post-logo" src="images/chrome-partyvest.webp" alt="Project Logo" style="border-radius: 50%; object-fit: cover; width: 48px; height: 48px;">
+                <h1 id="post-title">Partyverse — Designing a ticketing platform for the next generation of partygoers.</h1>
+                <p id="post-overview">A comprehensive case study on creating a seamless and vibrant ecosystem for event discovery, ticketing, and management.</p>
+            </header>
+
+            <figure class="design-cover">
+                <img id="post-cover" src="images/chrome-partyvest.webp" alt="Cover Image">
+            </figure>
+
+            <div class="design-body">
+                <div>
+                    <h2>ABOUT</h2>
+                    <article>
+                        <h3>Overview</h3>
+                        <p id="post-about">Partyverse is a platform designed to simplify event discovery and ticketing. By focusing on the user experience of young partygoers, the design system ensures intuitive navigation, vibrant visuals, and seamless checkout flows.</p>
+                        <hr>
+                    </article>
+                </div>
+                <div>
+                    <h2>ROLE</h2>
+                    <article>
+                        <p id="post-role">Product Designer, Prototyper</p>
+                        <hr>
+                    </article>
+                </div>
+                <div>
+                    <h2>TIMELINE</h2>
+                    <article>
+                        <p id="post-timeline">May 2023 - July 2023</p>
+                        <hr>
+                    </article>
+                </div>
+                
+                <!-- Dynamic CMS Content Area -->
+                <div id="dynamic-content">
+                    <h2>THE CHALLENGE</h2>
+                    <article>
+                        <p>Event organizers face issues managing large-scale events, and attendees often struggle with clunky ticketing apps. Our goal was to bridge this gap with a modern, high-performance web app that feels as exciting as the events themselves.</p>
+                    </article>
+                </div>
+            </div>
+
+            <div class="share">
+                <span style="opacity: 0.5;">Share:</span>
+                <button>Twitter</button>
+                <button>LinkedIn</button>
+                <button>Copy Link</button>
+            </div>
+            
+        </section>
+    </main>
+    <script>
+        // Basic CMS fetching logic skeleton
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const projectId = urlParams.get('id');
+            
+            if (projectId) {
+                // Future CMS integration point:
+                // fetch(`/api/projects/${projectId}`)
+                //   .then(res => res.json())
+                //   .then(data => populatePage(data));
+                
+                console.log('Loading project:', projectId);
+                
+                // If this is connected to the dummy data for preview:
+                fetch('data/projects.json')
+                    .then(res => res.json())
+                    .then(data => {
+                        const project = data.items.find(p => p.link.includes(projectId));
+                        if (project) {
+                            document.getElementById('post-title').textContent = project.title;
+                            document.getElementById('post-overview').textContent = project.description;
+                            if (project.image) {
+                                document.getElementById('post-cover').src = project.image;
+                                document.getElementById('post-logo').src = project.image;
+                            }
+                            document.getElementById('post-role').textContent = project.category + " Designer";
+                            document.getElementById('post-timeline').textContent = project.year;
+                        }
+                    });
+            }
+        });
+    </script>
+</body>
+</html>

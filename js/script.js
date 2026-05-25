@@ -1,4 +1,4 @@
-﻿document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     // --- Modals ---
     const estimateModal = document.getElementById('estimate-modal');
     const closeBtns = document.querySelectorAll('.close-modal-btn');
@@ -57,10 +57,14 @@
             }
 
             filtered.forEach(project => {
-                const card = document.createElement('a');
-                card.href = project.link || '#';
-                card.className = 'project-card';
-                card.target = project.link && project.link !== '#' ? '_blank' : '_self';
+                const card = document.createElement('li');
+                
+                // Clicking the li navigates to the project link
+                card.onclick = () => {
+                    if(project.link && project.link !== '#') {
+                        window.open(project.link, '_blank');
+                    }
+                };
 
                 let hoverMediaHTML = '';
                 if (project.hoverMedia) {
@@ -72,24 +76,12 @@
                 }
 
                 card.innerHTML = `
-                    <img class="project-bg-media" src="${project.image || 'images/paper-bg.png'}" alt="${project.title}" />
-                    ${hoverMediaHTML}
-                    <div class="project-overlay"></div>
-                    <div class="project-number handwritten-title">${project.order || ''}</div>
-                    <div class="project-info">
-                        <div class="project-info-header">
-                            ${getCategoryIcon(project.category)}
-                            <h3 class="handwritten-title">${project.title}</h3>
-                        </div>
-                        <p>${project.description || ''}</p>
-                        <div class="project-footer">
-                            <span class="project-link">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                                View Live
-                            </span>
-                            <span class="project-year">${project.year || ''}</span>
-                        </div>
-                    </div>
+                    <figure>
+                        <img src="${project.image || 'images/paper-bg.png'}" alt="${project.title}" />
+                        ${hoverMediaHTML}
+                    </figure>
+                    <h3>${project.title} <span>${project.category}</span></h3>
+                    <p>${project.description || ''}</p>
                 `;
                 projectsGrid.appendChild(card);
             });

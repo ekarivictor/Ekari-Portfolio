@@ -1,13 +1,13 @@
-{
+﻿{
   "items": [
     {
       "order": "#1",
-      "title": "Candoxa Explainer",
-      "description": "just design - he animates brands to life, engineers digital products, and builds experiences you didn't know you needed until you couldn't stop scrolling.",
+      "title": "Partyverse",
+      "description": "just design - he animates brands to life, engineers digital products, and builds experiences you didn't know you needed.",
       "category": "Motion",
-      "year": "2001",
-      "link": "https://example.com",
-      "image": "/images/placeholder.png",
+      "year": "2023",
+      "link": "project-detail.html?id=partyverse",
+      "image": "images/chrome-partyvest.webp",
       "hoverMedia": ""
     },
     {
@@ -16,8 +16,8 @@
       "description": "an design the sandbox scene to the engineers liquid network...",
       "category": "Motion",
       "year": "2023",
-      "link": "https://example.com",
-      "image": "/images/placeholder.png",
+      "link": "project-detail.html?id=sandbox",
+      "image": "images/placeholder.png",
       "hoverMedia": ""
     },
     {
@@ -26,8 +26,8 @@
       "description": "A complete overhaul of the visual identity for a local coffee shop.",
       "category": "Branding",
       "year": "2024",
-      "link": "#",
-      "image": "/images/placeholder.png",
+      "link": "project-detail.html?id=brand-redesign",
+      "image": "images/placeholder.png",
       "hoverMedia": ""
     },
     {
@@ -36,8 +36,8 @@
       "description": "A fully custom Shopify theme for a boutique clothing brand.",
       "category": "Website",
       "year": "2024",
-      "link": "#",
-      "image": "/images/placeholder.png",
+      "link": "project-detail.html?id=e-commerce",
+      "image": "images/placeholder.png",
       "hoverMedia": ""
     }
   ]
