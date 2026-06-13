@@ -1,4 +1,43 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Load Site CMS Text ---
+    function loadSiteText() {
+        // Load Homepage Text
+        fetch('data/home.json')
+            .then(res => res.json())
+            .then(data => {
+                const introEl = document.getElementById('cms-intro-text');
+                const contactHeaderEl = document.getElementById('cms-contact-header');
+                const contactSubtextEl = document.getElementById('cms-contact-subtext');
+                
+                if (introEl && data.introText) introEl.innerHTML = data.introText;
+                if (contactHeaderEl && data.contactHeader) contactHeaderEl.innerHTML = data.contactHeader;
+                if (contactSubtextEl && data.contactSubtext) contactSubtextEl.innerHTML = data.contactSubtext;
+            }).catch(e => console.log('No home.json found or error loading it', e));
+
+        // Load About Page Text
+        fetch('data/about.json')
+            .then(res => res.json())
+            .then(data => {
+                const titleEl = document.getElementById('cms-about-hero-title');
+                const bioEl = document.getElementById('cms-about-bio');
+                const philEl = document.getElementById('cms-about-philosophy');
+                const skillsEl = document.getElementById('cms-about-skills');
+                const hobbiesEl = document.getElementById('cms-about-hobbies');
+
+                if (titleEl && data.heroTitle) titleEl.innerHTML = data.heroTitle;
+                if (bioEl && data.heroBio) bioEl.innerHTML = data.heroBio;
+                if (philEl && data.philosophy) philEl.innerHTML = data.philosophy;
+                
+                if (skillsEl && data.skills && Array.isArray(data.skills)) {
+                    skillsEl.innerHTML = data.skills.map(s => `<span class="tag">${s}</span>`).join('');
+                }
+                if (hobbiesEl && data.hobbies && Array.isArray(data.hobbies)) {
+                    hobbiesEl.innerHTML = data.hobbies.map(s => `<span class="tag">${s}</span>`).join('');
+                }
+            }).catch(e => console.log('No about.json found or error loading it', e));
+    }
+    loadSiteText();
+
     // --- Modals ---
     const estimateModal = document.getElementById('estimate-modal');
     const closeBtns = document.querySelectorAll('.close-modal-btn');

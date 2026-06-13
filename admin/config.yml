@@ -1,4 +1,4 @@
-backend:
+﻿backend:
   name: git-gateway
   branch: main
   # Set your repository name below if you are not using Netlify's Git Gateway
@@ -53,3 +53,30 @@ collections:
               - {label: "Image", name: "image", widget: "image", required: false}
               - {label: "Title", name: "title", widget: "string"}
               - {label: "Description", name: "description", widget: "text"}
+
+  - name: "pages"
+    label: "Pages (Site Text)"
+    files:
+      - file: "data/home.json"
+        label: "Home Page"
+        name: "home"
+        fields:
+          - {label: "Homepage Intro Text", name: "introText", widget: "text"}
+          - {label: "Footer Contact Header", name: "contactHeader", widget: "string"}
+          - {label: "Footer Contact Subtext", name: "contactSubtext", widget: "string"}
+      
+      - file: "data/about.json"
+        label: "About Page"
+        name: "about"
+        fields:
+          - {label: "Hero Title", name: "heroTitle", widget: "string"}
+          - {label: "Bio Paragraphs (Rich Text)", name: "heroBio", widget: "markdown"}
+          - {label: "Philosophy Text", name: "philosophy", widget: "string"}
+          - label: "Skills List"
+            name: "skills"
+            widget: "list"
+            field: {label: "Skill", name: "skill", widget: "string"}
+          - label: "Hobbies List"
+            name: "hobbies"
+            widget: "list"
+            field: {label: "Hobby", name: "hobby", widget: "string"}
