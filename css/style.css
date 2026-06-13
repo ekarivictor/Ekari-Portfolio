@@ -1,4 +1,4 @@
-﻿:root {
+:root {
     --bg-color: #111111;
     --text-primary: #FFFFFF;
     --text-secondary: #8A8A8E;
@@ -352,7 +352,7 @@ body {
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+    gap: 0;
     margin-bottom: 20px;
 }
 
