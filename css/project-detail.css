@@ -111,7 +111,7 @@
 .design-body > div {
     display: grid;
     grid-template-columns: 21.5rem 1fr;
-    margin: 4.8rem 0;
+    margin: 8rem 0; /* Increased spacing */
 }
 
 @media (max-width: 759px) {
@@ -123,15 +123,14 @@
 }
 
 .design-body h2 {
-    color: #fff;
-    font-family: var(--font-primary), monospace;
-    font-size: 1.2rem;
-    font-weight: 600;
-    letter-spacing: -0.036rem;
+    color: var(--accent-color); /* Green */
+    font-family: var(--font-handwritten), cursive;
+    font-size: 40px; /* Matching homepage handwritten settings */
+    font-weight: normal;
+    letter-spacing: normal;
     line-height: normal;
     padding-left: 0;
-    text-transform: uppercase;
-    opacity: 0.7;
+    text-transform: none; /* Reenie Beanie looks better without all-caps */
 }
 
 @media (max-width: 759px) {
@@ -161,11 +160,11 @@
 
 .design-body p {
     align-self: stretch;
-    color: #d0d0d0;
+    color: var(--text-secondary, #a0a0a0);
     font-family: var(--font-primary), sans-serif;
-    font-size: 1.6rem;
+    font-size: 20px; /* Matching homepage hero-description size */
     font-weight: 400;
-    line-height: 160%;
+    line-height: 1.6;
     margin-bottom: 1.25em;
 }
 
@@ -193,7 +192,8 @@
     align-items: center;
     display: flex;
     gap: 2.6rem;
-    margin-block: 3.2rem 8rem;
+    margin-top: 6rem;
+    margin-bottom: 16rem; /* Huge spacing before messaging section */
     color: #fff;
 }
 
