@@ -1,4 +1,4 @@
-:root {
+﻿:root {
     --bg-color: #111111;
     --text-primary: #FFFFFF;
     --text-secondary: #8A8A8E;
@@ -126,19 +126,19 @@ body {
         opacity: 0;
     }
     45% {
-        content: '∞';
+        content: 'âˆž';
         color: var(--accent-color);
         transform: translate(-50%, -50%) scale(0) rotate(-180deg);
         opacity: 0;
     }
     50%, 85% {
-        content: '∞';
+        content: 'âˆž';
         color: var(--accent-color);
         transform: translate(-50%, -50%) scale(1.2) rotate(0deg);
         opacity: 1;
     }
     90% {
-        content: '∞';
+        content: 'âˆž';
         color: var(--accent-color);
         transform: translate(-50%, -50%) scale(0) rotate(180deg);
         opacity: 0;
@@ -2128,84 +2128,16 @@ body.great-wall-body {
     margin-bottom: 8px !important;
 }
 
-/* Reference site Projects List Styles */
-.projects-list {
-    column-gap: 4rem;
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 1.4rem;
-    padding: 0;
-    list-style: none;
-}
-
-.projects-list li {
-    cursor: pointer;
-    padding-bottom: 3.2rem;
-    width: 39.7rem;
-    transition: transform 0.2s ease;
-}
-
-@media (max-width: 759px) {
-    .projects-list li {
-        width: 100%;
-    }
-}
-
-.projects-list li:hover figure {
-    border-radius: 2rem;
-}
-
-.projects-list li:hover figure img,
-.projects-list li:hover figure video {
-    transform: scale(1.02);
-}
-
-.projects-list figure {
-    background: #f6f6f6;
-    height: auto;
-    overflow: hidden;
-    transition: border-radius .5s ease;
-    width: 39.7rem;
-    margin: 0;
-    position: relative;
-}
-
-@media (max-width: 759px) {
-    .projects-list figure {
-        width: 100%;
-    }
-}
-
-.projects-list figure img,
-.projects-list figure video {
-    transform: scale(1.075);
-    transition: transform .5s ease;
-    width: 100%;
-    height: auto;
-    display: block;
-    object-fit: cover;
-}
-
-.projects-list h3 {
-    align-items: center;
+/* Category Badge for Work.exe */
+.category-badge {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.1);
     color: #fff;
-    display: flex;
+    font-size: 14px;
     font-family: var(--font-primary), sans-serif;
-    font-size: 2rem;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-left: 12px;
+    vertical-align: middle;
     font-weight: 500;
-    margin-top: 1.9rem;
-    margin-bottom: 0;
-}
-
-.projects-list h3 span {
-    color: #aaa;
-    font-size: 1.6rem;
-    margin-left: auto;
-}
-
-.projects-list p {
-    color: #a0a0a0;
-    font-size: 1.6rem;
-    margin-block: 1.2rem;
-    font-family: var(--font-primary), sans-serif;
 }
