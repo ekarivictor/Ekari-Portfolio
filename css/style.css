@@ -282,10 +282,7 @@ body {
 }
 
 /* Intro Section */
-.intro-section {
-    max-width: 600px;
-    margin-bottom: 36px;
-}
+.intro-section { max-width: 600px; padding: 64px 0; }
 
 .main-intro-text {
     font-size: 14px;
@@ -294,9 +291,7 @@ body {
 }
 
 /* Projects Section */
-.projects-section {
-    margin-bottom: 36px;
-}
+.projects-section { padding: 64px 0; }
 
 .projects-intro {
     display: none; /* removed from HTML, keeping class just in case */
@@ -739,9 +734,7 @@ body {
     margin-top: 40px;
 }
 
-.client-section {
-    margin-bottom: 36px;
-}
+.client-section { padding: 64px 0; }
 
 .client-logos {
     display: flex;
@@ -787,9 +780,7 @@ body {
 }
 
 /* Testimonials Section */
-.testimonials-section {
-    margin-bottom: 36px;
-}
+.testimonials-section { padding: 64px 0; }
 
 .testimonials-grid {
     display: grid;
@@ -2193,4 +2184,5 @@ body.great-wall-body {
         display: block;
     }
 }
+
 
