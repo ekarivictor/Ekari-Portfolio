@@ -53,9 +53,9 @@
 .design-head h1 {
     color: #fff;
     font-family: var(--font-primary), sans-serif;
-    font-size: 6.4rem;
+    font-size: 3.6rem;
     font-weight: 400;
-    letter-spacing: -0.032rem;
+    letter-spacing: -0.018rem;
     line-height: 120%;
     margin: 2rem 0;
 }
@@ -71,9 +71,9 @@
     align-self: stretch;
     color: #a0a0a0;
     font-family: var(--font-primary), sans-serif;
-    font-size: 4.8rem;
+    font-size: 1.8rem;
     font-weight: 400;
-    line-height: 130%;
+    line-height: 140%;
 }
 
 .design-cover {
@@ -125,7 +125,7 @@
 .design-body h2 {
     color: var(--accent-color); /* Green */
     font-family: var(--font-handwritten), cursive;
-    font-size: 40px; /* Matching homepage handwritten settings */
+    font-size: 28px; /* Matching nav bar texts */
     font-weight: normal;
     letter-spacing: normal;
     line-height: normal;
