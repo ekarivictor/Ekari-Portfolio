@@ -1,4 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Autograph Hover Logic ---
+    const autographVideos = document.querySelectorAll('.autograph-video');
+    autographVideos.forEach(video => {
+        // When metadata loads, seek near the end to show the last frame
+        video.addEventListener('loadedmetadata', function() {
+            if(this.duration) this.currentTime = Math.max(0, this.duration - 0.1);
+        });
+        
+        // Sometimes loadedmetadata fires before the script runs if cached
+        if(video.readyState >= 1 && video.duration) {
+            video.currentTime = Math.max(0, video.duration - 0.1);
+        }
+
+        video.addEventListener('mouseenter', function() {
+            this.currentTime = 0;
+            this.play().catch(e => console.log("Autoplay blocked", e));
+        });
+
+        video.addEventListener('mouseleave', function() {
+            this.pause();
+            if(this.duration) this.currentTime = Math.max(0, this.duration - 0.1);
+        });
+        
+        video.addEventListener('ended', function() {
+            // Keep it at the last frame when it finishes playing
+            if(this.duration) this.currentTime = Math.max(0, this.duration - 0.1);
+        });
+    });
+
     // --- Preloader Logic ---
     const preloader = document.getElementById('global-preloader');
     if (preloader) {
