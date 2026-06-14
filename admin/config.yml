@@ -1,4 +1,4 @@
-﻿backend:
+backend:
   name: git-gateway
   branch: main
   # Set your repository name below if you are not using Netlify's Git Gateway
@@ -27,6 +27,11 @@ collections:
               - {label: "Hover Media (Video/Gif)", name: "hoverMedia", widget: "file", required: false}
               - {label: "Year", name: "year", widget: "string"}
               - {label: "Live Link", name: "link", widget: "string", required: false}
+              - {label: "Project Logo", name: "logo", widget: "image", required: false}
+              - {label: "Role", name: "role", widget: "string", required: false}
+              - {label: "Timeline", name: "timeline", widget: "string", required: false}
+              - {label: "About Text", name: "aboutText", widget: "markdown", required: false}
+              - {label: "The Challenge (Main Content)", name: "challengeText", widget: "markdown", required: false}
 
   - name: "testimonials"
     label: "Testimonials"

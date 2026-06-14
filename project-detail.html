@@ -9,6 +9,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Reenie+Beanie&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/project-detail.css">
+    <!-- Markdown Parser for CMS content -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <div class="site-wrapper">
@@ -196,12 +198,46 @@
                         if (project) {
                             document.getElementById('post-title').textContent = project.title;
                             document.getElementById('post-overview').textContent = project.description;
+                            
+                            // Cover Image
                             if (project.image) {
                                 document.getElementById('post-cover').src = project.image;
+                            }
+                            
+                            // Logo Image
+                            if (project.logo) {
+                                document.getElementById('post-logo').src = project.logo;
+                            } else if (project.image) {
+                                // fallback to cover image
                                 document.getElementById('post-logo').src = project.image;
                             }
-                            document.getElementById('post-role').textContent = project.category + " Designer";
-                            document.getElementById('post-timeline').textContent = project.year;
+
+                            // Meta fields
+                            if (project.role) {
+                                document.getElementById('post-role').textContent = project.role;
+                            } else {
+                                document.getElementById('post-role').textContent = project.category + " Designer";
+                            }
+                            
+                            if (project.timeline) {
+                                document.getElementById('post-timeline').textContent = project.timeline;
+                            } else {
+                                document.getElementById('post-timeline').textContent = project.year;
+                            }
+                            
+                            // Rich Text Fields (Markdown)
+                            if (project.aboutText) {
+                                document.getElementById('post-about').innerHTML = window.marked ? window.marked.parse(project.aboutText) : project.aboutText;
+                            }
+                            
+                            if (project.challengeText) {
+                                document.getElementById('dynamic-content').innerHTML = `
+                                    <h2>The Challenge</h2>
+                                    <article>
+                                        ${window.marked ? window.marked.parse(project.challengeText) : project.challengeText}
+                                    </article>
+                                `;
+                            }
                         }
                     });
             }
