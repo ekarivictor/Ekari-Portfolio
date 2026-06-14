@@ -1,4 +1,31 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- Preloader Logic ---
+    const preloader = document.getElementById('global-preloader');
+    if (preloader) {
+        document.body.style.overflow = 'hidden';
+        let preloaderHidden = false;
+        
+        const hidePreloader = () => {
+            if (preloaderHidden) return;
+            preloaderHidden = true;
+            preloader.classList.add('hidden');
+            document.body.style.overflow = '';
+            setTimeout(() => preloader.remove(), 600);
+        };
+
+        const isMobile = window.innerWidth <= 768;
+        const activeVideo = isMobile ? preloader.querySelector('.mobile-preloader') : preloader.querySelector('.desktop-preloader');
+        
+        if (activeVideo) {
+            // Force play in case autoplay was blocked initially
+            activeVideo.play().catch(e => console.log('Autoplay blocked', e));
+            activeVideo.addEventListener('ended', hidePreloader);
+            // Fallback if video takes too long or errors out
+            setTimeout(hidePreloader, 3500);
+        } else {
+            window.addEventListener('load', hidePreloader);
+        }
+    }
     // --- Load Site CMS Text ---
     function loadSiteText() {
         // Load Homepage Text

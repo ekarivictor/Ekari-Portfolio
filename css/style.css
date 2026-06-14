@@ -2125,3 +2125,46 @@ body.great-wall-body {
     vertical-align: middle;
     font-weight: 500;
 }
+/* Preloader */
+#global-preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    background-color: #050505;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.6s ease-out, visibility 0.6s ease-out;
+}
+
+#global-preloader.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+#global-preloader video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.desktop-preloader {
+    display: block;
+}
+
+.mobile-preloader {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .desktop-preloader {
+        display: none;
+    }
+    .mobile-preloader {
+        display: block;
+    }
+}
