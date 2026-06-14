@@ -20,21 +20,21 @@ document.addEventListener('DOMContentLoaded', () => {
     resize();
 
     const rawImages = [
-        'web carousel/10k back.jpg',
-        'web carousel/card kingxqueen copy.jpg',
-        'web carousel/casino von march copy.png',
-        'web carousel/Casino Von Queen copy 2.png',
-        'web carousel/Casino Vonking red copy 2.png',
-        'web carousel/CasinoVon copy.jpg',
-        'web carousel/Casinovonpass copy.jpg',
-        'web carousel/client exp 1.png',
-        'web carousel/emma copy.png',
-        'web carousel/illustration.png',
-        'web carousel/Pattern black branded.png',
-        'web carousel/speak.png',
-        'web carousel/SWITCH.png',
-        'web carousel/Titos food No expiry date-25.png',
-        'web carousel/win 1.png'
+        'web carousel/10k back.webp',
+        'web carousel/card kingxqueen copy.webp',
+        'web carousel/casino von march copy.webp',
+        'web carousel/Casino Von Queen copy 2.webp',
+        'web carousel/Casino Vonking red copy 2.webp',
+        'web carousel/CasinoVon copy.webp',
+        'web carousel/Casinovonpass copy.webp',
+        'web carousel/client exp 1.webp',
+        'web carousel/emma copy.webp',
+        'web carousel/illustration.webp',
+        'web carousel/Pattern black branded.webp',
+        'web carousel/speak.webp',
+        'web carousel/SWITCH.webp',
+        'web carousel/Titos food No expiry date-25.webp',
+        'web carousel/win 1.webp'
     ];
 
     const loadedImages = rawImages.map(src => {
