@@ -18,10 +18,16 @@ document.addEventListener('DOMContentLoaded', () => {
         
         if (activeVideo) {
             // Force play in case autoplay was blocked initially
-            activeVideo.play().catch(e => console.log('Autoplay blocked', e));
+            activeVideo.play().catch(e => {
+                console.log('Autoplay blocked', e);
+                // If autoplay completely fails, hide it so site isn't stuck
+                hidePreloader();
+            });
             activeVideo.addEventListener('ended', hidePreloader);
-            // Fallback if video takes too long or errors out
-            setTimeout(hidePreloader, 3500);
+            activeVideo.addEventListener('error', hidePreloader);
+            
+            // Extreme fallback just in case video hangs forever
+            setTimeout(hidePreloader, 15000);
         } else {
             window.addEventListener('load', hidePreloader);
         }
