@@ -279,9 +279,11 @@
                             
                             if (project.challengeText) {
                                 document.getElementById('dynamic-content').innerHTML = `
-                                    <h2>The Challenge</h2>
-                                    <article>
-                                        ${window.marked ? window.marked.parse(project.challengeText) : project.challengeText}
+                                    <h2 class="handwritten-title text-accent">The Challenge</h2>
+                                    <article class="text-sm fw-regular text-secondary" style="line-height: 1.6;">
+                                        <div style="margin-bottom: 1.25em;">
+                                            ${window.marked ? window.marked.parse(project.challengeText) : project.challengeText}
+                                        </div>
                                     </article>
                                 `;
                             }
