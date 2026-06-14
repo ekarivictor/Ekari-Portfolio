@@ -2,7 +2,7 @@
 
 .design {
     padding: 6.4rem;
-    background-color: #000;
+    background-color: transparent;
     color: #fff;
     min-height: 100vh;
 }
@@ -53,7 +53,7 @@
 .design-head h1 {
     color: #fff;
     font-family: var(--font-primary), sans-serif;
-    font-size: 3.2rem;
+    font-size: 6.4rem;
     font-weight: 400;
     letter-spacing: -0.032rem;
     line-height: 120%;
@@ -71,7 +71,7 @@
     align-self: stretch;
     color: #a0a0a0;
     font-family: var(--font-primary), sans-serif;
-    font-size: 1.6rem;
+    font-size: 4.8rem;
     font-weight: 400;
     line-height: 130%;
 }
@@ -162,7 +162,7 @@
     align-self: stretch;
     color: var(--text-secondary, #a0a0a0);
     font-family: var(--font-primary), sans-serif;
-    font-size: 20px; /* Matching homepage hero-description size */
+    font-size: 3.6rem;
     font-weight: 400;
     line-height: 1.6;
     margin-bottom: 1.25em;
