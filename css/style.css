@@ -777,7 +777,7 @@ body {
 
 .client-logos {
     display: flex;
-    gap: 8px;
+    gap: 24px;
     align-items: center;
 }
 
