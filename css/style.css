@@ -2368,16 +2368,18 @@ body.great-wall-body {
     width: 100%;
     padding: 0 5vw;
     margin-bottom: 80px;
-    max-width: 1200px;
+    max-width: 1512px;
     margin-left: auto;
     margin-right: auto;
+    display: flex;
+    justify-content: center;
 }
 
 .case-study-hero img,
 .case-study-hero video {
     width: 100%;
-    height: auto;
-    max-height: 70vh;
+    max-width: 1345px;
+    aspect-ratio: 1345 / 423;
     object-fit: cover;
     border-radius: 8px;
 }
@@ -2446,9 +2448,11 @@ body.great-wall-body {
 }
 
 .case-study-marquee img {
-    height: 300px;
+    height: auto;
+    max-height: 400px;
     width: auto;
-    object-fit: cover;
+    max-width: 600px;
+    object-fit: contain;
     border-radius: 8px;
 }
 
