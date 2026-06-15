@@ -297,9 +297,20 @@
         </div>
       </div>
       
+      <div class="form-group row-group">
+        <div class="half-width">
+          <label>Custom Request</label>
+          <input type="text" placeholder="What do you want done?">
+        </div>
+        <div class="half-width">
+          <label>Estimated Budget</label>
+          <input type="text" placeholder="e.g. $5,000">
+        </div>
+      </div>
+      
       <div class="form-group">
-        <label>Additional Notes <span class="required">*</span> <span class="info-icon">i</span></label>
-        <textarea rows="4" placeholder="Placeholder text..." required></textarea>
+        <label>Additional Notes <span class="info-icon">i</span></label>
+        <textarea rows="4" placeholder="Any other details..."></textarea>
       </div>
       
       <div class="form-actions">
@@ -402,7 +413,6 @@ function render(){
       <div class="ci">
         <div class="cn">${s.name}</div>
         <div class="cd">${s.desc}</div>
-        <div class="cp">${pFmt(s,qty>0?qty:1)}</div>
       </div>
       <div class="cright" onclick="event.stopPropagation()">
         <div class="qty-row">
@@ -469,7 +479,6 @@ function renderPanel(){
     html+=`<div class="pitem">
       <div class="pi-info">
         <div class="pi-name">${s.name}</div>
-        <div class="pi-range">${pFmt(s,qty)}</div>
         ${qty>1?`<div class="pi-qty">qty: ${qty}</div>`:''}
       </div>
       <button class="pi-rm" onclick="rmItem('${s.id}')" aria-label="remove">×</button>
@@ -502,9 +511,7 @@ function copyEstimate(){
   txt+='================================\n\n';
   items.forEach(({s,qty})=>{
     const p=cur==='usd'?s.u:s.n;
-    const lo=cur==='usd'?`$${(p[0]*qty).toLocaleString()}`:`₦${nFmt(p[0]*qty)}`;
-    const hi=cur==='usd'?`$${(p[1]*qty).toLocaleString()}`:`₦${nFmt(p[1]*qty)}`;
-    txt+=`• ${s.name}${qty>1?' (×'+qty+')':''}\n  ${lo} – ${hi}\n\n`;
+    txt+=`• ${s.name}${qty>1?' (×'+qty+')':''}\n`;
   });
   txt+='================================\n';
   if(cur==='usd'){
@@ -559,7 +566,6 @@ function openRequestModal(){
           <h4>${s.name}</h4>
           <p>${s.desc}</p>
         </div>
-        <div class="est-price">${pFmt(s,qty)}</div>
       </div>`;
     });
     container.innerHTML = html;
