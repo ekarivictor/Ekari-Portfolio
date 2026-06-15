@@ -128,7 +128,10 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         const renderProjects = (category = 'All') => {
-            let filtered = category === 'All' ? allProjects : allProjects.filter(p => p.category === category);
+            let filtered = category === 'All' ? allProjects : allProjects.filter(p => {
+                if (Array.isArray(p.category)) return p.category.includes(category);
+                return p.category === category;
+            });
             
             // Limit to 9 items
             filtered = filtered.slice(0, 9);
@@ -142,9 +145,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
             filtered.forEach(project => {
                 const card = document.createElement('a');
-                card.href = project.link || '#';
+                
+                // Route to project detail, or use direct link if provided and requested
+                if (project.link && project.link !== '#') {
+                    card.href = project.link;
+                    card.target = '_blank';
+                } else {
+                    card.href = `project-detail.html?id=${encodeURIComponent(project.title)}`;
+                    card.target = '_self';
+                }
+                
                 card.className = 'project-card';
-                card.target = project.link && project.link !== '#' ? '_self' : '_self';
 
                 let hoverMediaHTML = '';
                 if (project.hoverMedia) {
@@ -154,36 +165,63 @@ document.addEventListener('DOMContentLoaded', () => {
                         hoverMediaHTML = `<img class="project-hover-media" src="${project.hoverMedia}" alt="${project.title} hover" />`;
                     }
                 }
+                
+                let categoriesArray = Array.isArray(project.category) ? project.category : [project.category || ''];
+                let categoriesHTML = categoriesArray.map(cat => {
+                    let mainColor = '#FFFFFF';
+                    let bgColor = 'rgba(255,255,255,0.1)';
+                    
+                    if (cat.toLowerCase().includes('motion')) {
+                        mainColor = '#42C5F4'; // Cyan/Blue
+                        bgColor = 'rgba(66, 197, 244, 0.15)';
+                    } else if (cat.toLowerCase().includes('branding')) {
+                        mainColor = '#A4E320'; // Light Green
+                        bgColor = 'rgba(164, 227, 32, 0.15)';
+                    } else if (cat.toLowerCase().includes('web')) {
+                        mainColor = '#F6C15E'; // Orange/Peach
+                        bgColor = 'rgba(246, 193, 94, 0.15)';
+                    }
+                    
+                    return `<span class="category-pill" style="color: ${mainColor}; background: ${bgColor}; padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-right: 8px; display: inline-flex; align-items: center; gap: 6px;"><div style="width:6px; height:6px; border-radius:50%; background-color:${mainColor};"></div> ${cat}</span>`;
+                }).join('');
 
                 card.innerHTML = `
-                    <img class="project-bg-media" src="${project.image || 'images/paper-bg.png'}" alt="${project.title}" />
-                    ${hoverMediaHTML}
-                    <div class="project-overlay"></div>
-                    <div class="project-number handwritten-title">${project.order || ''}</div>
-                    <div class="project-info">
-                        <div class="project-info-header">
-                            ${getCategoryIcon(project.category)}
-                            <h3 class="handwritten-title">${project.title} <span class="category-badge">${project.category}</span></h3>
+                    <div class="project-image-wrapper" style="position: relative; width: 100%; aspect-ratio: 4/3; overflow: hidden; border-radius: 8px;">
+                        <img class="project-bg-media" src="${project.image || 'images/paper-bg.png'}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;" />
+                        ${hoverMediaHTML}
+                        <div class="project-number handwritten-title" style="position: absolute; top: 16px; right: 24px; font-size: 64px; color: var(--accent-color); text-shadow: 2px 4px 12px rgba(0,0,0,0.5); z-index: 5;">${project.order || ''}</div>
+                    </div>
+                    
+                    <div class="project-info" style="padding: 16px 0; display: flex; flex-direction: column; gap: 12px; flex: 1;">
+                        <h3 class="handwritten-title" style="font-size: 40px; color: var(--accent-color); margin: 0;">${project.title}</h3>
+                        <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.5; margin: 0; max-width: 95%; flex: 1;">${project.description || ''}</p>
+                        
+                        <div class="project-categories" style="display: flex; flex-wrap: wrap; margin-bottom: auto;">
+                            ${categoriesHTML}
                         </div>
-                        <p>${project.description || ''}</p>
-                        <div class="project-footer">
-                            <span class="project-link">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
-                                View Live
+                        
+                        <div class="project-footer" style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; width: 100%;">
+                            <span class="project-link" style="color: ${project.link ? '#fff' : 'rgba(255,255,255,0.3)'}; font-size: 14px; text-decoration: none;">
+                                View Live Link
                             </span>
-                            <span class="project-year">${project.year || ''}</span>
+                            <span class="project-year" style="color: #fff; font-size: 14px; opacity: 0.5;">${project.year || ''}</span>
                         </div>
                     </div>
                 `;
+                
+                // If no live link, disable clicking the "View Live Link" button behavior by ensuring it looks disabled
+                // However, the card itself still clicks to the case study
+                
                 projectsGrid.appendChild(card);
             });
         };
 
         const updateCounts = () => {
+            const hasCat = (p, cat) => Array.isArray(p.category) ? p.category.includes(cat) : p.category === cat;
             document.getElementById('count-All').innerText = allProjects.length;
-            document.getElementById('count-Motion').innerText = allProjects.filter(p => p.category === 'Motion').length;
-            document.getElementById('count-Branding').innerText = allProjects.filter(p => p.category === 'Branding').length;
-            document.getElementById('count-Website').innerText = allProjects.filter(p => p.category === 'Website').length;
+            document.getElementById('count-Motion').innerText = allProjects.filter(p => hasCat(p, 'Motion')).length;
+            document.getElementById('count-Branding').innerText = allProjects.filter(p => hasCat(p, 'Branding')).length;
+            document.getElementById('count-Website').innerText = allProjects.filter(p => hasCat(p, 'Website')).length;
         };
 
         // Fetch Data

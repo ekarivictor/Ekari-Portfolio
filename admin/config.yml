@@ -22,7 +22,7 @@ collections:
               - {label: "Order Number", name: "order", widget: "string"}
               - {label: "Title", name: "title", widget: "string"}
               - {label: "Description", name: "description", widget: "text"}
-              - {label: "Category", name: "category", widget: "select", options: ["All", "Motion", "Branding", "Website"]}
+              - {label: "Category", name: "category", widget: "select", options: ["Motion", "Branding", "Website", "Web/UI", "Graphic Design"], multiple: true}
               - {label: "Image Placeholder", name: "image", widget: "image"}
               - {label: "Hover Media (Video/Gif)", name: "hoverMedia", widget: "file", required: false}
               - {label: "Year", name: "year", widget: "string"}
