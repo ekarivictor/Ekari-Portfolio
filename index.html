@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Reenie+Beanie&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
     <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
@@ -544,7 +545,7 @@
 
         <footer class="main-footer">
             <div class="footer-logo">
-                <video class="autograph-video" src="images/autograph.mp4" muted playsinline preload="auto"></video>
+                <dotlottie-player class="autograph-video" src="images/AutographEkari.lottie" background="transparent" speed="1" autoplay></dotlottie-player>
                 <span class="copyright">© ekarivictor + PixelEngr</span>
             </div>
             <button class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
