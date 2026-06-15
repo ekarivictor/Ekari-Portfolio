@@ -122,7 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
             switch(category) {
                 case 'Motion': return '<svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M10 8l6 4-6 4V8z"></path></svg>';
                 case 'Branding': return '<svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>';
-                case 'Website': return '<svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>';
+                case 'Web/UI': return '<svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></svg>';
                 default: return '<svg class="project-icon" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
             }
         };
@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('count-All').innerText = allProjects.length;
             document.getElementById('count-Motion').innerText = allProjects.filter(p => hasCat(p, 'Motion')).length;
             document.getElementById('count-Branding').innerText = allProjects.filter(p => hasCat(p, 'Branding')).length;
-            document.getElementById('count-Website').innerText = allProjects.filter(p => hasCat(p, 'Website')).length;
+            document.getElementById('count-Web/UI').innerText = allProjects.filter(p => hasCat(p, 'Web/UI')).length;
         };
 
         // Fetch Data
