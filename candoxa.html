@@ -158,6 +158,27 @@
         </div>
 
         <section class="case-study-section">
+            <h2 class="case-study-heading">MOTION GRAPHICS</h2>
+            <div class="case-study-content">
+                <p>A curated selection of motion pieces created to showcase the Candoxa product. Each piece was built to communicate a specific product moment — from the onboarding flow to the stamping sequence — for use across social, launch campaigns, and in-product contexts.</p>
+            </div>
+            <div class="video-gallery">
+                <div class="video-item" data-video-src="videos/candoxa/Candoxa Gifting 2.mp4">
+                    <video src="videos/candoxa/Candoxa Gifting 2.mp4" preload="metadata" muted playsinline></video>
+                    <div class="play-overlay">
+                        <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                    </div>
+                </div>
+                <div class="video-item" data-video-src="videos/candoxa/Candoxa Pass.mp4">
+                    <video src="videos/candoxa/Candoxa Pass.mp4" preload="metadata" muted playsinline></video>
+                    <div class="play-overlay">
+                        <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="case-study-section">
             <h2 class="case-study-heading">UI / Screens</h2>
             <div class="case-study-content">
                 <p>The Candoxa UI covers the full product surface: from first landing on the site to having a verified, shareable entry on your permanent profile.</p>
@@ -275,6 +296,50 @@
             </div>
         </footer>
     </div>
+
+    <!-- Video Modal Overlay -->
+    <div id="videoModal" class="video-modal">
+        <div class="video-modal-content">
+            <span class="close-video-modal">&times;</span>
+            <video id="modalVideoPlayer" controls controlsList="nodownload"></video>
+        </div>
+    </div>
+
     <script src="js/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const videoItems = document.querySelectorAll('.video-item');
+            const videoModal = document.getElementById('videoModal');
+            const modalVideoPlayer = document.getElementById('modalVideoPlayer');
+            const closeModalBtn = document.querySelector('.close-video-modal');
+
+            if (videoItems.length > 0 && videoModal) {
+                videoItems.forEach(item => {
+                    item.addEventListener('click', () => {
+                        const videoSrc = item.getAttribute('data-video-src');
+                        if (videoSrc) {
+                            modalVideoPlayer.src = videoSrc;
+                            videoModal.classList.add('active');
+                            modalVideoPlayer.play();
+                        }
+                    });
+                });
+
+                const closeModal = () => {
+                    videoModal.classList.remove('active');
+                    modalVideoPlayer.pause();
+                    modalVideoPlayer.src = '';
+                };
+
+                closeModalBtn.addEventListener('click', closeModal);
+
+                videoModal.addEventListener('click', (e) => {
+                    if (e.target === videoModal) {
+                        closeModal();
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
