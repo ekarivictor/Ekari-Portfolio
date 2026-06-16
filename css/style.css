@@ -2704,3 +2704,11 @@ body.great-wall-body {
     color: #ccc;
 }
 
+
+.case-study-marquee .video-item {
+    height: 400px;
+    width: calc(400px * 16 / 9);
+    flex-shrink: 0;
+    margin: 0;
+}
+
