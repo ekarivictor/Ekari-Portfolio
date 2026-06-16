@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         
                         <div class="project-footer" style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; width: 100%;">
-                            <span class="project-link" style="color: ${project.link ? '#fff' : 'rgba(255,255,255,0.3)'}; font-size: 14px; text-decoration: none;">
+                            <span class="project-link" style="color: ${(project.liveLink || project.link) ? '#fff' : 'rgba(255,255,255,0.3)'}; font-size: 14px; text-decoration: none;" ${project.liveLink ? `onclick="window.open('${project.liveLink}', '_blank'); event.preventDefault(); event.stopPropagation();"` : ''}>
                                 View Live Link
                             </span>
                             <span class="project-year" style="color: #fff; font-size: 14px; opacity: 0.5;">${project.year || ''}</span>

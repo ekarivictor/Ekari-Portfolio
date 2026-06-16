@@ -24,7 +24,8 @@
                       "description":  "Digital Identity Onchain Forever. Document your profile once. Prove them forever. Candoxa creates an immutable, professional record of everything you\u0027ve built.",
                       "order":  "#2",
                       "image":  "images/candoxa-hero.jpeg",
-                      "hoverMedia":  ""
+                      "hoverMedia":  "",
+                      "liveLink": "https://candoxa.com"
                   }
               ]
 }

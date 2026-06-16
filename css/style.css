@@ -2547,3 +2547,35 @@ body.great-wall-body {
     background: #88C000;
     color: #000;
 }
+
+.candoxa-socials {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 10px;
+}
+.candoxa-social-link {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: var(--text-base);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+.candoxa-social-link:hover {
+    color: var(--accent-color);
+    opacity: 1;
+    transform: translateX(5px);
+}
+
+
+.project-link[onclick]:hover {
+    text-decoration: underline !important;
+    opacity: 1 !important;
+}
+.project-link[onclick] {
+    cursor: pointer;
+    position: relative;
+    z-index: 10;
+}
+
