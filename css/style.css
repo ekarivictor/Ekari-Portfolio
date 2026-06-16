@@ -2607,10 +2607,12 @@ body.great-wall-body {
 
 /* Video Gallery */
 .video-gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 24px;
-    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin: 40px auto 80px auto;
+    max-width: 1000px;
+    padding: 0 20px;
 }
 
 .video-item {
