@@ -2581,9 +2581,8 @@ body.great-wall-body {
 
 
 .live-link-btn {
-    padding: 8px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
+    padding: 8px 0;
+    border: none;
     font-size: 14px;
     color: var(--text-primary);
     background: transparent;
@@ -2594,12 +2593,10 @@ body.great-wall-body {
     z-index: 10;
 }
 .live-link-btn:not(.disabled):hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.5);
     color: var(--accent-color);
+    text-decoration: underline;
 }
 .live-link-btn.disabled {
-    border: 1px solid rgba(255, 255, 255, 0.05);
     color: rgba(255, 255, 255, 0.3);
     cursor: not-allowed;
 }
