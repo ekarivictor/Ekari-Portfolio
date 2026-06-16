@@ -201,9 +201,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         
                         <div class="project-footer" style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; width: 100%;">
-                            <span class="project-link" style="color: ${(project.liveLink || project.link) ? '#fff' : 'rgba(255,255,255,0.3)'}; font-size: 14px; text-decoration: none;" ${project.liveLink ? `onclick="window.open('${project.liveLink}', '_blank'); event.preventDefault(); event.stopPropagation();"` : ''}>
-                                View Live Link
-                            </span>
+                            ${(() => {
+                                let isWebUi = categoriesArray.some(c => c.toLowerCase().includes('web') || c.toLowerCase().includes('ui'));
+                                if (isWebUi) {
+                                    let clickHandler = project.liveLink ? `onclick="window.open('${project.liveLink}', '_blank'); event.preventDefault(); event.stopPropagation();"` : `onclick="event.preventDefault(); event.stopPropagation();"`;
+                                    return `<button class="live-link-btn" ${clickHandler}>View Live Link</button>`;
+                                } else {
+                                    return `<button class="live-link-btn disabled" disabled onclick="event.preventDefault(); event.stopPropagation();">View Live Link</button>`;
+                                }
+                            })()}
                             <span class="project-year" style="color: #fff; font-size: 14px; opacity: 0.5;">${project.year || ''}</span>
                         </div>
                     </div>
