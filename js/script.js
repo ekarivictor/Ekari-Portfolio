@@ -231,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         // Fetch Data
-        fetch('data/projects.json')
+        fetch('data/projects.json?t=' + new Date().getTime())
             .then(res => res.json())
             .then(data => {
                 if (data && data.items) {
