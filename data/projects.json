@@ -40,6 +40,20 @@
             "image": "images/saletick/image8.png",
             "hoverMedia": "",
             "liveLink": "https://saletick.net"
+        },
+        {
+            "order": "#4",
+            "title": "Superteam",
+            "description": "Superteam Bounties: Designing for Solana Ecosystem Products. Multiple bounty challenges across the Solana ecosystem.",
+            "category": [
+                "Web/UI",
+                "Motion"
+            ],
+            "year": "2024",
+            "link": "superteam.html",
+            "image": "images/superteam/Desktop.png",
+            "hoverMedia": "",
+            "liveLink": "https://x.com/VictorEkari/status/2027325267472007264"
         }
     ]
 }
