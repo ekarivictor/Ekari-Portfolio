@@ -2714,25 +2714,9 @@ body.great-wall-body {
     width: 100%;
 }
 
-.case-study-image img,
-.case-study-image video {
+.case-study-image img {
     max-width: 100%;
     height: auto;
     border-radius: 12px;
 }
 
-
-.case-study-side-by-side {
-    display: flex;
-    gap: 20px;
-    margin-bottom: 40px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.case-study-side-by-side img,
-.case-study-side-by-side video {
-    max-width: 100%;
-    height: auto;
-    border-radius: 12px;
-}
