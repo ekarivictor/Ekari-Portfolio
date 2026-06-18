@@ -2707,3 +2707,16 @@ body.great-wall-body {
     margin: 0;
 }
 
+
+.case-study-image {
+    text-align: center;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+.case-study-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
