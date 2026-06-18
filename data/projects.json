@@ -54,6 +54,19 @@
             "image": "images/superteam/hero.png",
             "hoverMedia": "",
             "liveLink": "https://x.com/VictorEkari/status/2027325267472007264"
+        },
+        {
+            "order": "#5",
+            "title": "Casino Von",
+            "description": "Bringing a casino to life before it ever opened its doors.",
+            "category": [
+                "Motion",
+                "Branding"
+            ],
+            "year": "2026",
+            "link": "casinovon.html",
+            "image": "images/casinovon/CasinoVon copy.webp",
+            "hoverMedia": ""
         }
     ]
 }
