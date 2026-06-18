@@ -2457,7 +2457,7 @@ body.great-wall-body {
 
 .case-study-marquee img {
     height: auto;
-    max-height: 1080px;
+    max-height: 650px;
     width: auto;
     max-width: none;
     object-fit: contain;
