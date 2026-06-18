@@ -67,6 +67,20 @@
             "link": "casinovon.html",
             "image": "images/casinovon/CasinoVon copy.webp",
             "hoverMedia": ""
+        },
+        {
+            "order": "#6",
+            "title": "Legend Switch",
+            "description": "Making premium electrical hardware feel as considered as the spaces it lives in.",
+            "category": [
+                "Web Design",
+                "Motion Graphics"
+            ],
+            "year": "2026",
+            "link": "legendswitches.html",
+            "image": "images/legendswitches/MacBook Pro 16_ - 1.png",
+            "hoverMedia": "",
+            "liveLink": "https://legendswitch.com"
         }
     ]
 }
