@@ -178,7 +178,7 @@
   <button class="ft" onclick="setF('motion',this)">Motion<sup id="ct-motion"></sup></button>
   <button class="ft" onclick="setF('branding',this)">Branding<sup id="ct-branding"></sup></button>
   <button class="ft" onclick="setF('website',this)">Web/UI<sup id="ct-website"></sup></button>
-  <button class="ft" onclick="setF('addon',this)">Add-ons<sup id="ct-addon"></sup></button>
+  
 </div>
 
 <div class="body">
@@ -371,16 +371,6 @@ const SVC=[
   {id:'w6',cat:'website',sec:'Web/UI Design',sub:'Website Packages',name:'E-commerce (Large)',desc:'50–200 products, full setup',n:[900000,1800000],u:[630,1260]},
   {id:'w7',cat:'website',sec:'Web/UI Design',sub:'Website Packages',name:'Blog Website',desc:'Blog + CMS setup',n:[220000,400000],u:[154,280]},
   {id:'w8',cat:'website',sec:'Web/UI Design',sub:'Website Packages',name:'Real Estate Website',desc:'Listings + filters + enquiry form',n:[550000,1100000],u:[385,770]},
-  {id:'a1',cat:'addon',sec:'Add-ons',sub:'Website',name:'Domain + Hosting Setup',desc:'Registration + server configuration',n:[20000,45000],u:[14,32]},
-  {id:'a2',cat:'addon',sec:'Add-ons',sub:'Website',name:'SEO Setup (On-page)',desc:'Meta, schema, keyword optimisation',n:[45000,120000],u:[32,84]},
-  {id:'a3',cat:'addon',sec:'Add-ons',sub:'Website',name:'Monthly Maintenance',desc:'Updates, backups, monitoring',n:[20000,60000],u:[14,42]},
-  {id:'a4',cat:'addon',sec:'Add-ons',sub:'Website',name:'Payment Gateway Setup',desc:'Paystack, Stripe, Flutterwave',n:[28000,65000],u:[20,46]},
-  {id:'a5',cat:'addon',sec:'Add-ons',sub:'Website',name:'Micro Interaction',desc:'Hover effects, scroll triggers, loading states',n:[35000,80000],u:[25,56]},
-  {id:'a6',cat:'addon',sec:'Add-ons',sub:'Website',name:'Custom Interaction (Rive/Spline)',desc:'Custom animation on site',n:[45000,500000],u:[32,360]},
-  {id:'a7',cat:'addon',sec:'Add-ons',sub:'General',name:'Source Files (AI/PSD/AE)',desc:'Project file handoff',n:[15000,45000],u:[11,32]},
-  {id:'a8',cat:'addon',sec:'Add-ons',sub:'General',name:'Extra Revision Round',desc:'Beyond included revisions',n:[5000,12000],u:[4,9]},
-  {id:'a9',cat:'addon',sec:'Add-ons',sub:'General',name:'Subtitles / Captions',desc:'Per video',n:[8000,20000],u:[6,14]},
-  {id:'a10',cat:'addon',sec:'Add-ons',sub:'General',name:'ElevenLabs Voiceover',desc:'AI voiceover integration',n:[25000,60000],u:[18,42]},
 ];
 
 let cur='usd',filt='all',cart={};
@@ -397,7 +387,7 @@ function nFmt(v){return v>=1000000?(v/1000000).toFixed(1)+'m':v>=1000?(v/1000)+'
 
 function render(){
   const q=document.getElementById('srch-in').value.toLowerCase();
-  const cats={all:0,motion:0,branding:0,website:0,addon:0};
+  const cats={all:0,motion:0,branding:0,website:0};
   SVC.forEach(s=>cats[s.cat]++);
   cats.all=SVC.length;
   Object.keys(cats).forEach(k=>{const el=document.getElementById('ct-'+k);if(el)el.textContent=cats[k];});

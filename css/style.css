@@ -2720,3 +2720,12 @@ body.great-wall-body {
     border-radius: 12px;
 }
 
+
+/* Blur prices globally */
+.price, .pt-main, .pt-sub, #bar-amt, .te-amt {
+    filter: blur(6px);
+    user-select: none;
+    pointer-events: none;
+    transition: filter 0.3s ease;
+}
+
