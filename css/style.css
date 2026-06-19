@@ -2779,3 +2779,8 @@ body.great-wall-body {
     background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
 }
 
+
+.service-card-image.brand-studio-flagship-img {
+    background: url('../images/brand-studio-flagship.jpg') center/cover no-repeat;
+}
+
