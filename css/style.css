@@ -2770,8 +2770,8 @@ body.great-wall-body {
 
 
 /* Brand Seed Image and Custom Gradient Overlay */
-.brand-seed-img {
-    background: url('../images/brand-seed.jpg') center/cover no-repeat;
+.service-card-image.brand-seed-img {
+    background: url("../web carousel/Titos food No expiry date-25.webp") center/cover no-repeat;
 }
 
 .service-card-gradient.full-gradient {
