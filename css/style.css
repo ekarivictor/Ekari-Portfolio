@@ -2768,3 +2768,14 @@ body.great-wall-body {
     }
 }
 
+
+/* Brand Seed Image and Custom Gradient Overlay */
+.brand-seed-img {
+    background: url('../images/brand-seed.jpg') center/cover no-repeat;
+}
+
+.service-card-gradient.full-gradient {
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+}
+
