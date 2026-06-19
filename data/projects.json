@@ -81,6 +81,18 @@
             "image": "images/legendswitches/legendheroimage.png",
             "hoverMedia": "",
             "liveLink": "https://legendswitch.com"
+        },
+        {
+            "order": "#7",
+            "title": "Zacra Cafe",
+            "description": "Zacra Cafe is a premium drinks experience \u2014 smoothies, milkshakes, and cocktails served with the kind of presentation that makes every order feel like an occasion.",
+            "category": [
+                "Motion Graphics"
+            ],
+            "year": "2026",
+            "link": "zacra.html",
+            "image": "images/zacra/hero.png",
+            "hoverMedia": ""
         }
     ]
 }
