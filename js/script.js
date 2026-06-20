@@ -952,4 +952,18 @@ document.addEventListener('DOMContentLoaded', () => {
             card.classList.toggle('flipped');
         });
     });
+
+    // --- SERVICE CARD VIDEO HOVER/MOBILE LOGIC ---
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach(card => {
+        const video = card.querySelector('video');
+        if (video) {
+            if (window.innerWidth <= 768) {
+                video.play().catch(e => console.log('Autoplay blocked on mobile', e));
+            } else {
+                card.addEventListener('mouseenter', () => video.play());
+                card.addEventListener('mouseleave', () => video.pause());
+            }
+        }
+    });
 });
