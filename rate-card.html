@@ -372,6 +372,28 @@ body { background: #151515; color: #f0ede6; font-family: var(--font-primary, 'In
     text-align: center;
     padding: 40px 0;
 }
+
+@media (max-width: 768px) {
+    .hero {
+        padding-top: 52px; /* 20px default + 32px = 52px */
+    }
+    .hero-sub-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-top: 16px;
+    }
+    .cur-row {
+        margin-top: 0 !important;
+    }
+}
+.hero-sub-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 16px;
+}
+
 </style>
 </head>
 <body>
@@ -389,11 +411,14 @@ body { background: #151515; color: #f0ede6; font-family: var(--font-primary, 'In
 
     <div class="hero">
         <div class="hero-title">Ekari Rate Card <span>. 2026</span></div>
-        <div class="cur-row">
-            <button class="cb" id="cb-ngn" onclick="setCur('ngn')">₦ NGN</button>
-            <button class="cb on" id="cb-usd" onclick="setCur('usd')">$ USD</button>
+        
+        <div class="hero-sub-container">
+            <div class="hero-sub" style="margin-top: 0;">Pick what you need.<br>Get an instant estimate.</div>
+            <div class="cur-row" style="margin-top: 0;">
+                <button class="cb" id="cb-ngn" onclick="setCur('ngn')">₦ NGN</button>
+                <button class="cb on" id="cb-usd" onclick="setCur('usd')">$ USD</button>
+            </div>
         </div>
-        <div class="hero-sub">Pick what you need.<br>Get an instant estimate.</div>
         
         <div class="top-est">
             <span class="te-label">Estimate</span>
