@@ -3224,3 +3224,11 @@ body.great-wall-body {
 .contact-form input[type="checkbox"] {
     width: auto !important;
 }
+
+
+/* --- MOBILE TWEAKS (CENTER FOOTER ICONS) --- */
+@media (max-width: 768px) {
+    .footer-social {
+        align-items: center !important;
+    }
+}
