@@ -287,6 +287,9 @@ body {
     padding: 16px;
     transform: rotate(-2deg);
     transition: transform 0.3s ease;
+    width: 350px;
+    max-width: 400px;
+    flex-shrink: 0;
 }
 
 .polaroid-card:nth-child(even) {
