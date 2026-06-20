@@ -3143,3 +3143,34 @@ body.great-wall-body {
         flex-shrink: 0; /* Prevent buttons from squishing */
     }
 }
+
+
+/* --- MOBILE TWEAKS (REDUCE SECTION SPACING BY 24PX) --- */
+@media (max-width: 768px) {
+    /* 
+       To reduce the space between sections by 24px, we subtract 12px 
+       from the bottom of each section and 12px from the top of the next.
+    */
+    .intro-section,
+    .projects-section,
+    .client-section,
+    .testimonials-section {
+        padding-top: 52px !important; /* 64 - 12 = 52 */
+        padding-bottom: 52px !important; /* 64 - 12 = 52 */
+    }
+
+    .tools-section {
+        margin-top: 28px !important; /* 40 - 12 = 28 */
+        margin-bottom: 48px !important; /* 60 - 12 = 48 */
+    }
+
+    .store-kit-section {
+        margin-top: 0 !important;
+        margin-bottom: 24px !important; /* 36 - 12 = 24 */
+    }
+
+    .bottom-section {
+        margin-top: 36px !important; /* 48 - 12 = 36 */
+        margin-bottom: 24px !important; /* 36 - 12 = 24 */
+    }
+}
