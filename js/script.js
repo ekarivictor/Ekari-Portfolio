@@ -944,4 +944,12 @@ document.addEventListener('DOMContentLoaded', () => {
         marquee.addEventListener('mouseup', resumeAnim);
         marquee.addEventListener('mouseleave', resumeAnim);
     });
+
+    // --- TESTIMONIAL CARD FLIP ON CLICK ---
+    const testimonialCards = document.querySelectorAll('.testimonial-card');
+    testimonialCards.forEach(card => {
+        card.addEventListener('click', () => {
+            card.classList.toggle('flipped');
+        });
+    });
 });

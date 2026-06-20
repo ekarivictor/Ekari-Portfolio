@@ -831,7 +831,7 @@ body {
     transform-style: preserve-3d;
 }
 
-.testimonial-card:hover .flip-inner {
+.testimonial-card.flipped .flip-inner {
     transform: rotateY(180deg);
 }
 
