@@ -2320,12 +2320,13 @@ body.great-wall-body {
         z-index: -1;
     }
     .mobile-preloader {
-        position: static;
+        position: absolute;
+        top: 0;
+        left: 0;
         opacity: 1;
         pointer-events: auto;
         z-index: 1;
         width: 100vw !important;
-        height: 100vh !important;
         height: 100dvh !important;
         object-fit: cover !important;
     }
