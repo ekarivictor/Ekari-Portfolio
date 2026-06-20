@@ -746,3 +746,94 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+// Contact Form Interactive Animations
+document.addEventListener('DOMContentLoaded', () => {
+    const contactForm = document.querySelector('.contact-form');
+    const contactInputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
+    
+    const sendingVideo = document.getElementById('sending-anim');
+    const receiveVideo = document.getElementById('receive-anim');
+    
+    if (!sendingVideo || !receiveVideo) return;
+
+    let isTyping = false;
+    let typingTimeout;
+    let hasSent = false;
+    
+    // Animation constants
+    const SENDING_LOOP_START = 16 / 60; // Frame 16 at 60fps ~ 0.266s
+    const SENDING_LOOP_END = 45 / 60;   // Frame 45 at 60fps ~ 0.75s
+    const RECEIVE_LOOP_END = 2.0;       // 2 seconds
+    
+    // Setup videos
+    sendingVideo.pause();
+    sendingVideo.currentTime = 0;
+    receiveVideo.pause();
+    receiveVideo.currentTime = 0;
+
+    const startTyping = () => {
+        if (hasSent) return;
+        if (!isTyping) {
+            isTyping = true;
+            sendingVideo.play();
+            receiveVideo.play();
+        }
+        
+        clearTimeout(typingTimeout);
+        typingTimeout = setTimeout(() => {
+            isTyping = false;
+            // When idle, we pause where they are or go back to frame 0
+            sendingVideo.pause();
+            sendingVideo.currentTime = 0;
+            receiveVideo.pause();
+            receiveVideo.currentTime = 0;
+        }, 1500); // 1.5 seconds idle time = not typing
+    };
+
+    contactInputs.forEach(input => {
+        input.addEventListener('input', startTyping);
+    });
+
+    sendingVideo.addEventListener('timeupdate', () => {
+        if (hasSent) return; // If sent, play till end
+        
+        // If typing, loop from SENDING_LOOP_END to SENDING_LOOP_START
+        if (isTyping && sendingVideo.currentTime >= SENDING_LOOP_END) {
+            sendingVideo.currentTime = SENDING_LOOP_START;
+            sendingVideo.play(); // ensure playing
+        }
+    });
+
+    receiveVideo.addEventListener('timeupdate', () => {
+        if (hasSent) return; // If sent, play till end
+        
+        // If typing, loop from RECEIVE_LOOP_END to 0
+        if (isTyping && receiveVideo.currentTime >= RECEIVE_LOOP_END) {
+            receiveVideo.currentTime = 0;
+            receiveVideo.play(); // ensure playing
+        }
+    });
+
+    // Handle form submit
+    if (contactForm) {
+        contactForm.addEventListener('submit', () => {
+            hasSent = true;
+            isTyping = false;
+            clearTimeout(typingTimeout);
+            
+            // Jump to the final segments if they aren't already there
+            if (sendingVideo.currentTime < SENDING_LOOP_END) {
+                sendingVideo.currentTime = SENDING_LOOP_END;
+            }
+            if (receiveVideo.currentTime < RECEIVE_LOOP_END) {
+                receiveVideo.currentTime = RECEIVE_LOOP_END;
+            }
+            
+            sendingVideo.play();
+            receiveVideo.play();
+            
+            // They will naturally stop playing when they reach the end (assuming no loop attribute on video tags)
+        });
+    }
+});
