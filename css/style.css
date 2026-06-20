@@ -2220,7 +2220,10 @@ body.great-wall-body {
 }
 
 .mobile-preloader {
-    display: none;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
 }
 .text-accent { color: var(--accent-color); }
 
@@ -2300,15 +2303,24 @@ body.great-wall-body {
 }
 
 .mobile-preloader {
-    display: none;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    z-index: -1;
 }
 
 @media (max-width: 768px) {
     .desktop-preloader {
-        display: none;
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+        z-index: -1;
     }
     .mobile-preloader {
-        display: block;
+        position: static;
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 1;
     }
 }
 

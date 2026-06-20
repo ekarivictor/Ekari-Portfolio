@@ -29,6 +29,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const isMobile = window.innerWidth <= 768;
         const activeVideo = isMobile ? preloader.querySelector('.mobile-preloader') : preloader.querySelector('.desktop-preloader');
+        const inactiveVideo = isMobile ? preloader.querySelector('.desktop-preloader') : preloader.querySelector('.mobile-preloader');
+        
+        if (inactiveVideo) {
+            inactiveVideo.remove();
+        }
         
         if (activeVideo) {
             // Force play in case autoplay was blocked initially
