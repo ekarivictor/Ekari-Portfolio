@@ -764,7 +764,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let typingTimeout;
     let hasSent = false;
     let lottieReady = false;
-    let sendingCompleted = false;
+    
+    // Variables to track completion of both animations
+    let videoFinished = false;
+    let lottieFinished = false;
     
     // Animation constants
     const SENDING_LOOP_START = 16 / 60; // Frame 16 at 60fps ~ 0.266s
@@ -813,22 +816,41 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    const tryResetForm = () => {
+        if (videoFinished && lottieFinished) {
+            hasSent = false;
+            videoFinished = false;
+            lottieFinished = false;
+            
+            // Reset sending video
+            sendingVideo.pause();
+            sendingVideo.currentTime = 0;
+            
+            // Go back to the default loop for receiveLottie
+            if (lottieReady) {
+                const lottieInstance = receiveLottie.getLottie();
+                lottieInstance.playSegments([0, LOTTIE_LOOP_END], true);
+            }
+        }
+    };
+
+    sendingVideo.addEventListener('ended', () => {
+        if (hasSent) {
+            videoFinished = true;
+            tryResetForm();
+        }
+    });
+
     if (receiveLottie) {
         receiveLottie.addEventListener('complete', () => {
             if (lottieReady) {
                 const lottieInstance = receiveLottie.getLottie();
                 
                 if (hasSent) {
-                    // It just finished the final segment, so we reset the whole form state
-                    hasSent = false;
-                    sendingCompleted = false;
-                    // Reset sending video
-                    sendingVideo.pause();
-                    sendingVideo.currentTime = 0;
-                    // Go back to the default loop for receiveLottie
-                    lottieInstance.playSegments([0, LOTTIE_LOOP_END], true);
+                    lottieFinished = true;
+                    tryResetForm();
                 } else {
-                    // Keep looping the 0 to 2 seconds segment
+                    // Keep looping the 0 to 2 seconds segment when idle
                     lottieInstance.playSegments([0, LOTTIE_LOOP_END], true);
                 }
             }
@@ -841,7 +863,8 @@ document.addEventListener('DOMContentLoaded', () => {
             if (hasSent) return; // prevent double submit animation
             hasSent = true;
             isTyping = false;
-            sendingCompleted = true; // Act as if sending is completed immediately for reset logic
+            videoFinished = false;
+            lottieFinished = false;
             clearTimeout(typingTimeout);
             
             // Jump to the final segments if they aren't already there
