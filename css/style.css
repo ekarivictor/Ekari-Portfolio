@@ -3065,3 +3065,48 @@ body.great-wall-body {
         display: block !important; /* Show them when menu is open */
     }
 }
+
+
+/* --- MOBILE TWEAKS (PADDINGS & ICONS) --- */
+@media (max-width: 768px) {
+    /* 1. Reduce section margins to 16px */
+    .site-wrapper {
+        padding: 0 16px !important;
+    }
+    
+    .fragments-wrapper {
+        padding: 0 16px !important;
+    }
+
+    /* Ensure specific sections also respect the 16px bounds */
+    .case-study-header, 
+    .bottom-section, 
+    .testimonials-section,
+    .rc {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+    
+    .animated-contact-box {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+
+    /* 2. Extra 24px padding to the Ekari doesn't just design text */
+    #cms-intro-text, .main-intro-text {
+        padding-top: 24px !important;
+        padding-bottom: 24px !important;
+    }
+
+    /* 3. Scale down the tool icons by 1.2 (32px / 1.2 = 26.6px) */
+    .tools-section img {
+        height: 26.6px !important;
+        width: auto !important;
+    }
+    
+    /* Also allow them to wrap on narrow screens to avoid overflow */
+    .tools-section {
+        gap: 16px !important;
+        flex-wrap: wrap !important;
+    }
+}
