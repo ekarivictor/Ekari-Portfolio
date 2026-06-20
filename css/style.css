@@ -3187,3 +3187,29 @@ body.great-wall-body {
         margin-right: 16px !important;
     }
 }
+
+
+/* --- MOBILE TWEAKS (PREVENT CHECKBOX OVERFLOW / WRAPPING UNDER SEND BUTTON) --- */
+@media (max-width: 768px) {
+    .form-footer {
+        flex-wrap: nowrap !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 10px; /* Ensure there is a gap if they touch */
+    }
+    
+    .checkbox-container {
+        white-space: normal !important; /* allow the text to wrap internally instead of pushing to next line */
+        font-size: 13px !important;
+        line-height: 1.2;
+    }
+    
+    .checkbox-container input {
+        margin-right: 16px !important;
+        flex-shrink: 0; /* prevent the checkbox itself from squishing */
+    }
+    
+    .send-btn {
+        flex-shrink: 0; /* prevent the send button from squishing */
+    }
+}
