@@ -3037,7 +3037,7 @@ body.great-wall-body {
 
     .nav-links a {
         font-family: var(--font-handwritten), 'Reenie Beanie', cursive !important;
-        font-size: 32px !important;
+        font-size: 26px !important;
         color: #777 !important; /* Grey text for inactive links */
         letter-spacing: 2px;
         text-transform: none;
