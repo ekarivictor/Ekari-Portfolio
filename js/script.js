@@ -459,7 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- GALLERY LOGIC ---
     const galleryTrack = document.getElementById('gallery-track');
     if (galleryTrack) {
-        fetch('data/gallery.json')
+        fetch('data/gallery.json?t=' + new Date().getTime())
             .then(res => res.json())
             .then(data => {
                 if (data && data.items) {
