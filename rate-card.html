@@ -100,14 +100,21 @@
     margin-top: auto;
 }
 
-/* --- UNIFIED MOBILE LAYOUT CSS --- */
-.mobile-layout { display: none; }
-.desktop-layout { display: block; }
-
 @media (max-width: 768px) {
-    .desktop-layout { display: none !important; }
-    .mobile-layout { display: block; padding: 0 16px; }
+    .body {
+        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column-reverse;
+        padding: 0 16px;
+    }
     
+    .panel {
+        position: relative;
+        top: 0;
+        margin-left: 0;
+        margin-bottom: 30px;
+    }
+
     .hero { padding-top: 52px; }
     .hero-sub-container {
         display: flex;
@@ -116,76 +123,6 @@
         margin-top: 16px;
     }
     .cur-row { margin-top: 0 !important; }
-    
-    /* M-Panel */
-    .m-panel {
-        background: #050505;
-        border: 1px solid #c8f000;
-        border-radius: 16px;
-        padding: 24px;
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 30px;
-    }
-    .m-p-title {
-        font-family: var(--font-handwritten), 'Reenie Beanie', cursive;
-        font-size: 32px;
-        color: #c8f000;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        margin-bottom: 24px;
-    }
-    .m-pitems {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        margin-bottom: 24px;
-    }
-    
-    /* List Item Card */
-    .ric {
-        background: transparent;
-        border: 1px solid #2a2a2a;
-        border-radius: 8px;
-        padding: 16px;
-        display: flex;
-        justify-content: space-between;
-        gap: 16px;
-        position: relative;
-        transition: border-color 0.2s;
-        cursor: pointer;
-        margin-bottom: 8px;
-    }
-    .ric:hover { border-color: #5c5b5b; }
-    .ric-left { flex: 1; }
-    .ric-title { font-size: 15px; color: #f0ede6; font-weight: 600; margin-bottom: 4px; }
-    .ric-desc { font-size: 12px; color: #5c5b5b; margin-bottom: 8px; }
-    .ric-base { font-size: 13px; color: #f0ede6; }
-    .ric-right { display: flex; flex-direction: column; align-items: flex-end; justify-content: space-between; }
-    .ric-close {
-        position: absolute; top: 12px; right: 12px; color: #f0ede6; cursor: pointer; font-size: 18px; line-height: 1; background: none; border: none;
-    }
-    .ric-total { font-size: 14px; color: #f0ede6; font-weight: 600; margin-top: 24px; margin-bottom: 8px; }
-    .ric-counter {
-        display: flex; align-items: center; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 4px; overflow: hidden;
-    }
-    .ric-counter button { background: transparent; border: none; color: #f0ede6; padding: 4px 10px; cursor: pointer; font-size: 14px; }
-    .ric-counter button:hover { background: #2a2a2a; }
-    .ric-counter span { color: #f0ede6; font-size: 13px; min-width: 20px; text-align: center; }
-    
-    .ptotal { border-top: 1px solid #2a2a2a; padding-top: 24px; display: flex; justify-content: space-between; align-items: flex-start; }
-    .pt-label { font-family: var(--font-handwritten), 'Reenie Beanie', cursive; font-size: 28px; color: #c8f000; letter-spacing: 1px; }
-    .pt-main-col { text-align: right; }
-    .pt-main { font-size: 24px; color: #f0ede6; font-weight: 600; }
-    .pt-sub { font-size: 14px; color: #5c5b5b; margin-top: 4px; }
-    
-    .pbtns { display: flex; flex-direction: column; gap: 12px; margin-top: 24px; }
-    .pbtn { width: 100%; padding: 16px; font-family: var(--font-primary), 'Inter', sans-serif; font-size: 16px; font-weight: 600; cursor: pointer; border-radius: 24px; text-align: center; }
-    .pbtn-pri { background: #f0ede6; color: #0d0d0d; border: none; }
-    .pbtn-pri:hover { background: #c8f000; }
-    .pbtn-sec { background: transparent; color: #f0ede6; border: 1px solid #2a2a2a; }
-    .pbtn-sec:hover { border-color: #5c5b5b; }
 }
 </style>
 
@@ -278,28 +215,6 @@
 </div>
 
 
-<div class="mobile-layout">
-    <div class="panel-wrapper">
-        <div class="m-panel">
-            <div class="m-p-title">Your Estimate <span class="te-badge" id="m-pbadge">0</span></div>
-            <div class="m-pitems" id="m-pitems"><div class="pempty">Click any service to add it</div></div>
-            <div class="ptotal">
-                <div class="pt-label">Estimate</div>
-                <div class="pt-main-col">
-                    <div class="pt-main" id="m-pt-main">—</div>
-                    <div class="pt-sub" id="m-pt-sub"></div>
-                </div>
-            </div>
-            <div class="pbtns">
-                <button class="pbtn pbtn-pri" onclick="openRequestModal()">Request Estimate</button>
-                <button class="pbtn pbtn-sec" onclick="clearAll()">Clear All</button>
-            </div>
-        </div>
-    </div>
-    <div class="slist" id="m-slist"></div>
-</div>
-
-<div class="desktop-layout">
 <div class="body">
   <div class="slist" id="slist"></div>
   <div>
@@ -318,11 +233,6 @@
     </div>
   </div>
 </div>
-
-
-
-
-</div> <!-- end desktop-layout -->
 <footer class="main-footer">
             <div class="footer-logo">
                 <dotlottie-player class="autograph-video" src="images/AutographEkari.lottie" background="transparent" speed="1" autoplay></dotlottie-player>
