@@ -1053,14 +1053,17 @@ body {
     font-family: var(--font-handwritten);
     color: var(--text-secondary);
     font-size: var(--text-md);
-    display: none; /* Hidden by default */
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
     align-items: center;
     justify-content: center;
     gap: 8px;
 }
 
 .typing-indicator.active {
-    display: flex; /* Show when active */
+    opacity: 1;
 }
 
 .typing-dots {
