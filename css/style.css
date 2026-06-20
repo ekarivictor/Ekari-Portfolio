@@ -2969,6 +2969,7 @@ body.great-wall-body {
     }
 }
 
+
 /* --- HAMBURGER MENU DROPDOWN --- */
 .mobile-menu-toggle {
     display: none;
@@ -2987,22 +2988,31 @@ body.great-wall-body {
         left: 0 !important;
         width: 100% !important;
         display: flex;
-        justify-content: flex-end; /* Push items to the right */
-        align-items: center;
-        padding: 20px 20px !important;
+        justify-content: flex-end; /* Push social and hamburger to the right */
+        align-items: flex-start; /* Align to top */
+        padding: 25px 20px !important; /* 25px top padding to visually align with text */
         z-index: 10000;
         background: transparent;
+        pointer-events: none; /* Let clicks pass through empty header space */
     }
     
+    .main-header > * {
+        pointer-events: auto; /* But allow clicking social and hamburger */
+    }
+
     .social-links {
         display: flex !important;
-        order: 1; /* Before hamburger */
+        order: 1;
         margin-right: 10px;
+        align-items: center;
+        margin-top: 5px; /* fine tune alignment with text */
     }
 
     .mobile-menu-toggle {
         display: block;
-        order: 2; /* After social links */
+        order: 2;
+        padding: 0;
+        margin-top: 5px;
     }
 
     .nav-links {
@@ -3011,37 +3021,47 @@ body.great-wall-body {
         left: 0 !important;
         width: 100vw !important;
         height: 100vh !important;
-        background: #111111 !important; /* Dark overlay matching image */
+        background: transparent !important;
         flex-direction: column !important;
-        justify-content: flex-start !important; /* Top aligned */
-        align-items: flex-start !important; /* Left aligned */
+        justify-content: flex-start !important; 
+        align-items: flex-start !important; 
         gap: 30px !important;
-        padding: 100px 0 0 40px !important; /* Padding to sit below header */
-        opacity: 0;
-        visibility: hidden;
-        pointer-events: none;
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-        z-index: 9999 !important; /* Sits behind the header */
+        padding: 20px 0 0 20px !important; 
+        opacity: 1 !important; /* Always visible */
+        visibility: visible !important;
+        pointer-events: none !important; /* Clicks pass through the transparent part */
+        transition: background 0.3s ease;
+        z-index: 9999 !important; /* Sits behind the header controls */
         margin: 0 !important;
     }
 
     .nav-links.mobile-open {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
+        background: #111111 !important; /* Dark overlay when open */
+        pointer-events: auto !important; /* Capture clicks to prevent scrolling */
     }
-    
+
     .nav-links a {
         font-family: var(--font-handwritten), 'Reenie Beanie', cursive !important;
-        font-size: 36px !important;
+        font-size: 32px !important;
         color: #777 !important; /* Grey text for inactive links */
         letter-spacing: 2px;
         text-transform: none;
         padding-bottom: 5px;
+        pointer-events: auto !important; /* Re-enable clicks for links */
+        line-height: 1 !important;
     }
 
     .nav-links a.active {
         color: #88C000 !important; /* Green text for active link */
         border-bottom: 2px solid #88C000 !important; /* Green underline */
+        display: block !important;
+    }
+
+    .nav-links a:not(.active) {
+        display: none !important; /* Hide inactive links when menu is closed */
+    }
+
+    .nav-links.mobile-open a:not(.active) {
+        display: block !important; /* Show them when menu is open */
     }
 }
