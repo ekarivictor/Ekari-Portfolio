@@ -2784,3 +2784,21 @@ body.great-wall-body {
     background: url('../Brandguide.png') center/cover no-repeat;
 }
 
+
+/* Spark Package Video */
+.spark-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.spark-package-card:hover .spark-video {
+    opacity: 1;
+}
+

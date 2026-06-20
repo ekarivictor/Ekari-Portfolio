@@ -136,8 +136,10 @@
                                 <div class="service-panels">
                     <!-- MOTION TAB -->
                     <div class="service-panel active" id="service-motion">
-                        <div class="service-card">
-                            <div class="service-card-image"></div>
+                        <div class="service-card spark-package-card" onmouseenter="var v = this.querySelector('video'); if(v) v.play();" onmouseleave="var v = this.querySelector('video'); if(v) { v.pause(); }">
+                            <div class="service-card-image">
+                                <video class="spark-video" src="Braenda.mp4" muted loop playsinline preload="metadata"></video>
+                            </div>
                             <div class="service-card-gradient"></div>
                             <div class="service-card-content">
                                 <h3>Spark Package</h3>
@@ -245,7 +247,7 @@
                         </div>
                         <div class="service-card featured">
                             <div class="pricing-badge">MOST PICKED</div>
-                            <div class="service-card-image" style="background-image: url('Brand%20Studio.png') !important; background-size: cover !important; background-position: center !important;"></div>
+                            <div class="service-card-image" style="background-image: url('Brand%20Studio.webp') !important; background-size: cover !important; background-position: center !important;"></div>
                             <div class="service-card-gradient full-gradient"></div>
                             <div class="service-card-content">
                                 <h3>Brand Studio</h3>
@@ -270,7 +272,7 @@
                             </div>
                         </div>
                         <div class="service-card">
-                            <div class="service-card-image" style="background-image: url('Brand%20Flagship.png') !important; background-size: cover !important; background-position: center !important;"></div>
+                            <div class="service-card-image" style="background-image: url('Brand%20Flagship.webp') !important; background-size: cover !important; background-position: center !important;"></div>
                             <div class="service-card-gradient full-gradient"></div>
                             <div class="service-card-content">
                                 <h3>Brand Flagship</h3>
