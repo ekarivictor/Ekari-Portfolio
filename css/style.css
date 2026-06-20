@@ -2102,8 +2102,8 @@ body {
     line-height: 120%;
     margin: 0 auto;
     text-align: center;
-    width: 800px;
-    max-width: 80%;
+    width: 90%;
+    max-width: 800px;
 }
 
 
@@ -3242,4 +3242,20 @@ body.great-wall-body {
     transform: translateZ(0);
     opacity: 0.99; /* Hack to force new compositing layer in Safari */
     background: transparent !important;
+}
+
+
+/* --- GREAT WALL MOBILE TWEAKS --- */
+@media (max-width: 768px) {
+    .fragments-ref-footer {
+        height: auto !important;
+        padding: 40px 20px 60px !important; /* more padding at bottom for Safari safe area */
+    }
+    
+    .fragments-ref-footer p {
+        width: 100% !important;
+        max-width: none !important;
+        white-space: normal !important;
+        font-size: 14px !important;
+    }
 }
