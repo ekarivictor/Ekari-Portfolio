@@ -3174,3 +3174,16 @@ body.great-wall-body {
         margin-bottom: 24px !important; /* 36 - 12 = 24 */
     }
 }
+
+
+/* --- MOBILE TWEAKS (CHECKBOX SPACING) --- */
+@media (max-width: 768px) {
+    .checkbox-container input {
+        margin-right: 16px !important;
+    }
+    
+    /* Just in case they are using the span.checkmark for styling later */
+    .checkbox-container .checkmark {
+        margin-right: 16px !important;
+    }
+}
