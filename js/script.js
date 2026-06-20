@@ -932,7 +932,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
         const resumeAnim = () => {
-            marquee.style.animationPlayState = 'running';
+            marquee.style.animationPlayState = '';
         };
 
         // Touch events for mobile phones
