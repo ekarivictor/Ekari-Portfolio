@@ -3177,9 +3177,9 @@ body.great-wall-body {
         margin-right: 16px !important;
     }
     
-    /* Just in case they are using the span.checkmark for styling later */
+    /* Hide the empty span to prevent it from adding any accidental flex spacing */
     .checkbox-container .checkmark {
-        margin-right: 16px !important;
+        display: none !important;
     }
 }
 
