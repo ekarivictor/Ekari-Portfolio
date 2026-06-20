@@ -688,7 +688,10 @@ body {
 }
 
 .service-features {
-    list-style: none;
+    position: relative;
+    z-index: 3;
+      list-style: none;
+      padding: 0 24px;
     padding: 0 24px;
     margin-top: 10px;
 }
@@ -2795,6 +2798,8 @@ body.great-wall-body {
     left: 0;
     z-index: 0;
 }
+
+
 
 
 
