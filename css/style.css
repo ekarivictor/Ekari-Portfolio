@@ -2874,12 +2874,7 @@ body.great-wall-body {
     /* 4. Rate Cards / Pricing */
     .service-panel {
         grid-template-columns: 1fr !important;
-        display: grid !important; /* ensure it stays grid but 1 column */
-    }
-    
-    /* Hide inactive panels correctly if JS manages them, otherwise default to block */
-    .service-panel[style*="display: none"] {
-        display: none !important;
+        gap: 16px !important;
     }
 
     /* 5. Contact Section & Stats Card */
