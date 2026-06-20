@@ -2968,3 +2968,80 @@ body.great-wall-body {
         margin: 15px 0;
     }
 }
+
+/* --- HAMBURGER MENU DROPDOWN --- */
+.mobile-menu-toggle {
+    display: none;
+    background: transparent;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    z-index: 10001;
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    .main-header {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        display: flex;
+        justify-content: flex-end; /* Push items to the right */
+        align-items: center;
+        padding: 20px 20px !important;
+        z-index: 10000;
+        background: transparent;
+    }
+    
+    .social-links {
+        display: flex !important;
+        order: 1; /* Before hamburger */
+        margin-right: 10px;
+    }
+
+    .mobile-menu-toggle {
+        display: block;
+        order: 2; /* After social links */
+    }
+
+    .nav-links {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: #111111 !important; /* Dark overlay matching image */
+        flex-direction: column !important;
+        justify-content: flex-start !important; /* Top aligned */
+        align-items: flex-start !important; /* Left aligned */
+        gap: 30px !important;
+        padding: 100px 0 0 40px !important; /* Padding to sit below header */
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 9999 !important; /* Sits behind the header */
+        margin: 0 !important;
+    }
+
+    .nav-links.mobile-open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+    
+    .nav-links a {
+        font-family: var(--font-handwritten), 'Reenie Beanie', cursive !important;
+        font-size: 36px !important;
+        color: #777 !important; /* Grey text for inactive links */
+        letter-spacing: 2px;
+        text-transform: none;
+        padding-bottom: 5px;
+    }
+
+    .nav-links a.active {
+        color: #88C000 !important; /* Green text for active link */
+        border-bottom: 2px solid #88C000 !important; /* Green underline */
+    }
+}

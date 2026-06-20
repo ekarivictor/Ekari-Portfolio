@@ -887,3 +887,39 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// --- MOBILE MENU TOGGLE ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Only bind to the first toggle found if multiple exist
+    const mobileMenuToggles = document.querySelectorAll('.mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    mobileMenuToggles.forEach(toggle => {
+        toggle.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent accidental navigation
+            if(navLinks) {
+                navLinks.classList.toggle('mobile-open');
+                
+                // We don't toggle the icon since the reference image shows the hamburger remains a hamburger.
+                // Or if it needs an X, we'll just leave it as is. The user complained that I turned it into an X!
+                // "on clicking the hamburger it opens as a dropdown overlay" -> implies it just drops down without morphing.
+                
+                if (navLinks.classList.contains('mobile-open')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            }
+        });
+    });
+
+    if(navLinks) {
+        const links = navLinks.querySelectorAll('a');
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('mobile-open');
+                document.body.style.overflow = '';
+            });
+        });
+    }
+});
