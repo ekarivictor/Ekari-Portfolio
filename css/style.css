@@ -431,7 +431,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.8) 60%, rgba(0,0,0,0) 100%);
     z-index: 3;
     pointer-events: none;
 }
@@ -2775,7 +2775,7 @@ body.great-wall-body {
 
 .service-card-gradient.full-gradient {
     height: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 100%);
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0.8) 60%, rgba(0,0,0,0) 100%);
 }
 
 
@@ -2795,6 +2795,8 @@ body.great-wall-body {
     left: 0;
     z-index: 0;
 }
+
+
 
 
 
