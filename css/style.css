@@ -3232,3 +3232,14 @@ body.great-wall-body {
         align-items: center !important;
     }
 }
+
+
+/* --- MORE iOS SAFARI VIDEO FIXES --- */
+/* Force iOS to respect mix-blend-mode and trigger hardware acceleration properly */
+#sending-anim {
+    mix-blend-mode: screen !important;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    opacity: 0.99; /* Hack to force new compositing layer in Safari */
+    background: transparent !important;
+}
