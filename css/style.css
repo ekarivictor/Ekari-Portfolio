@@ -2822,3 +2822,149 @@ body.great-wall-body {
 
 
 
+
+
+/* --- MOBILE RESPONSIVE LAYOUT OVERRIDES --- */
+@media (max-width: 768px) {
+    /* 1. Navigation */
+    .nav-links {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    
+    .main-header {
+        position: relative !important;
+        transform: none !important;
+        left: 0 !important;
+        padding: 20px !important;
+    }
+
+    /* 2. Showcase / Projects Grid */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    /* Center the category buttons on mobile */
+    .category-buttons {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    /* 3. Vibe Wall */
+    .vibe-emojis {
+        flex-direction: row;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+    .vibe-emoji-item {
+        font-size: 40px;
+    }
+    .give-vibe-btn {
+        width: 100%;
+        margin-top: 15px;
+    }
+
+    /* 4. Rate Cards / Pricing */
+    .service-panel {
+        grid-template-columns: 1fr !important;
+        display: grid !important; /* ensure it stays grid but 1 column */
+    }
+    
+    /* Hide inactive panels correctly if JS manages them, otherwise default to block */
+    .service-panel[style*="display: none"] {
+        display: none !important;
+    }
+
+    /* 5. Contact Section & Stats Card */
+    .animated-contact-box {
+        flex-direction: column;
+        height: auto;
+        padding: 30px 15px;
+    }
+    
+    .animated-contact-box .contact-area {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px dashed var(--border-color);
+        padding-bottom: 30px;
+        margin-bottom: 30px;
+        padding-right: 0;
+    }
+    
+    .animated-contact-box .stats-card {
+        width: 100%;
+        padding-left: 0;
+    }
+
+    /* Stats Card Internals */
+    .stats-top {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+    
+    .stats-middle {
+        margin-bottom: 20px;
+    }
+
+    .stats-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 10px;
+    }
+    
+    .stats-bottom .stat-item {
+        width: 48%;
+    }
+    
+    /* Make the animations scale down nicely on mobile */
+    .stats-bottom .stat-item video,
+    .stats-bottom .stat-item dotlottie-player {
+        width: 100% !important;
+        max-width: 150px;
+        height: 150px !important;
+    }
+    
+    .stats-bottom .stat-big {
+        font-size: 24px;
+        margin-top: -12px !important; /* Adjust negative margin for smaller scale */
+    }
+
+    /* 6. Testimonials */
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .testimonial-card {
+        min-height: 250px; /* give it space to breathe on mobile */
+    }
+
+    /* 7. Footer */
+    .main-footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+        padding: 30px 20px;
+    }
+    
+    .footer-logo {
+        align-items: center;
+    }
+    
+    .footer-meta {
+        text-align: center;
+    }
+    
+    .back-to-top {
+        margin: 15px 0;
+    }
+}
