@@ -1,54 +1,59 @@
 {
-  "items": [
-    {
-      "image": "",
-      "title": "Gym Session 1",
-      "description": "Free times are for stressing the body to its limit"
-    },
-    {
-      "image": "",
-      "title": "Gym Session 2",
-      "description": "Free times are for stressing the body to its limit"
-    },
-    {
-      "image": "",
-      "title": "Gym Session 3",
-      "description": "Free times are for stressing the body to its limit"
-    },
-    {
-      "image": "",
-      "title": "Gym Session 4",
-      "description": "Free times are for stressing the body to its limit"
-    },
-    {
-      "image": "",
-      "title": "Gym Session 5",
-      "description": "Free times are for stressing the body to its limit"
-    },
-    {
-      "image": "",
-      "title": "Gym Session 6",
-      "description": "Free times are for stressing the body to its limit"
-    },
-    {
-      "image": "",
-      "title": "Gym Session 7",
-      "description": "Free times are for stressing the body to its limit"
-    },
-    {
-      "image": "",
-      "title": "Gym Session 8",
-      "description": "Free times are for stressing the body to its limit"
-    },
-    {
-      "image": "",
-      "title": "Gym Session 9",
-      "description": "Free times are for stressing the body to its limit"
-    },
-    {
-      "image": "",
-      "title": "Gym Session 10",
-      "description": "Free times are for stressing the body to its limit"
-    }
-  ]
+    "items": [
+        {
+            "title": "Graduation from University",
+            "description": "Graduated with a 2.1 Honors",
+            "image": "images/gallery/gallery_img_1.jpeg"
+        },
+        {
+            "title": "Digital character",
+            "description": "Created to be a digital imprint of who I am across social platforms",
+            "image": "images/gallery/gallery_img_2.jpeg"
+        },
+        {
+            "title": "NYSC Certification",
+            "description": "Rounding up and certification from NYSC 2025, Warri",
+            "image": "images/gallery/gallery_img_3.jpeg"
+        },
+        {
+            "title": "Gym Session",
+            "description": "No one hits a better leg day. Less is more",
+            "image": "images/gallery/gallery_img_4.jpeg"
+        },
+        {
+            "title": "Family",
+            "description": "Without them I do not exist",
+            "image": "images/gallery/gallery_img_5.jpeg"
+        },
+        {
+            "title": "Church function",
+            "description": "Not Yoruba but I think I killed the dressing",
+            "image": "images/gallery/gallery_img_6.jpeg"
+        },
+        {
+            "title": "Football Era",
+            "description": "Wan Bisaka style edit. Always loved my safety hence the Ninja coverup",
+            "image": "images/gallery/gallery_img_7.jpeg"
+        },
+        {
+            "title": "Siblings Farming",
+            "description": "Well we are just farmers",
+            "image": "images/gallery/gallery_img_8.jpeg"
+        },
+        {
+            "title": "Making faces",
+            "description": "It is always Intentional",
+            "image": "images/gallery/gallery_img_9.jpeg"
+        },
+        {
+            "title": "Internship at Arone",
+            "description": "Lets tag this everyone hates chris. Chris is beside me lol",
+            "image": "images/gallery/gallery_img_10.jpeg"
+        },
+        {
+            "title": "Camp cold style",
+            "description": "Whoever taught me fashion is a joker",
+            "image": "images/gallery/gallery_img_11.jpeg"
+        }
+    ]
 }
