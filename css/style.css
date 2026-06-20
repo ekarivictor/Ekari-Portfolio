@@ -2751,6 +2751,7 @@ body.great-wall-body {
     animation: block-flicker 2s steps(1) infinite;
     pointer-events: none;
     z-index: 0;
+    opacity: 0.5;
 }
 
 .bottom-section.animated-contact-box > * {

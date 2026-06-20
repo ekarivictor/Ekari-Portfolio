@@ -25,6 +25,8 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => preloader.remove(), 600);
         };
 
+        preloader.addEventListener("click", hidePreloader);
+
         const isMobile = window.innerWidth <= 768;
         const activeVideo = isMobile ? preloader.querySelector('.mobile-preloader') : preloader.querySelector('.desktop-preloader');
         
