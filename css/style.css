@@ -1681,10 +1681,10 @@ body {
 }
 
 #modal-overlay .modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
 }
 
 #modal-overlay .header-text h2 {
@@ -3253,6 +3253,200 @@ body.great-wall-body {
     .fragments-ref-footer {
         height: auto !important;
         padding: 40px 20px 60px !important; /* more padding at bottom for Safari safe area */
+    .nav-links.mobile-open a:not(.active) {
+        display: block !important; /* Show them when menu is open */
+    }
+}
+
+
+/* --- MOBILE TWEAKS (PADDINGS & ICONS) --- */
+@media (max-width: 768px) {
+    /* 1. Reduce section margins to 16px */
+    .site-wrapper {
+        padding: 0 16px !important;
+    }
+    
+    .fragments-wrapper {
+        padding: 0 16px !important;
+    }
+
+    /* Ensure specific sections also respect the 16px bounds */
+    .case-study-header, 
+    .bottom-section, 
+    .testimonials-section,
+    .rc {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+    
+    .animated-contact-box {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+
+    /* 2. Extra 24px padding to the Ekari doesn't just design text */
+    #cms-intro-text, .main-intro-text {
+        padding-top: 24px !important;
+        padding-bottom: 24px !important;
+    }
+
+    /* 3. Scale down the tool icons by 1.2 (32px / 1.2 = 26.6px) */
+    .tools-section img {
+        height: 26.6px !important;
+        width: auto !important;
+    }
+    
+    /* Also allow them to wrap on narrow screens to avoid overflow */
+    .tools-section {
+        gap: 16px !important;
+        flex-wrap: wrap !important;
+    }
+}
+
+
+/* --- MOBILE TWEAKS (HORIZONTAL SCROLL FOR WORK.EXE TABS) --- */
+@media (max-width: 768px) {
+    .sorts-container {
+        width: 100%;
+        max-width: 100vw;
+        overflow: hidden; /* Prevent parent from expanding page width */
+    }
+
+    .sort-buttons {
+        display: flex;
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
+        width: 100%;
+        padding-bottom: 5px; /* So the active underline isn't cut off */
+        gap: 20px; /* Slight reduction for mobile */
+    }
+
+    .sort-buttons::-webkit-scrollbar {
+        display: none; /* Chrome, Safari, Opera */
+    }
+
+    .sort-btn {
+        white-space: nowrap !important; /* Keep the <sup> on the same line */
+        display: inline-flex !important;
+        align-items: center; /* Vertically align text and count */
+        flex-shrink: 0; /* Prevent buttons from squishing */
+    }
+}
+
+
+/* --- MOBILE TWEAKS (REDUCE SECTION SPACING BY 24PX) --- */
+@media (max-width: 768px) {
+    /* 
+       To reduce the space between sections by 24px, we subtract 12px 
+       from the bottom of each section and 12px from the top of the next.
+    */
+    .intro-section,
+    .projects-section,
+    .client-section,
+    .testimonials-section {
+        padding-top: 52px !important; /* 64 - 12 = 52 */
+        padding-bottom: 52px !important; /* 64 - 12 = 52 */
+    }
+
+    .tools-section {
+        margin-top: 28px !important; /* 40 - 12 = 28 */
+        margin-bottom: 48px !important; /* 60 - 12 = 48 */
+    }
+
+    .store-kit-section {
+        margin-top: 0 !important;
+        margin-bottom: 24px !important; /* 36 - 12 = 24 */
+    }
+
+    .bottom-section {
+        margin-top: 36px !important; /* 48 - 12 = 36 */
+        margin-bottom: 24px !important; /* 36 - 12 = 24 */
+    }
+}
+
+
+/* --- MOBILE TWEAKS (CHECKBOX SPACING) --- */
+@media (max-width: 768px) {
+    .checkbox-container input {
+        margin-right: 16px !important;
+    }
+    
+    /* Hide the empty span to prevent it from adding any accidental flex spacing */
+    .checkbox-container .checkmark {
+        display: none !important;
+    }
+}
+
+
+/* --- MOBILE TWEAKS (PREVENT CHECKBOX OVERFLOW / WRAPPING UNDER SEND BUTTON) --- */
+@media (max-width: 768px) {
+    .form-footer {
+        flex-wrap: nowrap !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 10px; /* Ensure there is a gap if they touch */
+    }
+    
+    .checkbox-container {
+        white-space: normal !important; /* allow the text to wrap internally instead of pushing to next line */
+        font-size: 13px !important;
+        line-height: 1.2;
+    }
+    
+    .checkbox-container input {
+        margin-right: 16px !important;
+        flex-shrink: 0; /* prevent the checkbox itself from squishing */
+    }
+    
+    .send-btn {
+        flex-shrink: 0; /* prevent the send button from squishing */
+    }
+}
+
+
+/* --- FIX VIDEO TRANSPARENCY ON MOBILE --- */
+/* iOS Safari often fails to read alpha channels in .mov/.mp4 files properly. 
+   Using mix-blend-mode: screen drops the black background entirely, 
+   creating perfect transparency for light-colored animations on a dark theme! */
+#sending-anim {
+    mix-blend-mode: screen;
+}
+
+
+/* --- FIX CHECKBOX WIDTH --- */
+/* The global `.contact-form input` rule was forcing width: 100% onto the checkbox! */
+.contact-form input[type="checkbox"] {
+    width: auto !important;
+}
+
+
+/* --- MOBILE TWEAKS (CENTER FOOTER ICONS) --- */
+@media (max-width: 768px) {
+    .footer-social {
+        align-items: center !important;
+    }
+}
+
+
+/* --- MORE iOS SAFARI VIDEO FIXES --- */
+/* Force iOS to respect mix-blend-mode and trigger hardware acceleration properly */
+#sending-anim {
+    mix-blend-mode: screen !important;
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    opacity: 0.99; /* Hack to force new compositing layer in Safari */
+    background: transparent !important;
+}
+
+
+/* --- GREAT WALL MOBILE TWEAKS --- */
+@media (max-width: 768px) {
+    .fragments-ref-footer {
+        height: auto !important;
+        padding: 40px 20px 60px !important; /* more padding at bottom for Safari safe area */
     }
     
     .fragments-ref-footer p {
@@ -3260,5 +3454,9 @@ body.great-wall-body {
         max-width: none !important;
         white-space: normal !important;
         font-size: 14px !important;
+    }
+
+    #modal-overlay .vibe-overlay-modal {
+        max-height: 540px !important;
     }
 }
