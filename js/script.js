@@ -922,4 +922,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
     }
+
+    // --- MARQUEE PAUSE ON TOUCH/CLICK (MOBILE) ---
+    const marquees = document.querySelectorAll('.gallery-track, .marquee-track, .case-study-marquee');
+    marquees.forEach(marquee => {
+        const pauseAnim = () => {
+            if (window.innerWidth <= 768) {
+                marquee.style.animationPlayState = 'paused';
+            }
+        };
+        const resumeAnim = () => {
+            marquee.style.animationPlayState = 'running';
+        };
+
+        // Touch events for mobile phones
+        marquee.addEventListener('touchstart', pauseAnim, {passive: true});
+        marquee.addEventListener('touchend', resumeAnim);
+        
+        // Mouse events (in case they click/hold on tablet or using mouse simulation)
+        marquee.addEventListener('mousedown', pauseAnim);
+        marquee.addEventListener('mouseup', resumeAnim);
+        marquee.addEventListener('mouseleave', resumeAnim);
+    });
 });
