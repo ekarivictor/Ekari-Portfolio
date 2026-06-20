@@ -813,24 +813,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    sendingVideo.addEventListener('ended', () => {
-        if (hasSent && !sendingCompleted) {
-            sendingCompleted = true;
-            // Now that sending is complete, play the receive Lottie final segment
-            if (lottieReady) {
-                const lottieInstance = receiveLottie.getLottie();
-                lottieInstance.loop = false;
-                lottieInstance.playSegments([LOTTIE_LOOP_END, lottieInstance.totalFrames], true);
-            }
-        }
-    });
-
     if (receiveLottie) {
         receiveLottie.addEventListener('complete', () => {
             if (lottieReady) {
                 const lottieInstance = receiveLottie.getLottie();
                 
-                if (hasSent && sendingCompleted) {
+                if (hasSent) {
                     // It just finished the final segment, so we reset the whole form state
                     hasSent = false;
                     sendingCompleted = false;
@@ -839,7 +827,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     sendingVideo.currentTime = 0;
                     // Go back to the default loop for receiveLottie
                     lottieInstance.playSegments([0, LOTTIE_LOOP_END], true);
-                } else if (!hasSent) {
+                } else {
                     // Keep looping the 0 to 2 seconds segment
                     lottieInstance.playSegments([0, LOTTIE_LOOP_END], true);
                 }
@@ -853,7 +841,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (hasSent) return; // prevent double submit animation
             hasSent = true;
             isTyping = false;
-            sendingCompleted = false;
+            sendingCompleted = true; // Act as if sending is completed immediately for reset logic
             clearTimeout(typingTimeout);
             
             // Jump to the final segments if they aren't already there
@@ -861,6 +849,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 sendingVideo.currentTime = SENDING_LOOP_END;
             }
             sendingVideo.play();
+            
+            // Immediately play the lottie final segment alongside sending video
+            if (lottieReady) {
+                const lottieInstance = receiveLottie.getLottie();
+                lottieInstance.loop = false;
+                lottieInstance.playSegments([LOTTIE_LOOP_END, lottieInstance.totalFrames], true);
+            }
         });
     }
 });
