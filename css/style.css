@@ -3208,3 +3208,12 @@ body.great-wall-body {
         flex-shrink: 0; /* prevent the send button from squishing */
     }
 }
+
+
+/* --- FIX VIDEO TRANSPARENCY ON MOBILE --- */
+/* iOS Safari often fails to read alpha channels in .mov/.mp4 files properly. 
+   Using mix-blend-mode: screen drops the black background entirely, 
+   creating perfect transparency for light-colored animations on a dark theme! */
+#sending-anim {
+    mix-blend-mode: screen;
+}
