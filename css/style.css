@@ -2324,6 +2324,10 @@ body.great-wall-body {
         opacity: 1;
         pointer-events: auto;
         z-index: 1;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        object-fit: cover !important;
     }
 }
 
