@@ -747,47 +747,62 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
 // Contact Form Interactive Animations
 document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.querySelector('.contact-form');
     const contactInputs = document.querySelectorAll('.contact-form input, .contact-form textarea');
     
     const sendingVideo = document.getElementById('sending-anim');
-    const receiveVideo = document.getElementById('receive-anim');
+    const receiveLottie = document.getElementById('receive-anim');
     
-    if (!sendingVideo || !receiveVideo) return;
+    if (!sendingVideo || !receiveLottie) return;
 
     let isTyping = false;
     let typingTimeout;
     let hasSent = false;
+    let lottieReady = false;
     
     // Animation constants
     const SENDING_LOOP_START = 16 / 60; // Frame 16 at 60fps ~ 0.266s
     const SENDING_LOOP_END = 45 / 60;   // Frame 45 at 60fps ~ 0.75s
-    const RECEIVE_LOOP_END = 2.0;       // 2 seconds
+    const LOTTIE_FPS = 60; // Assumption
+    const LOTTIE_LOOP_END = 2 * LOTTIE_FPS; // 2 seconds at 60fps = 120 frames
     
-    // Setup videos
+    // Setup initial state
     sendingVideo.pause();
     sendingVideo.currentTime = 0;
-    receiveVideo.pause();
-    receiveVideo.currentTime = 0;
+    
+    receiveLottie.addEventListener('ready', () => {
+        lottieReady = true;
+        const lottieInstance = receiveLottie.getLottie();
+        lottieInstance.pause();
+    });
 
     const startTyping = () => {
         if (hasSent) return;
         if (!isTyping) {
             isTyping = true;
             sendingVideo.play();
-            receiveVideo.play();
+            if (lottieReady) {
+                // Play from 0 to 120 and loop it by listening to complete event
+                const lottieInstance = receiveLottie.getLottie();
+                lottieInstance.loop = false; 
+                lottieInstance.playSegments([0, LOTTIE_LOOP_END], true);
+            }
         }
         
         clearTimeout(typingTimeout);
         typingTimeout = setTimeout(() => {
             isTyping = false;
-            // When idle, we pause where they are or go back to frame 0
+            // When idle, go back to frame 0
             sendingVideo.pause();
             sendingVideo.currentTime = 0;
-            receiveVideo.pause();
-            receiveVideo.currentTime = 0;
+            if (lottieReady) {
+                const lottieInstance = receiveLottie.getLottie();
+                lottieInstance.pause();
+                lottieInstance.goToAndStop(0, true);
+            }
         }, 1500); // 1.5 seconds idle time = not typing
     };
 
@@ -805,15 +820,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    receiveVideo.addEventListener('timeupdate', () => {
-        if (hasSent) return; // If sent, play till end
-        
-        // If typing, loop from RECEIVE_LOOP_END to 0
-        if (isTyping && receiveVideo.currentTime >= RECEIVE_LOOP_END) {
-            receiveVideo.currentTime = 0;
-            receiveVideo.play(); // ensure playing
-        }
-    });
+    if (receiveLottie) {
+        receiveLottie.addEventListener('complete', () => {
+            if (hasSent) return; // if sent, it finishes at the end
+            if (isTyping && lottieReady) {
+                // If it finished playing the segment and we are still typing, replay the segment
+                const lottieInstance = receiveLottie.getLottie();
+                lottieInstance.playSegments([0, LOTTIE_LOOP_END], true);
+            }
+        });
+    }
 
     // Handle form submit
     if (contactForm) {
@@ -826,14 +842,15 @@ document.addEventListener('DOMContentLoaded', () => {
             if (sendingVideo.currentTime < SENDING_LOOP_END) {
                 sendingVideo.currentTime = SENDING_LOOP_END;
             }
-            if (receiveVideo.currentTime < RECEIVE_LOOP_END) {
-                receiveVideo.currentTime = RECEIVE_LOOP_END;
-            }
-            
             sendingVideo.play();
-            receiveVideo.play();
             
-            // They will naturally stop playing when they reach the end (assuming no loop attribute on video tags)
+            if (lottieReady) {
+                const lottieInstance = receiveLottie.getLottie();
+                lottieInstance.loop = false;
+                // Play from 2 seconds to the very end
+                lottieInstance.playSegments([LOTTIE_LOOP_END, lottieInstance.totalFrames], true);
+            }
         });
     }
 });
+
