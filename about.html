@@ -107,11 +107,11 @@
             </section>
         </main>
 
-        <section class="bottom-section">
+        <section class="bottom-section animated-contact-box">
             <div class="contact-area">
-                <h2 class="handwritten-title small">On the hunt for problems?</h2>
-                <p class="contact-sub">Solutions are always available. Do it or leave it you're right either ways</p>
-                <form class="contact-form" onsubmit="event.preventDefault(); window.incrementMessages && window.incrementMessages(); alert('Message sent! Syncing with Firebase...'); this.reset();">
+                <h2 id="cms-contact-header" class="handwritten-title small">On the hunt for problems?</h2>
+                <p id="cms-contact-subtext" class="contact-sub">Solutions are always available. Do it or leave it you're right either ways</p>
+                <form class="contact-form" onsubmit="event.preventDefault(); window.incrementMessages && window.incrementMessages(); setTimeout(() => this.reset(), 3000);">
                     <div class="input-group">
                         <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                         <input type="text" placeholder="Name">
@@ -151,13 +151,13 @@
                 </div>
                 <div class="stats-bottom">
                     <div class="stat-item">
-                        <svg class="stat-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                        <span class="stat-big">100%</span>
+                        <video id="sending-anim" src="sending_2.webm" muted playsinline style="width: 250px; height: 250px; object-fit: contain;"></video>
+                          <span class="stat-big" style="margin-top: -24px;">100%</span>
                         <span class="stat-small">Messages replied</span>
                     </div>
                     <div class="stat-item">
-                        <svg class="stat-icon" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                        <span class="stat-big">10 secs</span>
+                        <dotlottie-player id="receive-anim" src="recieve mail.lottie" background="transparent" speed="1" style="width: 250px; height: 250px;"></dotlottie-player>
+                          <span class="stat-big" style="margin-top: -24px;">10 secs</span>
                         <span class="stat-small">Avg. Response Time</span>
                     </div>
                 </div>
