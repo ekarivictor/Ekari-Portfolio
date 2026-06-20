@@ -3217,3 +3217,10 @@ body.great-wall-body {
 #sending-anim {
     mix-blend-mode: screen;
 }
+
+
+/* --- FIX CHECKBOX WIDTH --- */
+/* The global `.contact-form input` rule was forcing width: 100% onto the checkbox! */
+.contact-form input[type="checkbox"] {
+    width: auto !important;
+}
