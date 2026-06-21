@@ -1939,15 +1939,29 @@ body {
 }
 
 .phone-input-wrapper .country-code {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  appearance: none;
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
   padding: 14px 16px;
-  background: #f0f0f0;
+  padding-right: 28px;
+  background: #f0f0f0 url('data:image/svg+xml;utf8,<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" xmlns="http://www.w3.org/2000/svg"><path d="M6 9l6 6 6-6"/></svg>') no-repeat right 10px center;
   color: #000;
   font-size: 13px;
   font-weight: 500;
   border-right: 1px solid #ddd;
+  cursor: pointer;
+  max-width: 90px;
+}
+
+@media (max-width: 768px) {
+    .phone-input-wrapper .country-code {
+        padding: 14px 8px;
+        padding-right: 22px;
+        font-size: 12px;
+        max-width: 70px;
+        background-position: right 6px center;
+    }
 }
 
 .phone-input-wrapper input {
