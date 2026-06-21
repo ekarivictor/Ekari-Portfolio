@@ -630,23 +630,26 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (openModalBtn) {
-            openModalBtn.addEventListener('click', () => {
-                modalOverlay.classList.add('active');
-                // The first emoji is already selected by default, no need to reset unless we want to
-            });
+            // Check if user has already submitted a vibe
+            if (localStorage.getItem('vibeSubmitted') === 'true') {
+                openModalBtn.innerHTML = 'Vibe Added ✓';
+                openModalBtn.style.opacity = '0.5';
+                openModalBtn.style.cursor = 'not-allowed';
+                
+                openModalBtn.addEventListener('click', () => {
+                    alert('You have already added a vibe! Thank you!');
+                });
+            } else {
+                openModalBtn.addEventListener('click', () => {
+                    modalOverlay.classList.add('active');
+                    // The first emoji is already selected by default, no need to reset unless we want to
+                });
+            }
         }
 
         if (vibeCloseModalBtn) {
             vibeCloseModalBtn.addEventListener('click', () => {
                 modalOverlay.classList.remove('active');
-            });
-        }
-
-        if (modalOverlay) {
-            modalOverlay.addEventListener('click', (e) => {
-                if (e.target === modalOverlay) {
-                    modalOverlay.classList.remove('active');
-                }
             });
         }
 
@@ -672,25 +675,49 @@ document.addEventListener('DOMContentLoaded', () => {
                             reader.readAsDataURL(logoInput.files[0]);
                         });
                     } catch (err) {
-                        console.error("Error reading logo file:", err);
+                        console.error('Error reading logo file:', err);
                     }
                 }
 
                 const newVibe = {
                     id: generatedId,
-                    score: score.includes('.') ? score : score + '.0',
-                    emoji,
-                    name,
-                    role: role.trim() === '' ? 'Visitor' : role,
-                    message,
+                    score: score,
+                    emoji: emoji,
+                    name: name,
+                    role: role,
+                    message: message,
                     logo: logoUrl
                 };
 
-                vibesData.push(newVibe);
-                renderVibes();
-                vibeForm.reset();
+                vibesData.unshift(newVibe); // Add to beginning of array
+                
+                // Save to localStorage so they can't submit again
+                localStorage.setItem('vibeSubmitted', 'true');
+                
+                // Update button state immediately
+                if (openModalBtn) {
+                    openModalBtn.innerHTML = 'Vibe Added ✓';
+                    openModalBtn.style.opacity = '0.5';
+                    openModalBtn.style.cursor = 'not-allowed';
+                    
+                    // Remove old click listeners by cloning
+                    const newBtn = openModalBtn.cloneNode(true);
+                    openModalBtn.parentNode.replaceChild(newBtn, openModalBtn);
+                    newBtn.addEventListener('click', () => {
+                        alert('You have already added a vibe! Thank you!');
+                    });
+                }
+
                 modalOverlay.classList.remove('active');
-                renderEmojiPicker(); 
+                vibeForm.reset();
+                renderVibes();
+            });
+        }
+        if (modalOverlay) {
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    modalOverlay.classList.remove('active');
+                }
             });
         }
 
