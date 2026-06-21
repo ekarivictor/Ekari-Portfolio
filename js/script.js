@@ -489,43 +489,10 @@ document.addEventListener('DOMContentLoaded', () => {
             {
                 id: 1,
                 score: '7.0',
-                emoji: 'https://fonts.gstatic.com/s/e/notoemoji/latest/1f97a/512.webp', // pleading face
-                name: 'My Bro',
-                role: '[CTO/SaleHoo]',
-                message: 'Love the setup, incredible work!',
-                logo: 'https://via.placeholder.com/32/ffffff/000000?text=L'
-            },
-            {
-                id: 2,
-                score: '7.0',
                 emoji: 'https://fonts.gstatic.com/s/e/notoemoji/latest/1f525/512.webp', // fire
-                name: 'My Bro',
-                role: '[CTO/SaleHoo]',
+                name: 'Ekari Victor',
+                role: 'owner',
                 message: 'This wall gets me hyped.'
-            },
-            {
-                id: 3,
-                score: '7.0',
-                emoji: 'https://fonts.gstatic.com/s/e/notoemoji/latest/2764_fe0f_200d_1f525/512.webp', // heart on fire
-                name: 'My Bro',
-                role: '[CTO/SaleHoo]',
-                message: 'Straight perfection.'
-            },
-            {
-                id: 4,
-                score: '7.0',
-                emoji: 'https://fonts.gstatic.com/s/e/notoemoji/latest/1f973/512.webp', // party popper
-                name: 'My Bro',
-                role: '[CTO/SaleHoo]',
-                message: 'Celebrating this launch today.'
-            },
-            {
-                id: 5,
-                score: '7.0',
-                emoji: 'https://fonts.gstatic.com/s/e/notoemoji/latest/1f60f/512.webp', // smirking
-                name: 'My Bro',
-                role: '[CTO/SaleHoo]',
-                message: 'We already know who did it best.'
             }
         ];
 
