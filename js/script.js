@@ -515,43 +515,67 @@ document.addEventListener('DOMContentLoaded', () => {
         const selectedEmojiInput = document.getElementById('selected-emoji');
 
         function renderVibes() {
-            vibeContainer.innerHTML = `
-                <div class="vibe-track" id="vibe-track-0"></div>
-                <div class="vibe-track" id="vibe-track-1"></div>
-                <div class="vibe-track" id="vibe-track-2"></div>
-                <div class="vibe-track" id="vibe-track-3"></div>
-            `;
+            vibeContainer.innerHTML = '';
             
-            const tracks = [
-                document.getElementById('vibe-track-0'),
-                document.getElementById('vibe-track-1'),
-                document.getElementById('vibe-track-2'),
-                document.getElementById('vibe-track-3')
-            ];
-
-            vibesData.forEach((vibe) => {
-                const createItem = () => {
-                    const item = document.createElement('div');
-                    item.className = 'vibe-item';
-                    
-                    item.innerHTML = `
-                        <div class="tooltip">${escapeHTML(vibe.message)}</div>
-                        <div class="score-pill">
-                            <span class="score-star">★</span>
-                            ${vibe.score}
-                        </div>
-                        <img src="${vibe.emoji}" alt="emoji reaction" class="emoji-image" />
-                        <div class="user-name">${escapeHTML(vibe.name)}</div>
-                        <div class="role-container">
-                            ${vibe.logo ? `<img src="${vibe.logo}" alt="brand logo" class="brand-logo" />` : `<div class="brand-logo-placeholder"></div>`}
-                            <div class="user-role">${escapeHTML(vibe.role)}</div>
-                        </div>
-                    `;
-                    return item;
-                };
+            const createItem = (vibe) => {
+                const item = document.createElement('div');
+                item.className = 'vibe-item';
                 
-                tracks.forEach(track => track.appendChild(createItem()));
-            });
+                item.innerHTML = `
+                    <div class="tooltip">${escapeHTML(vibe.message)}</div>
+                    <div class="score-pill">
+                        <span class="score-star">★</span>
+                        ${vibe.score}
+                    </div>
+                    <img src="${vibe.emoji}" alt="emoji reaction" class="emoji-image" />
+                    <div class="user-name">${escapeHTML(vibe.name)}</div>
+                    <div class="role-container">
+                        ${vibe.logo ? `<img src="${vibe.logo}" alt="brand logo" class="brand-logo" />` : `<div class="brand-logo-placeholder"></div>`}
+                        <div class="user-role">${escapeHTML(vibe.role)}</div>
+                    </div>
+                `;
+                return item;
+            };
+
+            if (vibesData.length <= 2) {
+                // Not enough vibes for a full infinite wall, just center them
+                const track = document.createElement('div');
+                track.className = 'vibe-track';
+                track.style.animation = 'none';
+                track.style.justifyContent = 'center';
+                track.style.width = '100%';
+                track.style.flexWrap = 'wrap';
+                
+                vibesData.forEach(vibe => {
+                    track.appendChild(createItem(vibe));
+                });
+                
+                vibeContainer.appendChild(track);
+            } else {
+                // Render full 4-track wall
+                vibeContainer.innerHTML = `
+                    <div class="vibe-track" id="vibe-track-0"></div>
+                    <div class="vibe-track" id="vibe-track-1"></div>
+                    <div class="vibe-track" id="vibe-track-2"></div>
+                    <div class="vibe-track" id="vibe-track-3"></div>
+                `;
+                
+                const tracks = [
+                    document.getElementById('vibe-track-0'),
+                    document.getElementById('vibe-track-1'),
+                    document.getElementById('vibe-track-2'),
+                    document.getElementById('vibe-track-3')
+                ];
+
+                vibesData.forEach((vibe) => {
+                    tracks.forEach(track => track.appendChild(createItem(vibe)));
+                });
+                
+                // Duplicate items to ensure smooth scrolling
+                vibesData.forEach((vibe) => {
+                    tracks.forEach(track => track.appendChild(createItem(vibe)));
+                });
+            }
         }
 
         function renderEmojiPicker() {
