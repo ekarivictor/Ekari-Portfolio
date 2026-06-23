@@ -988,7 +988,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- EMAILJS INTEGRATION ---
     if (typeof emailjs !== 'undefined') {
         emailjs.init({
-            publicKey: '8ciUvfmi7PCJ5-Zm6D1-9'
+            publicKey: 'kIgS9AcSYwRyS6sgF'
         });
 
         // Contact Form Interceptor
