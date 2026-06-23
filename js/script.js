@@ -987,7 +987,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- EMAILJS INTEGRATION ---
     if (typeof emailjs !== 'undefined') {
-        emailjs.init('8ciUvfmi7PCJ5-Zm6D1-9');
+        emailjs.init({
+            publicKey: '8ciUvfmi7PCJ5-Zm6D1-9'
+        });
 
         // Contact Form Interceptor
         const mainContactForms = document.querySelectorAll('#main-contact-form');
@@ -998,14 +1000,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 const originalText = btn.innerHTML;
                 btn.innerHTML = 'Sending...';
                 
-                emailjs.sendForm('service_ej1dwgr', 'template_v1hex4h', this)
+                emailjs.sendForm('service_ej1dwgr', 'template_v1hex4h', e.target)
                     .then(() => {
                         alert('Message sent successfully!');
                         this.reset();
                         btn.innerHTML = originalText;
                         if (window.incrementMessages) window.incrementMessages();
                     }, (error) => {
-                        alert('Failed to send message. Please try again.');
+                        const errMsg = error.text || error.message || JSON.stringify(error);
+                        alert('Failed to send message: ' + errMsg);
                         console.error('EmailJS Error:', error);
                         btn.innerHTML = originalText;
                     });
@@ -1036,7 +1039,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const originalText = btn.innerHTML;
                 btn.innerHTML = 'Sending...';
 
-                emailjs.sendForm('service_ej1dwgr', 'template_v1hex4h', this)
+                emailjs.sendForm('service_ej1dwgr', 'template_v1hex4h', e.target)
                     .then(() => {
                         alert('Estimate request sent successfully!');
                         this.reset();
@@ -1044,7 +1047,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         if (typeof closeRequestModal === 'function') closeRequestModal();
                         if (typeof clearAll === 'function') clearAll();
                     }, (error) => {
-                        alert('Failed to send request. Please try again.');
+                        const errMsg = error.text || error.message || JSON.stringify(error);
+                        alert('Failed to send request: ' + errMsg);
                         console.error('EmailJS Error:', error);
                         btn.innerHTML = originalText;
                     });
