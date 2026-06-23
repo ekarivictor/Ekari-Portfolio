@@ -298,61 +298,64 @@
     
     <div class="estimate-items-list" id="modal-estimate-items">
         <!-- Rendered by JS -->
-    </div>
-    
-    <form id="request-form" class="request-form" onsubmit="event.preventDefault(); alert('Request sent!'); closeRequestModal();">
-      <div class="form-group row-group">
-        <div class="half-width">
-          <label>Name <span class="required">*</span> <span class="info-icon">i</span></label>
-          <input type="text" placeholder="Placeholder text..." required>
-        </div>
-        <div class="half-width">
-          <label>Email <span class="required">*</span> <span class="info-icon">i</span></label>
-          <input type="email" placeholder="Placeholder text..." required>
-        </div>
-      </div>
-      
-      <div class="form-group row-group">
-        <div class="half-width">
-          <label>Phone Number <span class="required">*</span> <span class="info-icon">i</span></label>
-          <div class="phone-input-wrapper">
-             <select class="country-code" aria-label="Country Code">
-               <option value="+1">🇺🇸 +1</option>
-               <option value="+44">🇬🇧 +44</option>
-               <option value="+234">🇳🇬 +234</option>
-               <option value="+61">🇦🇺 +61</option>
-               <option value="+91">🇮🇳 +91</option>
-             </select>
-             <input type="tel" placeholder="(444) 1234-5678" required>
+        <form id="request-form" class="request-form">
+        <!-- HIDDEN FIELDS FOR EMAILJS -->
+        <input type="hidden" name="selected_services" id="hidden_services">
+        <input type="hidden" name="estimate_total" id="hidden_estimate">
+        
+        <div class="form-group row-group">
+          <div class="half-width">
+            <label>Name <span class="required">*</span> <span class="info-icon">i</span></label>
+            <input type="text" name="user_name" placeholder="Placeholder text..." required>
+          </div>
+          <div class="half-width">
+            <label>Email <span class="required">*</span> <span class="info-icon">i</span></label>
+            <input type="email" name="user_email" placeholder="Placeholder text..." required>
           </div>
         </div>
-        <div class="half-width">
-          <label>Timeline <span class="required">*</span> <span class="info-icon">i</span></label>
-          <input type="text" placeholder="Placeholder text..." required>
+        
+        <div class="form-group row-group">
+          <div class="half-width">
+            <label>Phone Number <span class="required">*</span> <span class="info-icon">i</span></label>
+            <div class="phone-input-wrapper">
+               <select class="country-code" name="user_country" aria-label="Country Code">
+                 <option value="+1">🇺🇸 +1</option>
+                 <option value="+44">🇬🇧  +44</option>
+                 <option value="+234">🇳🇬 +234</option>
+                 <option value="+61">🇦🇺 +61</option>
+                 <option value="+91">🇮🇳 +91</option>
+               </select>
+               <input type="tel" name="user_phone" placeholder="(444) 1234-5678" required>
+            </div>
+          </div>
+          <div class="half-width">
+            <label>Timeline <span class="required">*</span> <span class="info-icon">i</span></label>
+            <input type="text" name="timeline" placeholder="Placeholder text..." required>
+          </div>
         </div>
-      </div>
-      
-      <div class="form-group row-group">
-        <div class="half-width">
-          <label>Custom Request</label>
-          <input type="text" placeholder="What do you want done?">
+        
+        <div class="form-group row-group">
+          <div class="half-width">
+            <label>Custom Request</label>
+            <input type="text" name="custom_request" placeholder="What do you want done?">
+          </div>
+          <div class="half-width">
+            <label>Estimated Budget</label>
+            <input type="text" name="budget" placeholder="e.g. $5,000">
+          </div>
         </div>
-        <div class="half-width">
-          <label>Estimated Budget</label>
-          <input type="text" placeholder="e.g. $5,000">
+        
+        <div class="form-group">
+          <label>Additional Notes <span class="info-icon">i</span></label>
+          <textarea name="about_project" rows="4" placeholder="Any other details..."></textarea>
         </div>
-      </div>
-      
-      <div class="form-group">
-        <label>Additional Notes <span class="info-icon">i</span></label>
-        <textarea rows="4" placeholder="Any other details..."></textarea>
-      </div>
-      
-      <div class="form-actions">
-        <button type="button" class="btn-outline" onclick="closeRequestModal()">Cancel</button>
-        <button type="submit" class="full-pill-btn request-btn">Request</button>
-      </div>
-    </form>
+        
+        <div class="form-actions">
+          <button type="button" class="btn-outline" onclick="closeRequestModal()">Cancel</button>
+          <button type="submit" class="full-pill-btn request-btn" id="request-submit-btn">Request</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 <script>
@@ -605,6 +608,7 @@ function closeRequestModal(){
 
 
 <script type="module" src="js/firebase-init.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script src="js/script.js"></script>
 </body>
 </html>

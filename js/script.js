@@ -984,4 +984,71 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    // --- EMAILJS INTEGRATION ---
+    if (typeof emailjs !== 'undefined') {
+        emailjs.init('8ciUvfmi7PCJ5-Zm6D1-9');
+
+        // Contact Form Interceptor
+        const mainContactForms = document.querySelectorAll('#main-contact-form');
+        mainContactForms.forEach(form => {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const btn = this.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = 'Sending...';
+                
+                emailjs.sendForm('service_ej1dwgr', 'template_v1hex4h', this)
+                    .then(() => {
+                        alert('Message sent successfully!');
+                        this.reset();
+                        btn.innerHTML = originalText;
+                        if (window.incrementMessages) window.incrementMessages();
+                    }, (error) => {
+                        alert('Failed to send message. Please try again.');
+                        console.error('EmailJS Error:', error);
+                        btn.innerHTML = originalText;
+                    });
+            });
+        });
+
+        // Rate Card Request Form Interceptor
+        const requestForm = document.getElementById('request-form');
+        if (requestForm) {
+            requestForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Populate hidden fields dynamically
+                const hiddenServices = document.getElementById('hidden_services');
+                const hiddenEstimate = document.getElementById('hidden_estimate');
+                
+                if (typeof cart !== 'undefined') {
+                    const items = Object.values(cart);
+                    const servicesText = items.map(item => `${item.s.name} (Qty: ${item.qty})`).join(', ');
+                    if (hiddenServices) hiddenServices.value = servicesText || 'No specific services selected';
+                    
+                    // Scrape the estimate total from the DOM because the cart script calculated it
+                    const totalEl = document.getElementById('ptot') || document.getElementById('bar-tot');
+                    if (hiddenEstimate) hiddenEstimate.value = totalEl ? totalEl.textContent : 'Unknown';
+                }
+
+                const btn = document.getElementById('request-submit-btn');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = 'Sending...';
+
+                emailjs.sendForm('service_ej1dwgr', 'template_v1hex4h', this)
+                    .then(() => {
+                        alert('Estimate request sent successfully!');
+                        this.reset();
+                        btn.innerHTML = originalText;
+                        if (typeof closeRequestModal === 'function') closeRequestModal();
+                        if (typeof clearAll === 'function') clearAll();
+                    }, (error) => {
+                        alert('Failed to send request. Please try again.');
+                        console.error('EmailJS Error:', error);
+                        btn.innerHTML = originalText;
+                    });
+            });
+        }
+    }
 });
