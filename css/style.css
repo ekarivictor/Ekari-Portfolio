@@ -2005,6 +2005,56 @@ body {
   border-radius: 8px;
   padding: 14px 16px;
   color: #000;
+}
+
+/* Custom File Upload UI */
+.file-preview-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+.file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1a1a1a;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  color: #fff;
+  border: 1px solid #333;
+}
+.file-item .file-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 90%;
+}
+.file-item .remove-file {
+  background: none;
+  border: none;
+  color: #ff4444;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.file-item .remove-file:hover {
+  color: #ff0000;
+}
+
+#modal-overlay .form-group input[type="text"],
+#modal-overlay .form-group input[type="email"],
+#modal-overlay .form-group textarea {
+  background: #FFF;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 16px;
+  color: #000;
   font-family: var(--font-primary);
   font-size: 13px;
   width: 100%;

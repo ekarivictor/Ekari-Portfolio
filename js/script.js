@@ -1053,6 +1053,50 @@ document.addEventListener('DOMContentLoaded', () => {
                         btn.innerHTML = originalText;
                     });
             });
+        // Custom File Upload Logic
+        const fileInput = document.getElementById('rate-card-file-input');
+        const fileListContainer = document.getElementById('file-preview-list');
+        
+        if (fileInput && fileListContainer) {
+            fileInput.addEventListener('change', function() {
+                renderFileList();
+            });
+
+            function renderFileList() {
+                fileListContainer.innerHTML = '';
+                Array.from(fileInput.files).forEach((file, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'file-item';
+                    
+                    const sizeMB = (file.size / 1024 / 1024).toFixed(2);
+                    
+                    item.innerHTML = `
+                        <span class="file-name">${file.name} (${sizeMB} MB)</span>
+                        <button type="button" class="remove-file" data-index="${index}">&times;</button>
+                    `;
+                    fileListContainer.appendChild(item);
+                });
+
+                // Add remove event listeners
+                document.querySelectorAll('.remove-file').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const indexToRemove = parseInt(this.getAttribute('data-index'));
+                        removeFileFromInput(indexToRemove);
+                    });
+                });
+            }
+
+            function removeFileFromInput(indexToRemove) {
+                const dt = new DataTransfer();
+                const files = fileInput.files;
+                for (let i = 0; i < files.length; i++) {
+                    if (i !== indexToRemove) {
+                        dt.items.add(files[i]);
+                    }
+                }
+                fileInput.files = dt.files;
+                renderFileList(); // Re-render
+            }
         }
     }
 });
