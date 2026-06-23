@@ -1053,6 +1053,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         btn.innerHTML = originalText;
                     });
             });
+        } // Closing brace for if (requestForm)
+        
         // Custom File Upload Logic
         const fileInput = document.getElementById('rate-card-file-input');
         const fileListContainer = document.getElementById('file-preview-list');
