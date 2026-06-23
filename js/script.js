@@ -1018,12 +1018,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // Rate Card Request Form Interceptor
         const requestForm = document.getElementById('request-form');
         if (requestForm) {
-            requestForm.addEventListener('submit', function(e) {
+            requestForm.addEventListener('submit', async function(e) {
                 e.preventDefault();
                 
                 // Populate hidden fields dynamically
                 const hiddenServices = document.getElementById('hidden_services');
                 const hiddenEstimate = document.getElementById('hidden_estimate');
+                const hiddenUrls = document.getElementById('hidden_attachment_urls');
+                const fileInput = document.getElementById('rate-card-file-input');
                 
                 if (typeof cart !== 'undefined') {
                     const items = Object.values(cart);
@@ -1037,6 +1039,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 const btn = document.getElementById('request-submit-btn');
                 const originalText = btn.innerHTML;
+                
+                // Handle File Uploads via Firebase
+                if (fileInput && fileInput.files.length > 0) {
+                    btn.innerHTML = 'Uploading Files...';
+                    try {
+                        const uploadPromises = Array.from(fileInput.files).map(file => {
+                            if (window.uploadFileToFirebase) {
+                                return window.uploadFileToFirebase(file);
+                            }
+                            return null;
+                        });
+                        
+                        const urls = await Promise.all(uploadPromises);
+                        const validUrls = urls.filter(url => url !== null);
+                        
+                        if (validUrls.length > 0) {
+                            if (hiddenUrls) {
+                                hiddenUrls.value = validUrls.map((url, i) => `File ${i+1}: ${url}`).join('\n');
+                            }
+                        }
+                    } catch (err) {
+                        console.error('File Upload Error:', err);
+                        alert('Failed to upload files. Continuing to send request without them.');
+                    }
+                    
+                    // CRITICAL: Clear the file input so EmailJS doesn't try to attach it and hit the 50kb limit!
+                    fileInput.value = '';
+                } else {
+                    if (hiddenUrls) hiddenUrls.value = 'No files attached.';
+                }
+
                 btn.innerHTML = 'Sending...';
 
                 emailjs.sendForm('service_ej1dwgr', 'template_v1hex4h', e.target)
@@ -1044,6 +1077,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         alert('Estimate request sent successfully!');
                         this.reset();
                         btn.innerHTML = originalText;
+                        const fileListContainer = document.getElementById('file-preview-list');
+                        if (fileListContainer) fileListContainer.innerHTML = ''; // Clear preview
                         if (typeof closeRequestModal === 'function') closeRequestModal();
                         if (typeof clearAll === 'function') clearAll();
                     }, (error) => {
