@@ -1153,3 +1153,16 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 });
+
+// Image Protection Layer (prevent right-click and dragging)
+document.addEventListener('contextmenu', function(e) {
+    if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+    }
+});
+
+document.addEventListener('dragstart', function(e) {
+    if (e.target.tagName === 'IMG') {
+        e.preventDefault();
+    }
+});
