@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, doc, onSnapshot, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFirestore, doc, onSnapshot, updateDoc, increment, collection, addDoc, serverTimestamp, query, orderBy, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDF9kLE9BxBagQvMB11jXSitYhwS0siw84",
@@ -59,4 +59,37 @@ window.incrementMessages = async () => {
     }
 };
 
+// --- VIBE WALL LOGIC ---
+const vibesCollection = collection(db, "vibes");
 
+window.fetchVibes = (callback) => {
+    const q = query(vibesCollection, orderBy("createdAt", "desc"));
+    onSnapshot(q, (snapshot) => {
+        const vibes = [];
+        snapshot.forEach((doc) => {
+            vibes.push({ id: doc.id, ...doc.data() });
+        });
+        callback(vibes);
+    });
+};
+
+window.addVibe = async (vibeData) => {
+    try {
+        await addDoc(vibesCollection, {
+            ...vibeData,
+            createdAt: serverTimestamp()
+        });
+    } catch (e) {
+        console.error("Error adding vibe: ", e);
+        throw e;
+    }
+};
+
+window.deleteVibe = async (id) => {
+    try {
+        await deleteDoc(doc(db, "vibes", id));
+    } catch(e) {
+        console.error("Error deleting vibe: ", e);
+        throw e;
+    }
+};

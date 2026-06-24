@@ -485,16 +485,15 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- ANIMATED VIBE WALL LOGIC ---
     const vibeContainer = document.getElementById('vibe-container');
     if (vibeContainer) {
-        let vibesData = [
-            {
-                id: 1,
-                score: '7.0',
-                emoji: 'https://fonts.gstatic.com/s/e/notoemoji/latest/1f525/512.webp', // fire
-                name: 'Ekari Victor',
-                role: 'owner',
-                message: 'This wall gets me hyped.'
-            }
-        ];
+        let vibesData = [];
+        
+        // Fetch vibes from Firebase
+        if (typeof window.fetchVibes === 'function') {
+            window.fetchVibes((vibes) => {
+                vibesData = vibes;
+                renderVibes();
+            });
+        }
 
         const extraEmojis = [
             '1f97a', '1f525', '2764_fe0f_200d_1f525', '1f973', '1f60f', '1f60e', '1f92f', '1f4af'
@@ -702,9 +701,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.error('Error reading logo file:', err);
                     }
                 }
-
-                const newVibe = {
-                    id: generatedId,
+                         const newVibe = {
                     score: score,
                     emoji: emoji,
                     name: name,
@@ -713,28 +710,40 @@ document.addEventListener('DOMContentLoaded', () => {
                     logo: logoUrl
                 };
 
-                vibesData.unshift(newVibe); // Add to beginning of array
-                
-                // Save to localStorage so they can't submit again
-                localStorage.setItem('vibeSubmitted', 'true');
-                
-                // Update button state immediately
-                if (openModalBtn) {
-                    openModalBtn.innerHTML = 'Vibe Added ✓';
-                    openModalBtn.style.opacity = '0.5';
-                    openModalBtn.style.cursor = 'not-allowed';
-                    
-                    // Remove old click listeners by cloning
-                    const newBtn = openModalBtn.cloneNode(true);
-                    openModalBtn.parentNode.replaceChild(newBtn, openModalBtn);
-                    newBtn.addEventListener('click', () => {
-                        alert('You have already added a vibe! Thank you!');
-                    });
-                }
+                const originalBtnText = openModalBtn ? openModalBtn.innerHTML : 'Give Your Vibe';
+                if (openModalBtn) openModalBtn.innerHTML = 'Submitting...';
 
-                modalOverlay.classList.remove('active');
-                vibeForm.reset();
-                renderVibes();
+                try {
+                    if (typeof window.addVibe === 'function') {
+                        await window.addVibe(newVibe);
+                    } else {
+                        vibesData.unshift(newVibe); // Fallback to local
+                    }
+                    
+                    // Save to localStorage so they can't submit again
+                    localStorage.setItem('vibeSubmitted', 'true');
+                    
+                    // Update button state immediately
+                    if (openModalBtn) {
+                        openModalBtn.innerHTML = 'Vibe Added 👏';
+                        openModalBtn.style.opacity = '0.5';
+                        openModalBtn.style.cursor = 'not-allowed';
+                        
+                        // Remove old click listeners by cloning
+                        const newBtn = openModalBtn.cloneNode(true);
+                        openModalBtn.parentNode.replaceChild(newBtn, openModalBtn);
+                        newBtn.addEventListener('click', () => {
+                            alert('You have already added a vibe! Thank you!');
+                        });
+                    }
+
+                    modalOverlay.classList.remove('active');
+                    vibeForm.reset();
+                    if (typeof window.addVibe !== 'function') renderVibes(); // Render local if no firebase
+                } catch (e) {
+                    alert('Failed to submit vibe. Please try again later.');
+                    if (openModalBtn) openModalBtn.innerHTML = originalBtnText;
+                }
             });
         }
         if (modalOverlay) {

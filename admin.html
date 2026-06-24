@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Reenie+Beanie&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        :root {
+            --bg-color: #0b0b0b;
+            --accent-color: #D4FF3F;
+            --text-main: #FFFFFF;
+            --text-muted: #888888;
+            --border-color: #333;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-family: 'Reenie Beanie', cursive;
+            color: var(--accent-color);
+            font-size: 3rem;
+            margin-bottom: 5px;
+        }
+
+        p.subtitle {
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .dashboard-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-section h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Table Styles */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        th, td {
+            padding: 15px 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        td {
+            font-size: 0.95rem;
+            vertical-align: middle;
+        }
+
+        .emoji-cell img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .msg-cell {
+            max-width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .btn-delete {
+            background: rgba(255, 63, 63, 0.15);
+            color: #ff3f3f;
+            border: 1px solid rgba(255, 63, 63, 0.3);
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+        }
+
+        .btn-delete:hover {
+            background: rgba(255, 63, 63, 0.3);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+        }
+
+        .stat-card {
+            display: inline-block;
+            background: rgba(212, 255, 63, 0.1);
+            border: 1px solid rgba(212, 255, 63, 0.2);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-right: 15px;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Admin Headquarters</h1>
+        <p class="subtitle">Keep this URL secret. This is your command center.</p>
+
+        <div class="dashboard-section">
+            <h2>Site Stats</h2>
+            <div class="stat-card">
+                <div class="stat-value" id="msg-count">0</div>
+                <div class="stat-label">Messages Sent</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="vibe-count">0</div>
+                <div class="stat-label">Total Vibes</div>
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <h2>
+                Review / Vibe Wall Management
+            </h2>
+            <div id="vibe-table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Emoji</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Score</th>
+                            <th>Message</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vibe-tbody">
+                        <tr>
+                            <td colspan="6" class="empty-state">Loading vibes from Firestore...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="dashboard-section" id="work-exe-help">
+            <h2>Managing work.exe (Portfolio Items)</h2>
+            <p>To safely add a new portfolio item to the <code>work.exe</code> section without breaking the grid layout:</p>
+            <ol style="color: var(--text-muted); line-height: 1.6;">
+                <li>Create a new HTML file for the case study (e.g. <code>my-new-project.html</code>). You can duplicate an existing one like <code>zacra.html</code> as a template.</li>
+                <li>Open <code>index.html</code> and find the <code>&lt;div class="grid"&gt;</code> under the <code>id="work-grid"</code>.</li>
+                <li>Copy one of the existing <code>&lt;a href="..." class="grid-item"&gt;</code> blocks and paste it inside the grid.</li>
+                <li>Change the <code>href</code>, <code>&lt;img src="..."&gt;</code>, title, and tags to match your new project.</li>
+            </ol>
+            <p style="color: var(--accent-color); font-size: 0.9rem;">No databases are needed for work.exe! It keeps your site blazing fast.</p>
+        </div>
+    </div>
+
+    <!-- Firebase Init for Global Functions -->
+    <script type="module" src="js/firebase-init.js"></script>
+    
+    <!-- Admin Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const tbody = document.getElementById('vibe-tbody');
+            const vibeCountEl = document.getElementById('vibe-count');
+
+            // We need to wait for firebase-init.js to attach functions to window
+            const initInterval = setInterval(() => {
+                if (typeof window.fetchVibes === 'function') {
+                    clearInterval(initInterval);
+                    loadVibes();
+                }
+            }, 100);
+
+            function loadVibes() {
+                window.fetchVibes((vibes) => {
+                    vibeCountEl.textContent = vibes.length;
+                    
+                    if (vibes.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="6" class="empty-state">No vibes found! Share your site.</td></tr>';
+                        return;
+                    }
+
+                    tbody.innerHTML = '';
+                    vibes.forEach(vibe => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td class="emoji-cell"><img src="${vibe.emoji}" alt="emoji"></td>
+                            <td>${escapeHTML(vibe.name)}</td>
+                            <td>${escapeHTML(vibe.role)}</td>
+                            <td>${vibe.score} / 10</td>
+                            <td class="msg-cell" title="${escapeHTML(vibe.message)}">${escapeHTML(vibe.message)}</td>
+                            <td>
+                                <button class="btn-delete" data-id="${vibe.id}">Delete</button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+
+                    // Attach delete listeners
+                    document.querySelectorAll('.btn-delete').forEach(btn => {
+                        btn.addEventListener('click', async (e) => {
+                            const id = e.target.getAttribute('data-id');
+                            if (confirm('Are you sure you want to permanently delete this vibe?')) {
+                                const originalText = e.target.textContent;
+                                e.target.textContent = 'Deleting...';
+                                try {
+                                    await window.deleteVibe(id);
+                                    // Real-time listener will automatically update the table!
+                                } catch (err) {
+                                    console.error(err);
+                                    alert('Failed to delete vibe. Check console and Firestore rules.');
+                                    e.target.textContent = originalText;
+                                }
+                            }
+                        });
+                    });
+                });
+            }
+
+            function escapeHTML(str) {
+                if (!str) return '';
+                const div = document.createElement('div');
+                div.appendChild(document.createTextNode(str));
+                return div.innerHTML;
+            }
+        });
+    </script>
+</body>
+</html>
