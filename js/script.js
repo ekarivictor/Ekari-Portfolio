@@ -485,12 +485,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- ANIMATED VIBE WALL LOGIC ---
     const vibeContainer = document.getElementById('vibe-container');
     if (vibeContainer) {
-        let vibesData = [];
+        const defaultVibe = {
+            id: 'default-1',
+            score: '7.0',
+            emoji: 'https://fonts.gstatic.com/s/e/notoemoji/latest/1f525/512.webp', // fire
+            name: 'Ekari Victor',
+            role: 'owner',
+            message: 'This wall gets me hyped.',
+            logo: ''
+        };
+
+        let vibesData = [defaultVibe];
         
         // Fetch vibes from Firebase
         if (typeof window.fetchVibes === 'function') {
             window.fetchVibes((vibes) => {
-                vibesData = vibes;
+                vibesData = [...vibes, defaultVibe];
                 renderVibes();
             });
         }
