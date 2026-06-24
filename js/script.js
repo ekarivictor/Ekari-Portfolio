@@ -985,110 +985,108 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- EMAILJS INTEGRATION ---
-    if (typeof emailjs !== 'undefined') {
-        emailjs.init({
-            publicKey: 'kIgS9AcSYwRyS6sgF'
-        });
+    // --- WEB3FORMS INTEGRATION ---
+    const WEB3FORMS_ACCESS_KEY = 'b9626fcc-34e5-48e5-a800-a87f5cf6fc4b';
 
-        // Contact Form Interceptor
-        const mainContactForms = document.querySelectorAll('#main-contact-form');
-        mainContactForms.forEach(form => {
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const btn = this.querySelector('button[type="submit"]');
-                const originalText = btn.innerHTML;
-                btn.innerHTML = 'Sending...';
-                
-                emailjs.sendForm('service_ej1dwgr', 'template_v1hex4h', e.target)
-                    .then(() => {
-                        alert('Message sent successfully!');
-                        this.reset();
-                        btn.innerHTML = originalText;
-                        if (window.incrementMessages) window.incrementMessages();
-                    }, (error) => {
-                        const errMsg = error.text || error.message || JSON.stringify(error);
-                        alert('Failed to send message: ' + errMsg);
-                        console.error('EmailJS Error:', error);
-                        btn.innerHTML = originalText;
-                    });
-            });
-        });
-
-        // Rate Card Request Form Interceptor
-        const requestForm = document.getElementById('request-form');
-        if (requestForm) {
-            requestForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                // Populate hidden fields dynamically
-                const hiddenServices = document.getElementById('hidden_services');
-                const hiddenEstimate = document.getElementById('hidden_estimate');
-                const hiddenUrls = document.getElementById('hidden_attachment_urls');
-                const fileInput = document.getElementById('rate-card-file-input');
-                
-                if (typeof cart !== 'undefined') {
-                    const items = Object.values(cart);
-                    const servicesText = items.map(item => `${item.s.name} (Qty: ${item.qty})`).join(', ');
-                    if (hiddenServices) hiddenServices.value = servicesText || 'No specific services selected';
-                    
-                    // Scrape the estimate total from the DOM because the cart script calculated it
-                    const totalEl = document.getElementById('ptot') || document.getElementById('bar-tot');
-                    if (hiddenEstimate) hiddenEstimate.value = totalEl ? totalEl.textContent : 'Unknown';
-                }
-
-                const btn = document.getElementById('request-submit-btn');
-                const originalText = btn.innerHTML;
-                
-                // Handle File Uploads via Firebase
-                if (fileInput && fileInput.files.length > 0) {
-                    btn.innerHTML = 'Uploading Files...';
-                    try {
-                        const uploadPromises = Array.from(fileInput.files).map(file => {
-                            if (window.uploadFileToFirebase) {
-                                return window.uploadFileToFirebase(file);
-                            }
-                            return null;
-                        });
-                        
-                        const urls = await Promise.all(uploadPromises);
-                        const validUrls = urls.filter(url => url !== null);
-                        
-                        if (validUrls.length > 0) {
-                            if (hiddenUrls) {
-                                hiddenUrls.value = validUrls.map((url, i) => `File ${i+1}: ${url}`).join('\n');
-                            }
-                        }
-                    } catch (err) {
-                        console.error('File Upload Error:', err);
-                        alert('Failed to upload files. Continuing to send request without them.');
-                    }
-                    
-                    // CRITICAL: Clear the file input so EmailJS doesn't try to attach it and hit the 50kb limit!
-                    fileInput.value = '';
+    // Contact Form Interceptor
+    const mainContactForms = document.querySelectorAll('#main-contact-form');
+    mainContactForms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Sending...';
+            
+            const formData = new FormData(this);
+            formData.append('access_key', WEB3FORMS_ACCESS_KEY);
+            formData.append('subject', 'New Contact Message from ' + (formData.get('user_name') || 'Portfolio Client'));
+            
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(async (response) => {
+                const json = await response.json();
+                if (response.status == 200) {
+                    alert('Message sent successfully!');
+                    this.reset();
+                    if (window.incrementMessages) window.incrementMessages();
                 } else {
-                    if (hiddenUrls) hiddenUrls.value = 'No files attached.';
+                    console.error('Web3Forms Error:', json);
+                    alert('Failed to send message: ' + (json.message || 'Unknown error'));
                 }
-
-                btn.innerHTML = 'Sending...';
-
-                emailjs.sendForm('service_ej1dwgr', 'template_v1hex4h', e.target)
-                    .then(() => {
-                        alert('Estimate request sent successfully!');
-                        this.reset();
-                        btn.innerHTML = originalText;
-                        const fileListContainer = document.getElementById('file-preview-list');
-                        if (fileListContainer) fileListContainer.innerHTML = ''; // Clear preview
-                        if (typeof closeRequestModal === 'function') closeRequestModal();
-                        if (typeof clearAll === 'function') clearAll();
-                    }, (error) => {
-                        const errMsg = error.text || error.message || JSON.stringify(error);
-                        alert('Failed to send request: ' + errMsg);
-                        console.error('EmailJS Error:', error);
-                        btn.innerHTML = originalText;
-                    });
+            })
+            .catch(error => {
+                console.error('Network Error:', error);
+                alert('Failed to send message. Network error.');
+            })
+            .finally(() => {
+                btn.innerHTML = originalText;
             });
-        } // Closing brace for if (requestForm)
+        });
+    });
+
+    // Rate Card Request Form Interceptor
+    const requestForm = document.getElementById('request-form');
+    if (requestForm) {
+        requestForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Populate hidden fields dynamically
+            const hiddenServices = document.getElementById('hidden_services');
+            const hiddenEstimate = document.getElementById('hidden_estimate');
+            const replyToField = document.getElementById('reply_to_field');
+            const userEmailInput = requestForm.querySelector('input[type="email"]');
+            
+            if (replyToField && userEmailInput) {
+                replyToField.value = userEmailInput.value;
+            }
+            
+            if (typeof cart !== 'undefined') {
+                const items = Object.values(cart);
+                const servicesText = items.map(item => `${item.s.name} (Qty: ${item.qty})`).join(', ');
+                if (hiddenServices) hiddenServices.value = servicesText || 'No specific services selected';
+                
+                // Scrape the estimate total from the DOM because the cart script calculated it
+                const totalEl = document.getElementById('ptot') || document.getElementById('bar-tot');
+                if (hiddenEstimate) hiddenEstimate.value = totalEl ? totalEl.textContent : 'Unknown';
+            }
+
+            const btn = document.getElementById('request-submit-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Sending...';
+
+            const formData = new FormData(this);
+            formData.append('access_key', WEB3FORMS_ACCESS_KEY);
+            formData.append('subject', 'New Project Request from ' + (formData.get('user_name') || 'Portfolio Client'));
+
+            fetch('https://api.web3forms.com/submit', {
+                method: 'POST',
+                body: formData
+            })
+            .then(async (response) => {
+                const json = await response.json();
+                if (response.status == 200) {
+                    alert('Estimate request sent successfully!');
+                    this.reset();
+                    const fileListContainer = document.getElementById('file-preview-list');
+                    if (fileListContainer) fileListContainer.innerHTML = ''; // Clear preview
+                    if (typeof closeRequestModal === 'function') closeRequestModal();
+                    if (typeof clearAll === 'function') clearAll();
+                } else {
+                    console.error('Web3Forms Error:', json);
+                    alert('Failed to send request: ' + (json.message || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Network Error:', error);
+                alert('Failed to send request. Network error.');
+            })
+            .finally(() => {
+                btn.innerHTML = originalText;
+            });
+        });
+    } // Closing brace for if (requestForm)
         
         // Custom File Upload Logic
         const fileInput = document.getElementById('rate-card-file-input');
@@ -1135,5 +1133,4 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderFileList(); // Re-render
             }
         }
-    }
 });

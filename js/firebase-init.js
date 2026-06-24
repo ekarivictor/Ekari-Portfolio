@@ -59,20 +59,4 @@ window.incrementMessages = async () => {
     }
 };
 
-// --- FIREBASE STORAGE FOR FILE UPLOADS ---
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
-const storage = getStorage(app);
-
-window.uploadFileToFirebase = async (file) => {
-    // Create a unique filename to prevent overwriting
-    const uniqueName = Date.now() + '-' + Math.random().toString(36).substring(7) + '-' + file.name;
-    const storageRef = ref(storage, 'attachments/' + uniqueName);
-    
-    // Upload the file
-    const snapshot = await uploadBytes(storageRef, file);
-    
-    // Get the public download URL
-    const downloadURL = await getDownloadURL(snapshot.ref);
-    return downloadURL;
-};
