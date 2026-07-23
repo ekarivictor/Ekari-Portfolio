@@ -938,6 +938,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 const isOpen = navLinks.classList.toggle('mobile-open');
                 toggle.classList.toggle('is-open'); // Trigger CSS animation
                 
+                const header = toggle.closest('.main-header');
+                if (header) {
+                    header.classList.toggle('menu-open');
+                }
+                
                 // Clear inline display style so CSS can handle animations
                 const closeIcon = toggle.querySelector('.close-icon');
                 if(closeIcon && closeIcon.style.display === 'none') {
@@ -959,7 +964,11 @@ document.addEventListener('DOMContentLoaded', () => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('mobile-open');
                 document.body.style.overflow = '';
-                mobileMenuToggles.forEach(t => t.classList.remove('is-open'));
+                mobileMenuToggles.forEach(t => {
+                    t.classList.remove('is-open');
+                    const header = t.closest('.main-header');
+                    if (header) header.classList.remove('menu-open');
+                });
             });
         });
     }
@@ -1170,4 +1179,6 @@ document.addEventListener('dragstart', function(e) {
         e.preventDefault();
     }
 });
+
+
 
