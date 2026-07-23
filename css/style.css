@@ -3103,7 +3103,9 @@ body.great-wall-body {
     }
 
     .nav-links.mobile-open {
-        background: #111111 !important; /* Dark overlay when open */
+        background: rgba(17, 17, 17, 0.75) !important;
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
         pointer-events: auto !important; /* Capture clicks to prevent scrolling */
     }
 
