@@ -3135,6 +3135,17 @@ body.great-wall-body {
         pointer-events: none !important;
         z-index: 9999 !important;
         margin: 0 !important;
+        background: transparent !important; /* Container must be transparent */
+    }
+
+    .nav-links::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
         
         /* Glass Settings & Slide Down Animation */
         background: rgba(17, 17, 17, 0.45) !important;
@@ -3145,8 +3156,11 @@ body.great-wall-body {
     }
 
     .nav-links.mobile-open {
-        clip-path: inset(0 0 0 0);
         pointer-events: auto !important;
+    }
+
+    .nav-links.mobile-open::before {
+        clip-path: inset(0 0 0 0);
     }
     
     .main-header.menu-open {
@@ -3663,4 +3677,5 @@ img {
     transform: rotate(90deg) scale(0.5);
     pointer-events: none;
 }
+
 
