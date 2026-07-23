@@ -935,13 +935,16 @@ document.addEventListener('DOMContentLoaded', () => {
         toggle.addEventListener('click', (e) => {
             e.preventDefault(); // Prevent accidental navigation
             if(navLinks) {
-                navLinks.classList.toggle('mobile-open');
+                const isOpen = navLinks.classList.toggle('mobile-open');
+                toggle.classList.toggle('is-open'); // Trigger CSS animation
                 
-                // We don't toggle the icon since the reference image shows the hamburger remains a hamburger.
-                // Or if it needs an X, we'll just leave it as is. The user complained that I turned it into an X!
-                // "on clicking the hamburger it opens as a dropdown overlay" -> implies it just drops down without morphing.
+                // Clear inline display style so CSS can handle animations
+                const closeIcon = toggle.querySelector('.close-icon');
+                if(closeIcon && closeIcon.style.display === 'none') {
+                    closeIcon.style.display = '';
+                }
                 
-                if (navLinks.classList.contains('mobile-open')) {
+                if (isOpen) {
                     document.body.style.overflow = 'hidden';
                 } else {
                     document.body.style.overflow = '';
@@ -956,6 +959,7 @@ document.addEventListener('DOMContentLoaded', () => {
             link.addEventListener('click', () => {
                 navLinks.classList.remove('mobile-open');
                 document.body.style.overflow = '';
+                mobileMenuToggles.forEach(t => t.classList.remove('is-open'));
             });
         });
     }
