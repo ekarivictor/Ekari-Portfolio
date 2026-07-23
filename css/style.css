@@ -3092,7 +3092,7 @@ body.great-wall-body {
 @media (max-width: 768px) {
     .main-header {
         position: fixed !important;
-        top: 8px !important;
+        top: 24px !important;
         left: 0 !important;
         width: 100% !important;
         display: flex;
