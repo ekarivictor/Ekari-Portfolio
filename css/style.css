@@ -3092,7 +3092,7 @@ body.great-wall-body {
 @media (max-width: 768px) {
     .main-header {
         position: fixed !important;
-        top: 0 !important;
+        top: 8px !important;
         left: 0 !important;
         width: 100% !important;
         display: flex;
@@ -3689,3 +3689,21 @@ img {
 }
 
 
+
+/* Glowing Handwriting Animation */
+.glowing-handwriting {
+    display: inline-block;
+    color: var(--accent-color);
+    text-shadow: 0 0 12px var(--accent-color), 0 0 24px rgba(163, 230, 53, 0.4);
+    white-space: nowrap;
+    animation: handwriting-wipe 10s ease-in-out infinite;
+}
+
+@keyframes handwriting-wipe {
+    0% { clip-path: inset(0 100% 0 0); -webkit-clip-path: inset(0 100% 0 0); opacity: 1; }
+    20% { clip-path: inset(0 0 0 0); -webkit-clip-path: inset(0 0 0 0); opacity: 1; }
+    85% { clip-path: inset(0 0 0 0); -webkit-clip-path: inset(0 0 0 0); opacity: 1; }
+    95% { opacity: 0; clip-path: inset(0 0 0 0); -webkit-clip-path: inset(0 0 0 0); }
+    96% { opacity: 0; clip-path: inset(0 100% 0 0); -webkit-clip-path: inset(0 100% 0 0); }
+    100% { opacity: 1; clip-path: inset(0 100% 0 0); -webkit-clip-path: inset(0 100% 0 0); }
+}
