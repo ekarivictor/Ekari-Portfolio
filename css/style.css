@@ -3125,26 +3125,36 @@ body.great-wall-body {
         left: 0 !important;
         width: 100vw !important;
         height: 100vh !important;
-        background: transparent !important;
         flex-direction: column !important;
         justify-content: flex-start !important; 
         align-items: flex-start !important; 
         gap: 30px !important;
         padding: 20px 0 0 20px !important; 
-        opacity: 1 !important; /* Always visible */
+        opacity: 1 !important;
         visibility: visible !important;
-        pointer-events: none !important; /* Clicks pass through the transparent part */
-        transition: background 0.3s ease;
-        z-index: 9999 !important; /* Sits behind the header controls */
+        pointer-events: none !important;
+        z-index: 9999 !important;
         margin: 0 !important;
-    }
-
-    .nav-links.mobile-open {
-        /* Glassmorphism Settings matching navbar */
+        
+        /* Glass Settings & Slide Down Animation */
         background: rgba(17, 17, 17, 0.45) !important;
         backdrop-filter: blur(28px) saturate(180%);
         -webkit-backdrop-filter: blur(28px) saturate(180%);
-        pointer-events: auto !important; /* Capture clicks to prevent scrolling */
+        clip-path: inset(0 0 100% 0);
+        transition: clip-path 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    }
+
+    .nav-links.mobile-open {
+        clip-path: inset(0 0 0 0);
+        pointer-events: auto !important;
+    }
+    
+    .main-header.menu-open {
+        background: transparent !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        border-bottom: none !important;
+        box-shadow: none !important;
     }
 
     .nav-links a {
@@ -3653,3 +3663,4 @@ img {
     transform: rotate(90deg) scale(0.5);
     pointer-events: none;
 }
+
