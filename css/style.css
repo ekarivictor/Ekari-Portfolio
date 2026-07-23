@@ -100,7 +100,7 @@ body {
     font-family: var(--font-handwritten);
     color: var(--text-secondary);
     text-decoration: none;
-    font-size: var(--text-xl);
+    font-size: calc(var(--text-xl) * 0.8);
     transition: color 0.3s ease;
 }
 
@@ -3183,7 +3183,7 @@ body.great-wall-body {
 
     .nav-links a {
         font-family: var(--font-handwritten), 'Reenie Beanie', cursive !important;
-        font-size: 26px !important;
+        font-size: 21px !important;
         color: #ffffff !important; /* White text for clear contrast on glass */
         letter-spacing: 2px;
         text-transform: none;
