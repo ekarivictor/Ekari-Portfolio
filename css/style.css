@@ -3110,6 +3110,8 @@ body.great-wall-body {
         margin-right: 10px;
         align-items: center;
         margin-top: 5px; /* fine tune alignment with text */
+        position: relative;
+        z-index: 10001 !important; /* Keep floating above glass */
     }
 
     .mobile-menu-toggle {
@@ -3117,6 +3119,8 @@ body.great-wall-body {
         order: 2;
         padding: 0;
         margin-top: 5px;
+        position: relative;
+        z-index: 10001 !important; /* Keep floating above glass */
     }
 
     .nav-links {
@@ -3136,6 +3140,7 @@ body.great-wall-body {
         z-index: 9999 !important;
         margin: 0 !important;
         background: transparent !important; /* Container must be transparent */
+        overflow: hidden !important; /* Ensure sliding background doesn't show outside */
     }
 
     .nav-links::before {
@@ -3148,12 +3153,11 @@ body.great-wall-body {
         z-index: -1;
         
         /* Glass Settings & Slide Down Animation */
-        background: rgba(17, 17, 17, 0.45) !important;
+        background: rgba(17, 17, 17, 0.85) !important; /* Stronger opacity so text pops */
         backdrop-filter: blur(28px) saturate(180%);
         -webkit-backdrop-filter: blur(28px) saturate(180%);
-        -webkit-clip-path: inset(0 0 100% 0);
-        clip-path: inset(0 0 100% 0);
-        transition: -webkit-clip-path 0.5s cubic-bezier(0.77, 0, 0.175, 1), clip-path 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+        transform: translateY(-100%);
+        transition: transform 0.5s cubic-bezier(0.77, 0, 0.175, 1);
     }
 
     .nav-links.mobile-open {
@@ -3161,8 +3165,7 @@ body.great-wall-body {
     }
 
     .nav-links.mobile-open::before {
-        -webkit-clip-path: inset(0 0 0 0);
-        clip-path: inset(0 0 0 0);
+        transform: translateY(0);
     }
     
     .main-header.menu-open {
