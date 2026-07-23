@@ -2085,10 +2085,18 @@ body {
     transform: translateX(-50%);
     width: 100%;
     max-width: 1200px;
-    padding: 40px 40px;
+    padding: 20px 40px;
     box-sizing: border-box;
     z-index: 1000;
-    background: transparent;
+    
+    /* Glassmorphism Settings (Figma: Light -45deg 80%, Refraction 100, Depth 59) */
+    background: rgba(17, 17, 17, 0.45); /* Subtle dark base */
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Slight edge for Depth */
+    border-top: none;
+    border-radius: 0 0 16px 16px; /* Soft bottom corners */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
 
 .fragments-wrapper .nav-links a, .fragments-wrapper .social-icon {
@@ -2218,10 +2226,18 @@ body.great-wall-body {
     transform: translateX(-50%);
     width: 100%;
     max-width: 1200px;
-    padding: 40px 40px;
+    padding: 20px 40px;
     box-sizing: border-box;
     z-index: 1000;
-    background: transparent;
+    
+    /* Glassmorphism Settings (Figma: Light -45deg 80%, Refraction 100, Depth 59) */
+    background: rgba(17, 17, 17, 0.45); /* Subtle dark base */
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Slight edge for Depth */
+    border-top: none;
+    border-radius: 0 0 16px 16px; /* Soft bottom corners */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
 
 
@@ -2301,10 +2317,18 @@ body.great-wall-body {
     transform: translateX(-50%);
     width: 100%;
     max-width: 1200px;
-    padding: 40px 40px;
+    padding: 20px 40px;
     box-sizing: border-box;
     z-index: 1000;
-    background: transparent;
+    
+    /* Glassmorphism Settings (Figma: Light -45deg 80%, Refraction 100, Depth 59) */
+    background: rgba(17, 17, 17, 0.45); /* Subtle dark base */
+    backdrop-filter: blur(28px) saturate(180%);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.05); /* Slight edge for Depth */
+    border-top: none;
+    border-radius: 0 0 16px 16px; /* Soft bottom corners */
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Soft shadow */
 }
 
 
@@ -3569,3 +3593,4 @@ img {
     -moz-user-select: none;
     -ms-user-select: none;
 }
+
