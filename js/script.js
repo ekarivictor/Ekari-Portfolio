@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Load Site CMS Text ---
     function loadSiteText() {
         // Load Homepage Text
-        fetch('data/home.json')
+        fetch('data/home.json?v=' + new Date().getTime())
             .then(res => res.json())
             .then(data => {
                 const introEl = document.getElementById('cms-intro-text');
