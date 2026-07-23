@@ -3675,7 +3675,7 @@ img {
 }
 .mobile-menu-toggle.is-open .close-icon {
     opacity: 1;
-    transform: rotate(0deg) scale(1);
+    transform: rotate(0deg) scale(0.85);
     pointer-events: auto;
 }
 .mobile-menu-toggle.is-open .hamburger-icon {
